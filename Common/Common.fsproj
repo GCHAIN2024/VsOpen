@@ -5,4 +5,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Util\Util.fsproj" />
+  </ItemGroup>
+
 </Project>
