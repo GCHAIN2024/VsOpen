@@ -2,10 +2,6 @@
 
 //[TypeManaged]{
 
-type TinyLink = {
-src: string
-dst: string }
-
 //}
 
 
