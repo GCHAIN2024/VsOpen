@@ -50,6 +50,6 @@ let zweb = create__ZWeb 2 port LogLevel.All false [||]
 let runtime = {
     host = {
         defaultHtml = "index.html"
-        fsDir = @"C:\Dev\GCHAIN2024\CrypTradeClubVsOpen\Deploy" }
+        fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
     zweb = zweb
     output = output }
