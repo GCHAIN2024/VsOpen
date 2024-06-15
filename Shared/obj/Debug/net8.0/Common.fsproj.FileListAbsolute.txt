@@ -1,0 +1,17 @@
+C:\Dev\GCHAIN2024\VsOpen\Common\bin\Debug\net8.0\Common.deps.json
+C:\Dev\GCHAIN2024\VsOpen\Common\bin\Debug\net8.0\Common.dll
+C:\Dev\GCHAIN2024\VsOpen\Common\bin\Debug\net8.0\Common.pdb
+C:\Dev\GCHAIN2024\VsOpen\Common\bin\Debug\net8.0\Common.xml
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.fsproj.AssemblyReference.cache
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.AssemblyInfoInputs.cache
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.AssemblyInfo.fs
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.fsproj.CoreCompileInputs.cache
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.sourcelink.json
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.dll
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\refint\Common.dll
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.xml
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.pdb
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\ref\Common.dll
+C:\Dev\GCHAIN2024\VsOpen\Common\bin\Debug\net8.0\Util.dll
+C:\Dev\GCHAIN2024\VsOpen\Common\bin\Debug\net8.0\Util.pdb
+C:\Dev\GCHAIN2024\VsOpen\Common\obj\Debug\net8.0\Common.fsproj.Up2Date

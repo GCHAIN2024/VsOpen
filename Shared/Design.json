@@ -1,0 +1,5 @@
+﻿{
+  "project": "GCHAIN",
+  "conn": "server=127.0.0.1; user=sa; database=GCHAIN",
+  "transobjs": []
+}
