@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Shared.fsproj": {}
+    "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Shared.fsproj": {}
   },
   "projects": {
     "C:\\Dev\\Common\\Util\\Util.fsproj": {
@@ -166,14 +166,14 @@
         }
       }
     },
-    "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Shared.fsproj": {
+    "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Shared.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Shared.fsproj",
+        "projectUniqueName": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Shared.fsproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Shared.fsproj",
+        "projectPath": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Shared.fsproj",
         "packagesPath": "C:\\Users\\RR\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\obj\\",
+        "outputPath": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

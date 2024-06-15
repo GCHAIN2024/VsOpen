@@ -1,30 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Dev\\GCHAIN2024\\VsOpen\\",
+  "WorkspaceRootPath": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\vsopen\\shared\\types.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\gchainvsopen\\shared\\types.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
       "RelativeMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|solutionrelative:shared\\types.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\vsopen\\shared\\custommor.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\gchainvsopen\\shared\\design-ca.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|solutionrelative:shared\\design-ca.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\gchainvsopen\\shared\\custommor.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
       "RelativeMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|solutionrelative:shared\\custommor.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\vsopen\\shared\\ormtypes.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\gchainvsopen\\shared\\ormtypes.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
       "RelativeMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|solutionrelative:shared\\ormtypes.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\vsopen\\shared\\ormmor.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\gchainvsopen\\shared\\ormmor.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
       "RelativeMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|solutionrelative:shared\\ormmor.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\vsopen\\shared\\design-sys.json||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\gchainvsopen\\shared\\design-sys.json||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
       "RelativeMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|solutionrelative:shared\\design-sys.json||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|c:\\dev\\gchain2024\\vsopen\\shared\\design-ca.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{78975D7B-F75E-4B51-8655-B8CA8758BF01}|Shared\\Shared.fsproj|solutionrelative:shared\\design-ca.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,13 +38,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Design-Ca.json",
-              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Design-Ca.json",
+              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Design-Ca.json",
               "RelativeDocumentMoniker": "Shared\\Design-Ca.json",
-              "ToolTip": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Design-Ca.json",
+              "ToolTip": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Design-Ca.json",
               "RelativeToolTip": "Shared\\Design-Ca.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAYAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-06-15T13:28:40.176Z",
               "EditorCaption": ""
@@ -59,66 +59,62 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Types.fs",
-              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Types.fs",
+              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Types.fs",
               "RelativeDocumentMoniker": "Shared\\Types.fs",
-              "ToolTip": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Types.fs",
+              "ToolTip": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Types.fs",
               "RelativeToolTip": "Shared\\Types.fs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAANAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-06-15T13:35:50.499Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CustomMor.fs",
-              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\CustomMor.fs",
+              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\CustomMor.fs",
               "RelativeDocumentMoniker": "Shared\\CustomMor.fs",
-              "ToolTip": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\CustomMor.fs",
+              "ToolTip": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\CustomMor.fs",
               "RelativeToolTip": "Shared\\CustomMor.fs",
               "ViewState": "AQIAAAQAAAAAAAAAAAAqwBcAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-15T13:35:08.695Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "OrmMor.fs",
-              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\OrmMor.fs",
-              "RelativeDocumentMoniker": "Shared\\OrmMor.fs",
-              "ToolTip": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\OrmMor.fs",
-              "RelativeToolTip": "Shared\\OrmMor.fs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAApwBkAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-15T13:35:23.577Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "OrmTypes.fs",
-              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\OrmTypes.fs",
-              "RelativeDocumentMoniker": "Shared\\OrmTypes.fs",
-              "ToolTip": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\OrmTypes.fs",
-              "RelativeToolTip": "Shared\\OrmTypes.fs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAAAAwAAAARAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-15T13:33:01.827Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T13:35:08.695Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "OrmMor.fs",
+              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\OrmMor.fs",
+              "RelativeDocumentMoniker": "Shared\\OrmMor.fs",
+              "ToolTip": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\OrmMor.fs",
+              "RelativeToolTip": "Shared\\OrmMor.fs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAApwBkAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-06-15T13:35:23.577Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OrmTypes.fs",
+              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\OrmTypes.fs",
+              "RelativeDocumentMoniker": "Shared\\OrmTypes.fs",
+              "ToolTip": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\OrmTypes.fs",
+              "RelativeToolTip": "Shared\\OrmTypes.fs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAAAAwAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-06-15T13:33:01.827Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Design-Sys.json",
-              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Design-Sys.json",
+              "DocumentMoniker": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Design-Sys.json",
               "RelativeDocumentMoniker": "Shared\\Design-Sys.json",
-              "ToolTip": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Design-Sys.json",
+              "ToolTip": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Design-Sys.json",
               "RelativeToolTip": "Shared\\Design-Sys.json",
               "ViewState": "AQIAADwAAAAAAAAAAAAAAEsAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-15T13:30:58.975Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-15T13:30:58.975Z"
             }
           ]
         }

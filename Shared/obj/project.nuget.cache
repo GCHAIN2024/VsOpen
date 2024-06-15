@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KcY4uaCeb0k=",
+  "dgSpecHash": "p5bbNZJtMjw=",
   "success": true,
-  "projectFilePath": "C:\\Dev\\GCHAIN2024\\VsOpen\\Shared\\Shared.fsproj",
+  "projectFilePath": "C:\\Dev\\GCHAIN2024\\GChainVsOpen\\Shared\\Shared.fsproj",
   "expectedPackageFiles": [
     "C:\\Users\\RR\\.nuget\\packages\\asyncio\\0.1.69\\asyncio.0.1.69.nupkg.sha512",
     "C:\\Users\\RR\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
