@@ -14,6 +14,14 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Util", "..\..\Common\Util\U
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Shared", "Shared\Shared.fsproj", "{78975D7B-F75E-4B51-8655-B8CA8758BF01}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Server", "Server\Server.fsproj", "{89150F6B-77B2-4536-968E-2C60AE525B4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{A18560AA-7340-4946-A44B-F92B3F32E29E}"
+	ProjectSection(SolutionItems) = preProject
+		Deploy\favicon.ico = Deploy\favicon.ico
+		Deploy\index.html = Deploy\index.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +36,10 @@ Global
 		{78975D7B-F75E-4B51-8655-B8CA8758BF01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78975D7B-F75E-4B51-8655-B8CA8758BF01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78975D7B-F75E-4B51-8655-B8CA8758BF01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89150F6B-77B2-4536-968E-2C60AE525B4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89150F6B-77B2-4536-968E-2C60AE525B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89150F6B-77B2-4536-968E-2C60AE525B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89150F6B-77B2-4536-968E-2C60AE525B4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
