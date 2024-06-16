@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{A18560
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{7D835CE3-5976-4DD4-933E-C1618ACE04E4}"
 	ProjectSection(SolutionItems) = preProject
-		homepage.md = homepage.md
+		Doc\homepage.md = Doc\homepage.md
 	EndProjectSection
 EndProject
 Global
