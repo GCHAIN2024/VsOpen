@@ -51,10 +51,6 @@ let init() =
 
         let tid = Interlocked.Increment LOG_metadata.id
 
-        let rcd = 
-            ((tid,pretx.dt,pretx.dt,tid),p)
-            |> LOG_metadata.wrapper
-
         (tid,pretx.dt,pretx.dt,tid,p)
         |> build_create_sql LOG_metadata
         |> pretx.sqls.Add
