@@ -19,6 +19,8 @@ open Server.Common
 
 open UtilWebServer.Common
 
+open BizLogics.TinyLink
+
 let echoHandler x =
     match x.service with
     | "public" -> 
@@ -35,7 +37,9 @@ let apiHandler json =
     match json with
     | Json.Str apiname -> 
         match apiname with
-        | "SignUp" -> ()
+        | "CheckoutTinyLink" -> 
+            //url__tinylink
+            ()
         | _ -> ()
 
     | _ -> ()

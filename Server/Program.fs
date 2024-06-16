@@ -19,6 +19,8 @@ open UtilWebServer.Common
 
 let main argv =
 
+    init()
+
     zweb.disconnector.Add(fun bin -> ())
     lauchWebServer 
         output 

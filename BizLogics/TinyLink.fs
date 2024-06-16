@@ -17,9 +17,30 @@ open Shared.OrmMor
 
 let expireGeneral = new TimeSpan(180,0,0)
 
-let tinylinks = new ConcurrentDictionary<string,PLINK>()
+let hashFull__plinks = new ConcurrentDictionary<string,PLINK>()
+let tiny__full = new ConcurrentDictionary<string,string>()
 
-let url__tinylink 
+let checkcollition promoter (url:string) =
+    let mutable repeater = 0
+    let mutable hashTiny = ""
+
+    while hashTiny = "" || tiny__full.ContainsKey hashTiny do
+        
+        let hash =
+            [|  repeater |> BitConverter.GetBytes
+                promoter
+                url |> Encoding.UTF8.GetBytes |]
+            |> Array.concat
+            |> bin__sha256
+
+        hashTiny <- new string(Array.sub (hash.ToCharArray()) 0 7)
+
+        repeater <- repeater + 1
+
+    hashTiny
+
+
+let url__tinylinko 
     (src:string) 
     (promotero:EU option)
     (bizo:BIZ option) = 
@@ -37,49 +58,46 @@ let url__tinylink
         else
             s
 
-    let mutable repeater = 0
+    let hashFull =  
+        [|  promoter
+            url |> Encoding.UTF8.GetBytes |]
+        |> Array.concat
+        |> bin__sha256
 
-    let mutable hashFull = "" 
-    let mutable hashTiny = ""
-
-    while hashTiny = "" || tinylinks.ContainsKey hashTiny do
-        
-        hashFull <- 
-            [|  repeater |> BitConverter.GetBytes
-                promoter
-                url |> Encoding.UTF8.GetBytes |]
-            |> Array.concat
-            |> bin__sha256
-
-        hashTiny <- new string(Array.sub (hashFull.ToCharArray()) 0 7)
-
-        repeater <- repeater + 1
-
-    let now = DateTime.UtcNow
-
-    let p = pPLINK_empty()
-    p.HashFull <- hashFull
-    p.HashTiny <- hashTiny
-    p.Biz <-
-        match bizo with
-        | Some biz -> biz.ID
-        | None -> 0L
-    p.Promoter <-
-        match promotero with
-        | Some promoter -> promoter.ID
-        | None -> 0L
-    p.Expiry <- DateTime.UtcNow.Add expireGeneral
-    p.Src <- url
+    if hashFull__plinks.ContainsKey hashFull then
+        hashFull__plinks[hashFull]
+        |> Some
+    else
     
-    let pretx = None |> opctx__pretx
+        let pretx = None |> opctx__pretx
     
-    let rcd = populateCreateTx pretx PLINK_metadata p
+        let rcd = 
 
-    (fun ctx -> 
-        tinylinks.[rcd.p.HashTiny] <- rcd)
-    |> pretx.sucs.Add
+            let p = pPLINK_empty()
 
-    pretx 
-    |> loggedPipeline "BizLogics.TinyLink.url__tinylink" conn
+            p.HashFull <- hashFull
+            p.HashTiny <- checkcollition promoter url
+            p.Biz <-
+                match bizo with
+                | Some biz -> biz.ID
+                | None -> 0L
+            p.Promoter <-
+                match promotero with
+                | Some promoter -> promoter.ID
+                | None -> 0L
+            p.Expiry <- DateTime.UtcNow.Add expireGeneral
+            p.Src <- url
+
+            p
+            |> populateCreateTx pretx PLINK_metadata
+
+        if pretx |> loggedPipeline "BizLogics.TinyLink.url__tinylink" conn then
+            
+            tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
+            hashFull__plinks[rcd.p.HashFull] <- rcd
+
+            Some rcd
+        else
+            None
 
 
