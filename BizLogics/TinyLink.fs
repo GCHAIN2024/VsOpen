@@ -6,9 +6,14 @@ open System.Collections.Concurrent
 
 open Util.Text
 open Util.Crypto
+open Util.DbTx
+
+open UtilWebServer.DbLogger
+open UtilWebServer.Db
 
 open Shared.OrmTypes
 open Shared.Types
+open Shared.OrmMor
 
 let expireGeneral = new TimeSpan(180,0,0)
 
@@ -66,8 +71,15 @@ let url__tinylink
     p.Expiry <- DateTime.UtcNow.Add expireGeneral
     p.Src <- url
     
+    let pretx = None |> opctx__pretx
     
+    let rcd = populateCreateTx pretx PLINK_metadata p
 
-    //tinylinks.[plink.hashTiny] <- plink
+    (fun ctx -> 
+        tinylinks.[rcd.p.HashTiny] <- rcd)
+    |> pretx.sucs.Add
 
-    p
+    pretx 
+    |> loggedPipeline "BizLogics.TinyLink.url__tinylink" conn
+
+
