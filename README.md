@@ -4,6 +4,8 @@
 
 Domain: [cryptradeclub.com](https://gcha.in)
 
+[Business docs](https://github.com/GCHAIN2024/GChainVsOpen/tree/main/Doc)
+
 ### Directories of the repository
 
 Dependencies:
