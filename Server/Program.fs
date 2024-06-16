@@ -13,6 +13,7 @@ open Util.Zmq
 open Server.Common
 open Server.WebHandler
 
+open UtilWebServer.Common
 
 [<EntryPoint>]
 
