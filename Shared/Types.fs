@@ -1,11 +1,24 @@
 ﻿module Shared.Types
 
+open System
+open System.Text
+open System.Collections.Generic
+
 open Util.Text
 open Util.Json
 
 open Shared.OrmTypes
 
 //[TypeManaged]{
+
+type PromotedLink = {
+createdat: DateTime
+expiry: DateTime
+hashFull: string
+hashTiny: string
+promotero: EU option
+bizo: BIZ option
+src: string }
 
 type Error = 
 | ApiNotExists
