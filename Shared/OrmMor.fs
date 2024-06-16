@@ -4545,6 +4545,172 @@ let json__PRIVILEGEo (json:Json):PRIVILEGE option =
         p = p } |> Some
     
 
+// [PLINK] Structure
+
+let pPLINK__bin (bb:BytesBuilder) (p:pPLINK) =
+
+    
+    p.Expiry.Ticks |> BitConverter.GetBytes |> bb.append
+    
+    let binHashFull = p.HashFull |> Encoding.UTF8.GetBytes
+    binHashFull.Length |> BitConverter.GetBytes |> bb.append
+    binHashFull |> bb.append
+    
+    let binHashTiny = p.HashTiny |> Encoding.UTF8.GetBytes
+    binHashTiny.Length |> BitConverter.GetBytes |> bb.append
+    binHashTiny |> bb.append
+    
+    let binSrc = p.Src |> Encoding.UTF8.GetBytes
+    binSrc.Length |> BitConverter.GetBytes |> bb.append
+    binSrc |> bb.append
+    
+    p.Promoter |> BitConverter.GetBytes |> bb.append
+    
+    p.Biz |> BitConverter.GetBytes |> bb.append
+
+let PLINK__bin (bb:BytesBuilder) (v:PLINK) =
+    v.ID |> BitConverter.GetBytes |> bb.append
+    v.Sort |> BitConverter.GetBytes |> bb.append
+    DateTime__bin bb v.Createdat
+    DateTime__bin bb v.Updatedat
+    
+    pPLINK__bin bb v.p
+
+let bin__pPLINK (bi:BinIndexed):pPLINK =
+    let bin,index = bi
+
+    let p = pPLINK_empty()
+    
+    p.Expiry <- BitConverter.ToInt64(bin,index.Value) |> DateTime.FromBinary
+    index.Value <- index.Value + 8
+    
+    let count_HashFull = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.HashFull <- Encoding.UTF8.GetString(bin,index.Value,count_HashFull)
+    index.Value <- index.Value + count_HashFull
+    
+    let count_HashTiny = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.HashTiny <- Encoding.UTF8.GetString(bin,index.Value,count_HashTiny)
+    index.Value <- index.Value + count_HashTiny
+    
+    let count_Src = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.Src <- Encoding.UTF8.GetString(bin,index.Value,count_Src)
+    index.Value <- index.Value + count_Src
+    
+    p.Promoter <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    p.Biz <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    p
+
+let bin__PLINK (bi:BinIndexed):PLINK =
+    let bin,index = bi
+
+    let ID = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Sort = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Createdat = bin__DateTime bi
+    
+    let Updatedat = bin__DateTime bi
+    
+    {
+        ID = ID
+        Sort = Sort
+        Createdat = Createdat
+        Updatedat = Updatedat
+        p = bin__pPLINK bi }
+
+let pPLINK__json (p:pPLINK) =
+
+    [|
+        ("Expiry",(p.Expiry |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("HashFull",p.HashFull |> Json.Str)
+        ("HashTiny",p.HashTiny |> Json.Str)
+        ("Src",p.Src |> Json.Str)
+        ("Promoter",p.Promoter.ToString() |> Json.Num)
+        ("Biz",p.Biz.ToString() |> Json.Num) |]
+    |> Json.Braket
+
+let PLINK__json (v:PLINK) =
+
+    let p = v.p
+    
+    [|  ("id",v.ID.ToString() |> Json.Num)
+        ("sort",v.Sort.ToString() |> Json.Num)
+        ("createdat",(v.Createdat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("updatedat",(v.Updatedat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("Expiry",(p.Expiry |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("HashFull",p.HashFull |> Json.Str)
+        ("HashTiny",p.HashTiny |> Json.Str)
+        ("Src",p.Src |> Json.Str)
+        ("Promoter",p.Promoter.ToString() |> Json.Num)
+        ("Biz",p.Biz.ToString() |> Json.Num) |]
+    |> Json.Braket
+
+let PLINK__jsonTbw (w:TextBlockWriter) (v:PLINK) =
+    json__str w (PLINK__json v)
+
+let PLINK__jsonStr (v:PLINK) =
+    (PLINK__json v) |> json__strFinal
+
+
+let json__pPLINKo (json:Json):pPLINK option =
+    let fields = json |> json__items
+
+    let p = pPLINK_empty()
+    
+    p.Expiry <- checkfield fields "Expiry" |> parse_int64 |> Util.Time.unixtime__wintime
+    
+    p.HashFull <- checkfieldz fields "HashFull" 64
+    
+    p.HashTiny <- checkfieldz fields "HashTiny" 7
+    
+    p.Src <- checkfield fields "Src"
+    
+    p.Promoter <- checkfield fields "Promoter" |> parse_int64
+    
+    p.Biz <- checkfield fields "Biz" |> parse_int64
+    
+    p |> Some
+    
+
+let json__PLINKo (json:Json):PLINK option =
+    let fields = json |> json__items
+
+    let ID = checkfield fields "id" |> parse_int64
+    let Sort = checkfield fields "sort" |> parse_int64
+    let Createdat = checkfield fields "createdat" |> parse_int64 |> DateTime.FromBinary
+    let Updatedat = checkfield fields "updatedat" |> parse_int64 |> DateTime.FromBinary
+    
+    let p = pPLINK_empty()
+    
+    p.Expiry <- checkfield fields "Expiry" |> parse_int64 |> Util.Time.unixtime__wintime
+    
+    p.HashFull <- checkfieldz fields "HashFull" 64
+    
+    p.HashTiny <- checkfieldz fields "HashTiny" 7
+    
+    p.Src <- checkfield fields "Src"
+    
+    p.Promoter <- checkfield fields "Promoter" |> parse_int64
+    
+    p.Biz <- checkfield fields "Biz" |> parse_int64
+    
+    {
+        ID = ID
+        Sort = Sort
+        Createdat = Createdat
+        Updatedat = Updatedat
+        p = p } |> Some
+    
+
 // [ROLE] Structure
 
 let pROLE__bin (bb:BytesBuilder) (p:pROLE) =
@@ -5137,135 +5303,6 @@ let json__SLOGo (json:Json):SLOG option =
     p.SessionCount <- checkfield fields "SessionCount" |> parse_int64
     
     p.Desc <- checkfield fields "Desc"
-    
-    {
-        ID = ID
-        Sort = Sort
-        Createdat = Createdat
-        Updatedat = Updatedat
-        p = p } |> Some
-    
-
-// [TINYLINK] Structure
-
-let pTINYLINK__bin (bb:BytesBuilder) (p:pTINYLINK) =
-
-    
-    let binTinyLink = p.TinyLink |> Encoding.UTF8.GetBytes
-    binTinyLink.Length |> BitConverter.GetBytes |> bb.append
-    binTinyLink |> bb.append
-    
-    let binOriginalLink = p.OriginalLink |> Encoding.UTF8.GetBytes
-    binOriginalLink.Length |> BitConverter.GetBytes |> bb.append
-    binOriginalLink |> bb.append
-    
-    p.Eu |> BitConverter.GetBytes |> bb.append
-
-let TINYLINK__bin (bb:BytesBuilder) (v:TINYLINK) =
-    v.ID |> BitConverter.GetBytes |> bb.append
-    v.Sort |> BitConverter.GetBytes |> bb.append
-    DateTime__bin bb v.Createdat
-    DateTime__bin bb v.Updatedat
-    
-    pTINYLINK__bin bb v.p
-
-let bin__pTINYLINK (bi:BinIndexed):pTINYLINK =
-    let bin,index = bi
-
-    let p = pTINYLINK_empty()
-    
-    let count_TinyLink = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.TinyLink <- Encoding.UTF8.GetString(bin,index.Value,count_TinyLink)
-    index.Value <- index.Value + count_TinyLink
-    
-    let count_OriginalLink = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.OriginalLink <- Encoding.UTF8.GetString(bin,index.Value,count_OriginalLink)
-    index.Value <- index.Value + count_OriginalLink
-    
-    p.Eu <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p
-
-let bin__TINYLINK (bi:BinIndexed):TINYLINK =
-    let bin,index = bi
-
-    let ID = BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    let Sort = BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    let Createdat = bin__DateTime bi
-    
-    let Updatedat = bin__DateTime bi
-    
-    {
-        ID = ID
-        Sort = Sort
-        Createdat = Createdat
-        Updatedat = Updatedat
-        p = bin__pTINYLINK bi }
-
-let pTINYLINK__json (p:pTINYLINK) =
-
-    [|
-        ("TinyLink",p.TinyLink |> Json.Str)
-        ("OriginalLink",p.OriginalLink |> Json.Str)
-        ("Eu",p.Eu.ToString() |> Json.Num) |]
-    |> Json.Braket
-
-let TINYLINK__json (v:TINYLINK) =
-
-    let p = v.p
-    
-    [|  ("id",v.ID.ToString() |> Json.Num)
-        ("sort",v.Sort.ToString() |> Json.Num)
-        ("createdat",(v.Createdat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
-        ("updatedat",(v.Updatedat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
-        ("TinyLink",p.TinyLink |> Json.Str)
-        ("OriginalLink",p.OriginalLink |> Json.Str)
-        ("Eu",p.Eu.ToString() |> Json.Num) |]
-    |> Json.Braket
-
-let TINYLINK__jsonTbw (w:TextBlockWriter) (v:TINYLINK) =
-    json__str w (TINYLINK__json v)
-
-let TINYLINK__jsonStr (v:TINYLINK) =
-    (TINYLINK__json v) |> json__strFinal
-
-
-let json__pTINYLINKo (json:Json):pTINYLINK option =
-    let fields = json |> json__items
-
-    let p = pTINYLINK_empty()
-    
-    p.TinyLink <- checkfieldz fields "TinyLink" 7
-    
-    p.OriginalLink <- checkfieldz fields "OriginalLink" 256
-    
-    p.Eu <- checkfield fields "Eu" |> parse_int64
-    
-    p |> Some
-    
-
-let json__TINYLINKo (json:Json):TINYLINK option =
-    let fields = json |> json__items
-
-    let ID = checkfield fields "id" |> parse_int64
-    let Sort = checkfield fields "sort" |> parse_int64
-    let Createdat = checkfield fields "createdat" |> parse_int64 |> DateTime.FromBinary
-    let Updatedat = checkfield fields "updatedat" |> parse_int64 |> DateTime.FromBinary
-    
-    let p = pTINYLINK_empty()
-    
-    p.TinyLink <- checkfieldz fields "TinyLink" 7
-    
-    p.OriginalLink <- checkfieldz fields "OriginalLink" 256
-    
-    p.Eu <- checkfield fields "Eu" |> parse_int64
     
     {
         ID = ID
@@ -7837,6 +7874,108 @@ let PRIVILEGETxSqlServer =
     """
 
 
+let db__pPLINK(line:Object[]): pPLINK =
+    let p = pPLINK_empty()
+
+    p.Expiry <- DateTime.FromBinary(if Convert.IsDBNull(line.[4]) then DateTime.MinValue.Ticks else line.[4] :?> int64)
+    p.HashFull <- string(line.[5]).TrimEnd()
+    p.HashTiny <- string(line.[6]).TrimEnd()
+    p.Src <- string(line.[7]).TrimEnd()
+    p.Promoter <- if Convert.IsDBNull(line.[8]) then 0L else line.[8] :?> int64
+    p.Biz <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
+
+    p
+
+let pPLINK__sps (p:pPLINK) = [|
+    new SqlParameter("Expiry", p.Expiry.Ticks)
+    new SqlParameter("HashFull", p.HashFull)
+    new SqlParameter("HashTiny", p.HashTiny)
+    new SqlParameter("Src", p.Src)
+    new SqlParameter("Promoter", p.Promoter)
+    new SqlParameter("Biz", p.Biz) |]
+
+let db__PLINK = db__Rcd db__pPLINK
+
+let PLINK_wrapper item: PLINK =
+    let (i,c,u,s),p = item
+    { ID = i; Createdat = c; Updatedat = u; Sort = s; p = p }
+
+let pPLINK_clone (p:pPLINK): pPLINK = {
+    Expiry = p.Expiry
+    HashFull = p.HashFull
+    HashTiny = p.HashTiny
+    Src = p.Src
+    Promoter = p.Promoter
+    Biz = p.Biz }
+
+let PLINK_update_transaction output (updater,suc,fail) (rcd:PLINK) =
+    let rollback_p = rcd.p |> pPLINK_clone
+    let rollback_updatedat = rcd.Updatedat
+    updater rcd.p
+    let ctime,res =
+        (rcd.ID,rcd.p,rollback_p,rollback_updatedat)
+        |> update (conn,output,PLINK_table,PLINK_sql_update,pPLINK__sps,suc,fail)
+    match res with
+    | Suc ctx ->
+        rcd.Updatedat <- ctime
+        suc(ctime,ctx)
+    | Fail(eso,ctx) ->
+        rcd.p <- rollback_p
+        rcd.Updatedat <- rollback_updatedat
+        fail eso
+
+let PLINK_update output (rcd:PLINK) =
+    rcd
+    |> PLINK_update_transaction output ((fun p -> ()),(fun (ctime,ctx) -> ()),(fun dte -> ()))
+
+let PLINK_create_incremental_transaction output (suc,fail) p =
+    let cid = Interlocked.Increment PLINK_id
+    let ctime = DateTime.UtcNow
+    match create (conn,output,PLINK_table,pPLINK__sps) (cid,ctime,p) with
+    | Suc ctx -> ((cid,ctime,ctime,cid),p) |> PLINK_wrapper |> suc
+    | Fail(eso,ctx) -> fail(eso,ctx)
+
+let PLINK_create output p =
+    PLINK_create_incremental_transaction output ((fun rcd -> ()),(fun (eso,ctx) -> ())) p
+    
+
+let id__PLINKo id: PLINK option = id__rcd(conn,PLINK_fieldorders,PLINK_table,db__PLINK) id
+
+let PLINK_metadata = {
+    fieldorders = PLINK_fieldorders
+    db__rcd = db__PLINK 
+    wrapper = PLINK_wrapper
+    sps = pPLINK__sps
+    id = PLINK_id
+    id__rcdo = id__PLINKo
+    clone = pPLINK_clone
+    empty__p = pPLINK_empty
+    rcd__bin = PLINK__bin
+    bin__rcd = bin__PLINK
+    sql_update = PLINK_sql_update
+    rcd_update = PLINK_update
+    table = PLINK_table
+    shorthand = "plink" }
+
+let PLINKTxSqlServer =
+    """
+    IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_PromotedLink' AND xtype='U')
+    BEGIN
+
+        CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL
+    ,[Createdat] BIGINT NOT NULL
+    ,[Updatedat] BIGINT NOT NULL
+    ,[Sort] BIGINT NOT NULL,
+    ,[Expiry]
+    ,[HashFull]
+    ,[HashTiny]
+    ,[Src]
+    ,[Promoter]
+    ,[Biz])
+    END
+    """
+
+
 let db__pROLE(line:Object[]): pROLE =
     let p = pROLE_empty()
 
@@ -8179,96 +8318,6 @@ let SLOGTxSqlServer =
     """
 
 
-let db__pTINYLINK(line:Object[]): pTINYLINK =
-    let p = pTINYLINK_empty()
-
-    p.TinyLink <- string(line.[4]).TrimEnd()
-    p.OriginalLink <- string(line.[5]).TrimEnd()
-    p.Eu <- if Convert.IsDBNull(line.[6]) then 0L else line.[6] :?> int64
-
-    p
-
-let pTINYLINK__sps (p:pTINYLINK) = [|
-    new SqlParameter("TinyLink", p.TinyLink)
-    new SqlParameter("OriginalLink", p.OriginalLink)
-    new SqlParameter("Eu", p.Eu) |]
-
-let db__TINYLINK = db__Rcd db__pTINYLINK
-
-let TINYLINK_wrapper item: TINYLINK =
-    let (i,c,u,s),p = item
-    { ID = i; Createdat = c; Updatedat = u; Sort = s; p = p }
-
-let pTINYLINK_clone (p:pTINYLINK): pTINYLINK = {
-    TinyLink = p.TinyLink
-    OriginalLink = p.OriginalLink
-    Eu = p.Eu }
-
-let TINYLINK_update_transaction output (updater,suc,fail) (rcd:TINYLINK) =
-    let rollback_p = rcd.p |> pTINYLINK_clone
-    let rollback_updatedat = rcd.Updatedat
-    updater rcd.p
-    let ctime,res =
-        (rcd.ID,rcd.p,rollback_p,rollback_updatedat)
-        |> update (conn,output,TINYLINK_table,TINYLINK_sql_update,pTINYLINK__sps,suc,fail)
-    match res with
-    | Suc ctx ->
-        rcd.Updatedat <- ctime
-        suc(ctime,ctx)
-    | Fail(eso,ctx) ->
-        rcd.p <- rollback_p
-        rcd.Updatedat <- rollback_updatedat
-        fail eso
-
-let TINYLINK_update output (rcd:TINYLINK) =
-    rcd
-    |> TINYLINK_update_transaction output ((fun p -> ()),(fun (ctime,ctx) -> ()),(fun dte -> ()))
-
-let TINYLINK_create_incremental_transaction output (suc,fail) p =
-    let cid = Interlocked.Increment TINYLINK_id
-    let ctime = DateTime.UtcNow
-    match create (conn,output,TINYLINK_table,pTINYLINK__sps) (cid,ctime,p) with
-    | Suc ctx -> ((cid,ctime,ctime,cid),p) |> TINYLINK_wrapper |> suc
-    | Fail(eso,ctx) -> fail(eso,ctx)
-
-let TINYLINK_create output p =
-    TINYLINK_create_incremental_transaction output ((fun rcd -> ()),(fun (eso,ctx) -> ())) p
-    
-
-let id__TINYLINKo id: TINYLINK option = id__rcd(conn,TINYLINK_fieldorders,TINYLINK_table,db__TINYLINK) id
-
-let TINYLINK_metadata = {
-    fieldorders = TINYLINK_fieldorders
-    db__rcd = db__TINYLINK 
-    wrapper = TINYLINK_wrapper
-    sps = pTINYLINK__sps
-    id = TINYLINK_id
-    id__rcdo = id__TINYLINKo
-    clone = pTINYLINK_clone
-    empty__p = pTINYLINK_empty
-    rcd__bin = TINYLINK__bin
-    bin__rcd = bin__TINYLINK
-    sql_update = TINYLINK_sql_update
-    rcd_update = TINYLINK_update
-    table = TINYLINK_table
-    shorthand = "tinylink" }
-
-let TINYLINKTxSqlServer =
-    """
-    IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_TinyLink' AND xtype='U')
-    BEGIN
-
-        CREATE TABLE Sys_TinyLink ([ID] BIGINT NOT NULL
-    ,[Createdat] BIGINT NOT NULL
-    ,[Updatedat] BIGINT NOT NULL
-    ,[Sort] BIGINT NOT NULL,
-    ,[TinyLink]
-    ,[OriginalLink]
-    ,[Eu])
-    END
-    """
-
-
 let db__pLINKTRACK(line:Object[]): pLINKTRACK =
     let p = pLINKTRACK_empty()
 
@@ -8414,10 +8463,10 @@ type MetadataEnum =
 | NOTIFICATION = 15
 | PLOG = 16
 | PRIVILEGE = 17
-| ROLE = 18
-| ROLEASSIGN = 19
-| SLOG = 20
-| TINYLINK = 21
+| PLINK = 18
+| ROLE = 19
+| ROLEASSIGN = 20
+| SLOG = 21
 | LINKTRACK = 22
 
 let tablenames = [|
@@ -8439,10 +8488,10 @@ let tablenames = [|
     NOTIFICATION_metadata.table
     PLOG_metadata.table
     PRIVILEGE_metadata.table
+    PLINK_metadata.table
     ROLE_metadata.table
     ROLEASSIGN_metadata.table
     SLOG_metadata.table
-    TINYLINK_metadata.table
     LINKTRACK_metadata.table |]
 
 let init() =
@@ -8645,6 +8694,17 @@ let init() =
     | Some v -> PRIVILEGE_count.Value <- v :?> int32
     | None -> ()
 
+    match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Sys_PromotedLink]") with
+    | Some v ->
+        let max = v :?> int64
+        if max > PLINK_id.Value then
+            PLINK_id.Value <- max
+    | None -> ()
+
+    match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Sys_PromotedLink]") with
+    | Some v -> PLINK_count.Value <- v :?> int32
+    | None -> ()
+
     match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Sys_Role]") with
     | Some v ->
         let max = v :?> int64
@@ -8676,17 +8736,6 @@ let init() =
 
     match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Sys_SignLog]") with
     | Some v -> SLOG_count.Value <- v :?> int32
-    | None -> ()
-
-    match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Sys_TinyLink]") with
-    | Some v ->
-        let max = v :?> int64
-        if max > TINYLINK_id.Value then
-            TINYLINK_id.Value <- max
-    | None -> ()
-
-    match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Sys_TinyLink]") with
-    | Some v -> TINYLINK_count.Value <- v :?> int32
     | None -> ()
 
     match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Sys_TinyLinkTracking]") with

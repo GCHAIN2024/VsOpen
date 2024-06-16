@@ -14,7 +14,7 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Util", "..\..\Common\Util\U
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Shared", "Shared\Shared.fsproj", "{78975D7B-F75E-4B51-8655-B8CA8758BF01}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Server", "Server\Server.fsproj", "{89150F6B-77B2-4536-968E-2C60AE525B4E}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Server", "Server\Server.fsproj", "{89150F6B-77B2-4536-968E-2C60AE525B4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{A18560AA-7340-4946-A44B-F92B3F32E29E}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,7 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{7D835CE3-597
 		Doc\homepage.md = Doc\homepage.md
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BizLogics", "BizLogics\BizLogics.fsproj", "{69C6EF7E-02AC-45FA-8AA8-1A4A9DD398F2}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "BizLogics", "BizLogics\BizLogics.fsproj", "{69C6EF7E-02AC-45FA-8AA8-1A4A9DD398F2}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "UtilWebServer", "..\..\Common\UtilWebServer\UtilWebServer.fsproj", "{164512C6-E9B9-4168-889C-567912E39FEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{69C6EF7E-02AC-45FA-8AA8-1A4A9DD398F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69C6EF7E-02AC-45FA-8AA8-1A4A9DD398F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69C6EF7E-02AC-45FA-8AA8-1A4A9DD398F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164512C6-E9B9-4168-889C-567912E39FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164512C6-E9B9-4168-889C-567912E39FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164512C6-E9B9-4168-889C-567912E39FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164512C6-E9B9-4168-889C-567912E39FEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

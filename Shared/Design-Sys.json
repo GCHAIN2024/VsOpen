@@ -1,26 +1,39 @@
 ﻿[
 
 
-    {
-        "name": "Sys_TinyLink",
-        "shorthand": "tinylink",
-        "fields": [
-            {
-                "enum": "Caption",
-                "length": 7,
-                "name": "TinyLink"
-            },
-            {
-                "enum": "Caption",
-                "length": 256,
-                "name": "OriginalLink"
-            },
-            {
-                "enum": "FK",
-                "name": "Eu"
-            }
-        ]
-    },
+  {
+    "name": "Sys_PromotedLink",
+    "shorthand": "plink",
+    "fields": [
+      {
+        "enum": "Timestamp",
+        "name": "Expiry"
+      },
+      {
+        "enum": "Chars",
+        "length": 64,
+        "name": "HashFull"
+      },
+      {
+        "enum": "Chars",
+        "length": 7,
+        "name": "HashTiny"
+      },
+      {
+        "enum": "Text",
+        "name": "Src"
+      },
+      {
+        "enum": "FK",
+        "ref": "EndUser",
+        "name": "Promoter"
+      },
+      {
+        "enum": "FK",
+        "name": "Biz"
+      }
+    ]
+  },
 
     {
         "name": "Sys_TinyLinkTracking",

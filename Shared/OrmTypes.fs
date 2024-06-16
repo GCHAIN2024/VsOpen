@@ -2131,6 +2131,51 @@ let PRIVILEGE_id = ref 0L
 let PRIVILEGE_count = ref 0
 let PRIVILEGE_table = "Sys_Privilege"
 
+// [Sys_PromotedLink] (PLINK)
+
+type pPLINK = {
+mutable Expiry: Timestamp
+mutable HashFull: Chars
+mutable HashTiny: Chars
+mutable Src: Text
+mutable Promoter: FK
+mutable Biz: FK}
+
+
+type PLINK = Rcd<pPLINK>
+
+let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[Biz]"
+
+let pPLINK_fieldordersArray = [|
+    "Expiry"
+    "HashFull"
+    "HashTiny"
+    "Src"
+    "Promoter"
+    "Biz" |]
+
+let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[Biz]=@Biz"
+
+let pPLINK_fields = [|
+    Timestamp("Expiry")
+    Chars("HashFull", 64)
+    Chars("HashTiny", 7)
+    Text("Src")
+    FK("Promoter")
+    FK("Biz") |]
+
+let pPLINK_empty(): pPLINK = {
+    Expiry = DateTime.MinValue
+    HashFull = ""
+    HashTiny = ""
+    Src = ""
+    Promoter = 0L
+    Biz = 0L }
+
+let PLINK_id = ref 0L
+let PLINK_count = ref 0
+let PLINK_table = "Sys_PromotedLink"
+
 // [Sys_Role] (ROLE)
 
 type roleCatEnum = 
@@ -2453,39 +2498,6 @@ let pSLOG_empty(): pSLOG = {
 let SLOG_id = ref 0L
 let SLOG_count = ref 0
 let SLOG_table = "Sys_SignLog"
-
-// [Sys_TinyLink] (TINYLINK)
-
-type pTINYLINK = {
-mutable TinyLink: Caption
-mutable OriginalLink: Caption
-mutable Eu: FK}
-
-
-type TINYLINK = Rcd<pTINYLINK>
-
-let TINYLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[TinyLink],[OriginalLink],[Eu]"
-
-let pTINYLINK_fieldordersArray = [|
-    "TinyLink"
-    "OriginalLink"
-    "Eu" |]
-
-let TINYLINK_sql_update = "[Updatedat]=@Updatedat,[TinyLink]=@TinyLink,[OriginalLink]=@OriginalLink,[Eu]=@Eu"
-
-let pTINYLINK_fields = [|
-    Caption("TinyLink", 7)
-    Caption("OriginalLink", 256)
-    FK("Eu") |]
-
-let pTINYLINK_empty(): pTINYLINK = {
-    TinyLink = ""
-    OriginalLink = ""
-    Eu = 0L }
-
-let TINYLINK_id = ref 0L
-let TINYLINK_count = ref 0
-let TINYLINK_table = "Sys_TinyLink"
 
 // [Sys_TinyLinkTracking] (LINKTRACK)
 

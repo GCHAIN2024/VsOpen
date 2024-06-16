@@ -11,15 +11,6 @@ open Shared.OrmTypes
 
 //[TypeManaged]{
 
-type PromotedLink = {
-createdat: DateTime
-expiry: DateTime
-hashFull: string
-hashTiny: string
-promotero: EU option
-bizo: BIZ option
-src: string }
-
 type Error = 
 | ApiNotExists
 | InvalideParameter

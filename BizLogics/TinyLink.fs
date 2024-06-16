@@ -12,12 +12,12 @@ open Shared.Types
 
 let expireGeneral = new TimeSpan(180,0,0)
 
-let tinylinks = new ConcurrentDictionary<string,PromotedLink>()
+let tinylinks = new ConcurrentDictionary<string,PLINK>()
 
 let url__tinylink 
     (src:string) 
     (promotero:EU option)
-    bizo = 
+    (bizo:BIZ option) = 
 
     let promoter = 
         match promotero with
@@ -52,15 +52,22 @@ let url__tinylink
 
     let now = DateTime.UtcNow
 
-    let plink = {
-        createdat = now
-        expiry = now.Add expireGeneral
-        hashFull = hashFull
-        hashTiny = hashTiny
-        promotero = promotero
-        bizo = bizo
-        src = url }
+    let p = pPLINK_empty()
+    p.HashFull <- hashFull
+    p.HashTiny <- hashTiny
+    p.Biz <-
+        match bizo with
+        | Some biz -> biz.ID
+        | None -> 0L
+    p.Promoter <-
+        match promotero with
+        | Some promoter -> promoter.ID
+        | None -> 0L
+    p.Expiry <- DateTime.UtcNow.Add expireGeneral
+    p.Src <- url
+    
+    
 
-    tinylinks.[plink.hashTiny] <- plink
+    //tinylinks.[plink.hashTiny] <- plink
 
-    plink
+    p
