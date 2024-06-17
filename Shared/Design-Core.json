@@ -1,0 +1,65 @@
+﻿[
+
+  {
+    "name": "Sys_PromotedLink",
+    "shorthand": "plink",
+    "fields": [
+      {
+        "enum": "Timestamp",
+        "name": "Expiry"
+      },
+      {
+        "enum": "Chars",
+        "length": 64,
+        "name": "HashFull"
+      },
+      {
+        "enum": "Chars",
+        "length": 7,
+        "name": "HashTiny"
+      },
+      {
+        "enum": "Text",
+        "name": "Src"
+      },
+      {
+        "enum": "FK",
+        "ref": "EndUser",
+        "name": "Promoter"
+      },
+      {
+        "enum": "FK",
+        "ref": "Core_BizOwner",
+        "name": "BizOwner"
+      }
+    ]
+  },
+
+
+  {
+    "name": "Core_BizOwner",
+    "shorthand": "bizowner",
+    "fields": [
+      {
+        "enum": "Chars",
+        "length": 64,
+        "name": "Caption"
+      },
+      {
+        "enum": "Integer",
+        "name": "Bind"
+      },
+      {
+        "enum": "SelectLines",
+        "lines": "EU//End User///Biz//Business",
+        "name": "BindType"
+      },
+      {
+        "enum": "SelectLines",
+        "lines": "Normal//Normal///Suspend//Suspend",
+        "name": "State"
+      }
+
+    ]
+  }
+]

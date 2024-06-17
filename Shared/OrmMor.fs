@@ -2640,6 +2640,142 @@ let json__CWCo (json:Json):CWC option =
         p = p } |> Some
     
 
+// [BIZOWNER] Structure
+
+let pBIZOWNER__bin (bb:BytesBuilder) (p:pBIZOWNER) =
+
+    
+    let binCaption = p.Caption |> Encoding.UTF8.GetBytes
+    binCaption.Length |> BitConverter.GetBytes |> bb.append
+    binCaption |> bb.append
+    
+    p.Bind |> BitConverter.GetBytes |> bb.append
+    
+    p.BindType |> EnumToValue |> BitConverter.GetBytes |> bb.append
+    
+    p.State |> EnumToValue |> BitConverter.GetBytes |> bb.append
+
+let BIZOWNER__bin (bb:BytesBuilder) (v:BIZOWNER) =
+    v.ID |> BitConverter.GetBytes |> bb.append
+    v.Sort |> BitConverter.GetBytes |> bb.append
+    DateTime__bin bb v.Createdat
+    DateTime__bin bb v.Updatedat
+    
+    pBIZOWNER__bin bb v.p
+
+let bin__pBIZOWNER (bi:BinIndexed):pBIZOWNER =
+    let bin,index = bi
+
+    let p = pBIZOWNER_empty()
+    
+    let count_Caption = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.Caption <- Encoding.UTF8.GetString(bin,index.Value,count_Caption)
+    index.Value <- index.Value + count_Caption
+    
+    p.Bind <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    p.BindType <- BitConverter.ToInt32(bin,index.Value) |> EnumOfValue
+    index.Value <- index.Value + 4
+    
+    p.State <- BitConverter.ToInt32(bin,index.Value) |> EnumOfValue
+    index.Value <- index.Value + 4
+    
+    p
+
+let bin__BIZOWNER (bi:BinIndexed):BIZOWNER =
+    let bin,index = bi
+
+    let ID = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Sort = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Createdat = bin__DateTime bi
+    
+    let Updatedat = bin__DateTime bi
+    
+    {
+        ID = ID
+        Sort = Sort
+        Createdat = Createdat
+        Updatedat = Updatedat
+        p = bin__pBIZOWNER bi }
+
+let pBIZOWNER__json (p:pBIZOWNER) =
+
+    [|
+        ("Caption",p.Caption |> Json.Str)
+        ("Bind",p.Bind.ToString() |> Json.Num)
+        ("BindType",(p.BindType |> EnumToValue).ToString() |> Json.Num)
+        ("State",(p.State |> EnumToValue).ToString() |> Json.Num) |]
+    |> Json.Braket
+
+let BIZOWNER__json (v:BIZOWNER) =
+
+    let p = v.p
+    
+    [|  ("id",v.ID.ToString() |> Json.Num)
+        ("sort",v.Sort.ToString() |> Json.Num)
+        ("createdat",(v.Createdat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("updatedat",(v.Updatedat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("Caption",p.Caption |> Json.Str)
+        ("Bind",p.Bind.ToString() |> Json.Num)
+        ("BindType",(p.BindType |> EnumToValue).ToString() |> Json.Num)
+        ("State",(p.State |> EnumToValue).ToString() |> Json.Num) |]
+    |> Json.Braket
+
+let BIZOWNER__jsonTbw (w:TextBlockWriter) (v:BIZOWNER) =
+    json__str w (BIZOWNER__json v)
+
+let BIZOWNER__jsonStr (v:BIZOWNER) =
+    (BIZOWNER__json v) |> json__strFinal
+
+
+let json__pBIZOWNERo (json:Json):pBIZOWNER option =
+    let fields = json |> json__items
+
+    let p = pBIZOWNER_empty()
+    
+    p.Caption <- checkfieldz fields "Caption" 64
+    
+    p.Bind <- checkfield fields "Bind" |> parse_int64
+    
+    p.BindType <- checkfield fields "BindType" |> parse_int32 |> EnumOfValue
+    
+    p.State <- checkfield fields "State" |> parse_int32 |> EnumOfValue
+    
+    p |> Some
+    
+
+let json__BIZOWNERo (json:Json):BIZOWNER option =
+    let fields = json |> json__items
+
+    let ID = checkfield fields "id" |> parse_int64
+    let Sort = checkfield fields "sort" |> parse_int64
+    let Createdat = checkfield fields "createdat" |> parse_int64 |> DateTime.FromBinary
+    let Updatedat = checkfield fields "updatedat" |> parse_int64 |> DateTime.FromBinary
+    
+    let p = pBIZOWNER_empty()
+    
+    p.Caption <- checkfieldz fields "Caption" 64
+    
+    p.Bind <- checkfield fields "Bind" |> parse_int64
+    
+    p.BindType <- checkfield fields "BindType" |> parse_int32 |> EnumOfValue
+    
+    p.State <- checkfield fields "State" |> parse_int32 |> EnumOfValue
+    
+    {
+        ID = ID
+        Sort = Sort
+        Createdat = Createdat
+        Updatedat = Updatedat
+        p = p } |> Some
+    
+
 // [LOG] Structure
 
 let pLOG__bin (bb:BytesBuilder) (p:pLOG) =
@@ -2794,7 +2930,7 @@ let pPLINK__bin (bb:BytesBuilder) (p:pPLINK) =
     
     p.Promoter |> BitConverter.GetBytes |> bb.append
     
-    p.Partner |> BitConverter.GetBytes |> bb.append
+    p.BizOwner |> BitConverter.GetBytes |> bb.append
 
 let PLINK__bin (bb:BytesBuilder) (v:PLINK) =
     v.ID |> BitConverter.GetBytes |> bb.append
@@ -2830,7 +2966,7 @@ let bin__pPLINK (bi:BinIndexed):pPLINK =
     p.Promoter <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
     
-    p.Partner <- BitConverter.ToInt64(bin,index.Value)
+    p.BizOwner <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
     
     p
@@ -2863,7 +2999,7 @@ let pPLINK__json (p:pPLINK) =
         ("HashTiny",p.HashTiny |> Json.Str)
         ("Src",p.Src |> Json.Str)
         ("Promoter",p.Promoter.ToString() |> Json.Num)
-        ("Partner",p.Partner.ToString() |> Json.Num) |]
+        ("BizOwner",p.BizOwner.ToString() |> Json.Num) |]
     |> Json.Braket
 
 let PLINK__json (v:PLINK) =
@@ -2879,7 +3015,7 @@ let PLINK__json (v:PLINK) =
         ("HashTiny",p.HashTiny |> Json.Str)
         ("Src",p.Src |> Json.Str)
         ("Promoter",p.Promoter.ToString() |> Json.Num)
-        ("Partner",p.Partner.ToString() |> Json.Num) |]
+        ("BizOwner",p.BizOwner.ToString() |> Json.Num) |]
     |> Json.Braket
 
 let PLINK__jsonTbw (w:TextBlockWriter) (v:PLINK) =
@@ -2904,7 +3040,7 @@ let json__pPLINKo (json:Json):pPLINK option =
     
     p.Promoter <- checkfield fields "Promoter" |> parse_int64
     
-    p.Partner <- checkfield fields "Partner" |> parse_int64
+    p.BizOwner <- checkfield fields "BizOwner" |> parse_int64
     
     p |> Some
     
@@ -2929,7 +3065,7 @@ let json__PLINKo (json:Json):PLINK option =
     
     p.Promoter <- checkfield fields "Promoter" |> parse_int64
     
-    p.Partner <- checkfield fields "Partner" |> parse_int64
+    p.BizOwner <- checkfield fields "BizOwner" |> parse_int64
     
     {
         ID = ID
@@ -4219,6 +4355,100 @@ let CWCTxSqlServer =
     """
 
 
+let db__pBIZOWNER(line:Object[]): pBIZOWNER =
+    let p = pBIZOWNER_empty()
+
+    p.Caption <- string(line.[4]).TrimEnd()
+    p.Bind <- if Convert.IsDBNull(line.[5]) then 0L else line.[5] :?> int64
+    p.BindType <- EnumOfValue(if Convert.IsDBNull(line.[6]) then 0 else line.[6] :?> int)
+    p.State <- EnumOfValue(if Convert.IsDBNull(line.[7]) then 0 else line.[7] :?> int)
+
+    p
+
+let pBIZOWNER__sps (p:pBIZOWNER) = [|
+    new SqlParameter("Caption", p.Caption)
+    new SqlParameter("Bind", p.Bind)
+    new SqlParameter("BindType", p.BindType)
+    new SqlParameter("State", p.State) |]
+
+let db__BIZOWNER = db__Rcd db__pBIZOWNER
+
+let BIZOWNER_wrapper item: BIZOWNER =
+    let (i,c,u,s),p = item
+    { ID = i; Createdat = c; Updatedat = u; Sort = s; p = p }
+
+let pBIZOWNER_clone (p:pBIZOWNER): pBIZOWNER = {
+    Caption = p.Caption
+    Bind = p.Bind
+    BindType = p.BindType
+    State = p.State }
+
+let BIZOWNER_update_transaction output (updater,suc,fail) (rcd:BIZOWNER) =
+    let rollback_p = rcd.p |> pBIZOWNER_clone
+    let rollback_updatedat = rcd.Updatedat
+    updater rcd.p
+    let ctime,res =
+        (rcd.ID,rcd.p,rollback_p,rollback_updatedat)
+        |> update (conn,output,BIZOWNER_table,BIZOWNER_sql_update,pBIZOWNER__sps,suc,fail)
+    match res with
+    | Suc ctx ->
+        rcd.Updatedat <- ctime
+        suc(ctime,ctx)
+    | Fail(eso,ctx) ->
+        rcd.p <- rollback_p
+        rcd.Updatedat <- rollback_updatedat
+        fail eso
+
+let BIZOWNER_update output (rcd:BIZOWNER) =
+    rcd
+    |> BIZOWNER_update_transaction output ((fun p -> ()),(fun (ctime,ctx) -> ()),(fun dte -> ()))
+
+let BIZOWNER_create_incremental_transaction output (suc,fail) p =
+    let cid = Interlocked.Increment BIZOWNER_id
+    let ctime = DateTime.UtcNow
+    match create (conn,output,BIZOWNER_table,pBIZOWNER__sps) (cid,ctime,p) with
+    | Suc ctx -> ((cid,ctime,ctime,cid),p) |> BIZOWNER_wrapper |> suc
+    | Fail(eso,ctx) -> fail(eso,ctx)
+
+let BIZOWNER_create output p =
+    BIZOWNER_create_incremental_transaction output ((fun rcd -> ()),(fun (eso,ctx) -> ())) p
+    
+
+let id__BIZOWNERo id: BIZOWNER option = id__rcd(conn,BIZOWNER_fieldorders,BIZOWNER_table,db__BIZOWNER) id
+
+let BIZOWNER_metadata = {
+    fieldorders = BIZOWNER_fieldorders
+    db__rcd = db__BIZOWNER 
+    wrapper = BIZOWNER_wrapper
+    sps = pBIZOWNER__sps
+    id = BIZOWNER_id
+    id__rcdo = id__BIZOWNERo
+    clone = pBIZOWNER_clone
+    empty__p = pBIZOWNER_empty
+    rcd__bin = BIZOWNER__bin
+    bin__rcd = bin__BIZOWNER
+    sql_update = BIZOWNER_sql_update
+    rcd_update = BIZOWNER_update
+    table = BIZOWNER_table
+    shorthand = "bizowner" }
+
+let BIZOWNERTxSqlServer =
+    """
+    IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_BizOwner' AND xtype='U')
+    BEGIN
+
+        CREATE TABLE Core_BizOwner ([ID] BIGINT NOT NULL
+    ,[Createdat] BIGINT NOT NULL
+    ,[Updatedat] BIGINT NOT NULL
+    ,[Sort] BIGINT NOT NULL,
+    ,[Caption]
+    ,[Bind]
+    ,[BindType]
+    ,[State])
+    END
+    """
+
+
 let db__pLOG(line:Object[]): pLOG =
     let p = pLOG_empty()
 
@@ -4317,7 +4547,7 @@ let db__pPLINK(line:Object[]): pPLINK =
     p.HashTiny <- string(line.[6]).TrimEnd()
     p.Src <- string(line.[7]).TrimEnd()
     p.Promoter <- if Convert.IsDBNull(line.[8]) then 0L else line.[8] :?> int64
-    p.Partner <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
+    p.BizOwner <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
 
     p
 
@@ -4327,7 +4557,7 @@ let pPLINK__sps (p:pPLINK) = [|
     new SqlParameter("HashTiny", p.HashTiny)
     new SqlParameter("Src", p.Src)
     new SqlParameter("Promoter", p.Promoter)
-    new SqlParameter("Partner", p.Partner) |]
+    new SqlParameter("BizOwner", p.BizOwner) |]
 
 let db__PLINK = db__Rcd db__pPLINK
 
@@ -4341,7 +4571,7 @@ let pPLINK_clone (p:pPLINK): pPLINK = {
     HashTiny = p.HashTiny
     Src = p.Src
     Promoter = p.Promoter
-    Partner = p.Partner }
+    BizOwner = p.BizOwner }
 
 let PLINK_update_transaction output (updater,suc,fail) (rcd:PLINK) =
     let rollback_p = rcd.p |> pPLINK_clone
@@ -4406,7 +4636,7 @@ let PLINKTxSqlServer =
     ,[HashTiny]
     ,[Src]
     ,[Promoter]
-    ,[Partner])
+    ,[BizOwner])
     END
     """
 
@@ -4421,8 +4651,9 @@ type MetadataEnum =
 | FOLDER = 6
 | LANG = 7
 | CWC = 8
-| LOG = 9
-| PLINK = 10
+| BIZOWNER = 9
+| LOG = 10
+| PLINK = 11
 
 let tablenames = [|
     ADDRESS_metadata.table
@@ -4434,6 +4665,7 @@ let tablenames = [|
     FOLDER_metadata.table
     LANG_metadata.table
     CWC_metadata.table
+    BIZOWNER_metadata.table
     LOG_metadata.table
     PLINK_metadata.table |]
 
@@ -4536,6 +4768,17 @@ let init() =
 
     match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Ca_WebCredential]") with
     | Some v -> CWC_count.Value <- v :?> int32
+    | None -> ()
+
+    match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Core_BizOwner]") with
+    | Some v ->
+        let max = v :?> int64
+        if max > BIZOWNER_id.Value then
+            BIZOWNER_id.Value <- max
+    | None -> ()
+
+    match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Core_BizOwner]") with
+    | Some v -> BIZOWNER_count.Value <- v :?> int32
     | None -> ()
 
     match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Sys_Log]") with

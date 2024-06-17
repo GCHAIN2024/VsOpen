@@ -68,7 +68,7 @@ let apiHandler json api =
     match api with
     | "CheckoutTinyLink" -> 
 
-        let partner = tryFindStrByAtt "partner" json
+        let bizowner = tryFindStrByAtt "bizowner" json
         let url = tryFindStrByAtt "url" json
         let session = tryFindStrByAtt "session" json
 

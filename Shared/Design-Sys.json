@@ -1,40 +1,6 @@
 ﻿[
 
 
-  {
-    "name": "Sys_PromotedLink",
-    "shorthand": "plink",
-    "fields": [
-      {
-        "enum": "Timestamp",
-        "name": "Expiry"
-      },
-      {
-        "enum": "Chars",
-        "length": 64,
-        "name": "HashFull"
-      },
-      {
-        "enum": "Chars",
-        "length": 7,
-        "name": "HashTiny"
-      },
-      {
-        "enum": "Text",
-        "name": "Src"
-      },
-      {
-        "enum": "FK",
-        "ref": "EndUser",
-        "name": "Promoter"
-      },
-      {
-        "enum": "FK",
-        "ref": "EndUser",
-        "name": "Partner"
-      }
-    ]
-  },
 
     {
         "name": "Sys_Log",

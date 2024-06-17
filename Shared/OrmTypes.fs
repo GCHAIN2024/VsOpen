@@ -1238,6 +1238,95 @@ let CWC_id = ref 0L
 let CWC_count = ref 0
 let CWC_table = "Ca_WebCredential"
 
+// [Core_BizOwner] (BIZOWNER)
+
+type bizownerBindTypeEnum = 
+| EU = 0 // End User
+| Biz = 1 // Business
+
+let bizownerBindTypeEnums = [| bizownerBindTypeEnum.EU; bizownerBindTypeEnum.Biz |]
+let bizownerBindTypeEnumstrs = [| "bizownerBindTypeEnum"; "bizownerBindTypeEnum" |]
+let bizownerBindTypeNum = 2
+
+let int__bizownerBindTypeEnum v =
+    match v with
+    | 0 -> Some bizownerBindTypeEnum.EU
+    | 1 -> Some bizownerBindTypeEnum.Biz
+    | _ -> None
+
+let str__bizownerBindTypeEnum s =
+    match s with
+    | "EU" -> Some bizownerBindTypeEnum.EU
+    | "Biz" -> Some bizownerBindTypeEnum.Biz
+    | _ -> None
+
+let bizownerBindTypeEnum__caption e =
+    match e with
+    | bizownerBindTypeEnum.EU -> "End User"
+    | bizownerBindTypeEnum.Biz -> "Business"
+    | _ -> ""
+
+type bizownerStateEnum = 
+| Normal = 0 // Normal
+| Suspend = 1 // Suspend
+
+let bizownerStateEnums = [| bizownerStateEnum.Normal; bizownerStateEnum.Suspend |]
+let bizownerStateEnumstrs = [| "bizownerStateEnum"; "bizownerStateEnum" |]
+let bizownerStateNum = 2
+
+let int__bizownerStateEnum v =
+    match v with
+    | 0 -> Some bizownerStateEnum.Normal
+    | 1 -> Some bizownerStateEnum.Suspend
+    | _ -> None
+
+let str__bizownerStateEnum s =
+    match s with
+    | "Normal" -> Some bizownerStateEnum.Normal
+    | "Suspend" -> Some bizownerStateEnum.Suspend
+    | _ -> None
+
+let bizownerStateEnum__caption e =
+    match e with
+    | bizownerStateEnum.Normal -> "Normal"
+    | bizownerStateEnum.Suspend -> "Suspend"
+    | _ -> ""
+
+type pBIZOWNER = {
+mutable Caption: Chars
+mutable Bind: Integer
+mutable BindType: bizownerBindTypeEnum
+mutable State: bizownerStateEnum}
+
+
+type BIZOWNER = Rcd<pBIZOWNER>
+
+let BIZOWNER_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Bind],[BindType],[State]"
+
+let pBIZOWNER_fieldordersArray = [|
+    "Caption"
+    "Bind"
+    "BindType"
+    "State" |]
+
+let BIZOWNER_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Bind]=@Bind,[BindType]=@BindType,[State]=@State"
+
+let pBIZOWNER_fields = [|
+    Chars("Caption", 64)
+    Integer("Bind")
+    SelectLines("BindType", [| ("EU","End User");("Biz","Business") |])
+    SelectLines("State", [| ("Normal","Normal");("Suspend","Suspend") |]) |]
+
+let pBIZOWNER_empty(): pBIZOWNER = {
+    Caption = ""
+    Bind = 0L
+    BindType = EnumOfValue 0
+    State = EnumOfValue 0 }
+
+let BIZOWNER_id = ref 0L
+let BIZOWNER_count = ref 0
+let BIZOWNER_table = "Core_BizOwner"
+
 // [Sys_Log] (LOG)
 
 type pLOG = {
@@ -1279,12 +1368,12 @@ mutable HashFull: Chars
 mutable HashTiny: Chars
 mutable Src: Text
 mutable Promoter: FK
-mutable Partner: FK}
+mutable BizOwner: FK}
 
 
 type PLINK = Rcd<pPLINK>
 
-let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[Partner]"
+let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[BizOwner]"
 
 let pPLINK_fieldordersArray = [|
     "Expiry"
@@ -1292,9 +1381,9 @@ let pPLINK_fieldordersArray = [|
     "HashTiny"
     "Src"
     "Promoter"
-    "Partner" |]
+    "BizOwner" |]
 
-let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[Partner]=@Partner"
+let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[BizOwner]=@BizOwner"
 
 let pPLINK_fields = [|
     Timestamp("Expiry")
@@ -1302,7 +1391,7 @@ let pPLINK_fields = [|
     Chars("HashTiny", 7)
     Text("Src")
     FK("Promoter")
-    FK("Partner") |]
+    FK("BizOwner") |]
 
 let pPLINK_empty(): pPLINK = {
     Expiry = DateTime.MinValue
@@ -1310,7 +1399,7 @@ let pPLINK_empty(): pPLINK = {
     HashTiny = ""
     Src = ""
     Promoter = 0L
-    Partner = 0L }
+    BizOwner = 0L }
 
 let PLINK_id = ref 0L
 let PLINK_count = ref 0

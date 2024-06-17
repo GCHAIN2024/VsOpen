@@ -1339,6 +1339,47 @@ BEGIN
  ALTER TABLE Ca_WebCredential ADD [Json] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 
+IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_BizOwner' AND xtype='U')
+BEGIN
+    CREATE TABLE Core_BizOwner ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Bind] BIGINT,[BindType] INT,[State] INT, CONSTRAINT [PK_Core_BizOwner] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+--[Core_BizOwner]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name='Caption')
+BEGIN
+ ALTER TABLE Core_BizOwner ALTER COLUMN [Caption] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_BizOwner ADD [Caption] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_BizOwner]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name='Bind')
+BEGIN
+ ALTER TABLE Core_BizOwner ALTER COLUMN [Bind] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_BizOwner ADD [Bind] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_BizOwner]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name='BindType')
+BEGIN
+ ALTER TABLE Core_BizOwner ALTER COLUMN [BindType] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_BizOwner ADD [BindType] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_BizOwner]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name='State')
+BEGIN
+ ALTER TABLE Core_BizOwner ALTER COLUMN [State] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_BizOwner ADD [State] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_Log' AND xtype='U')
 BEGIN
     CREATE TABLE Sys_Log ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Location] NVARCHAR(MAX),[Content] NVARCHAR(MAX),[Sql] NVARCHAR(MAX), CONSTRAINT [PK_Sys_Log] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
@@ -1373,7 +1414,7 @@ END
 
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_PromotedLink' AND xtype='U')
 BEGIN
-    CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[Partner] BIGINT, CONSTRAINT [PK_Sys_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+    CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[BizOwner] BIGINT, CONSTRAINT [PK_Sys_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 --[Sys_PromotedLink]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Expiry')
@@ -1421,11 +1462,11 @@ BEGIN
  ALTER TABLE Sys_PromotedLink ADD [Promoter] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 --[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Partner')
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='BizOwner')
 BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [Partner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+ ALTER TABLE Sys_PromotedLink ALTER COLUMN [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 ELSE
 BEGIN
- ALTER TABLE Sys_PromotedLink ADD [Partner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+ ALTER TABLE Sys_PromotedLink ADD [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
