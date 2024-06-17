@@ -8,6 +8,7 @@ open System.Diagnostics
 
 open Util.Cat
 open Util.Perf
+open Util.Http
 open Util.Zmq
 
 open Server.Common
@@ -21,10 +22,18 @@ let main argv =
 
     init()
 
-    zweb.disconnector.Add(fun bin -> ())
+    let httpHandler = 
+        httpEcho 
+            (Some plugin) 
+            runtime.host.fsDir 
+            runtime.host.defaultHtml 
+            runtime 
+            echoHandler
+        |> reqhandler__httpHandler
+
     lauchWebServer 
         output 
-        (httpHandler (httpEcho runtime.host.fsDir runtime.host.defaultHtml runtime echoHandler))
+        httpHandler
         wsHandler 
         zweb
 

@@ -15,6 +15,7 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
+let tinyLinkLength = 7
 let expireGeneral = new TimeSpan(180,0,0)
 
 let hashFull__plinks = new ConcurrentDictionary<string,PLINK>()
@@ -33,12 +34,11 @@ let checkcollition promoter (url:string) =
             |> Array.concat
             |> bin__sha256
 
-        hashTiny <- new string(Array.sub (hash.ToCharArray()) 0 7)
+        hashTiny <- new string(Array.sub (hash.ToCharArray()) 0 tinyLinkLength)
 
         repeater <- repeater + 1
 
     hashTiny
-
 
 let url__tinylinko 
     (src:string) 

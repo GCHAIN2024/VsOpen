@@ -7,7 +7,9 @@ open System.Diagnostics
 
 open Util.Cat
 open Util.Perf
+open Util.Text
 open Util.Json
+open Util.Http
 open Util.Zmq
 
 open Shared.OrmTypes
@@ -20,6 +22,30 @@ open Server.Common
 open UtilWebServer.Common
 
 open BizLogics.TinyLink
+
+let r1 = string__regex @"\w+"
+
+//  https://cha.in/t/a1Bz7wS
+let plugin req = 
+
+    let mutable o = None
+
+    if req.pathline.StartsWith "/t/" then
+
+        let m = 
+            req.pathline.Substring(3)
+            |> regex_match r1
+
+        if m.Length = 3 then
+            if tiny__full.ContainsKey m then
+                let hashFull = tiny__full[m]
+                let plink = hashFull__plinks[hashFull]
+
+                o <-
+                    plink.p.Src
+                    |> Encoding.UTF8.GetBytes
+                    |> Some
+    o
 
 let echoHandler x =
     match x.service with
