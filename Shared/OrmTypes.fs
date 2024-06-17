@@ -527,6 +527,32 @@ let euAdminEnum__caption e =
     | euAdminEnum.Admin -> "管理员"
     | _ -> ""
 
+type euBizPartnerEnum = 
+| None = 0 // None
+| Partner = 1 // 
+
+let euBizPartnerEnums = [| euBizPartnerEnum.None; euBizPartnerEnum.Partner |]
+let euBizPartnerEnumstrs = [| "euBizPartnerEnum"; "euBizPartnerEnum" |]
+let euBizPartnerNum = 2
+
+let int__euBizPartnerEnum v =
+    match v with
+    | 0 -> Some euBizPartnerEnum.None
+    | 1 -> Some euBizPartnerEnum.Partner
+    | _ -> None
+
+let str__euBizPartnerEnum s =
+    match s with
+    | "None" -> Some euBizPartnerEnum.None
+    | "Partner" -> Some euBizPartnerEnum.Partner
+    | _ -> None
+
+let euBizPartnerEnum__caption e =
+    match e with
+    | euBizPartnerEnum.None -> "None"
+    | euBizPartnerEnum.Partner -> ""
+    | _ -> ""
+
 type euVerifyEnum = 
 | Normal = 0 // 常规
 | Verified = 1 // 认证
@@ -587,6 +613,7 @@ mutable Tel: Chars
 mutable Gender: euGenderEnum
 mutable Status: euStatusEnum
 mutable Admin: euAdminEnum
+mutable BizPartner: euBizPartnerEnum
 mutable Privilege: Integer
 mutable Verify: euVerifyEnum
 mutable Pwd: Chars
@@ -626,7 +653,7 @@ mutable Agentable: euAgentableEnum}
 
 type EU = Rcd<pEU>
 
-let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[Email],[Tel],[Gender],[Status],[Admin],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Citizen],[Refer],[Referer],[Discord],[DiscordId],[Google],[GoogleId],[Apple],[AppleId],[OAuthProvider],[OAuthID],[GTV],[Gettr],[Farm],[CountFollows],[CountFollowers],[CountMoments],[CountViews],[CountComments],[CountThumbUps],[CountThumbDns],[Lang],[BizOperator],[Url],[About],[PublicPoints],[Json],[Agentable]"
+let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[Email],[Tel],[Gender],[Status],[Admin],[BizPartner],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Citizen],[Refer],[Referer],[Discord],[DiscordId],[Google],[GoogleId],[Apple],[AppleId],[OAuthProvider],[OAuthID],[GTV],[Gettr],[Farm],[CountFollows],[CountFollowers],[CountMoments],[CountViews],[CountComments],[CountThumbUps],[CountThumbDns],[Lang],[BizOperator],[Url],[About],[PublicPoints],[Json],[Agentable]"
 
 let pEU_fieldordersArray = [|
     "Caption"
@@ -636,6 +663,7 @@ let pEU_fieldordersArray = [|
     "Gender"
     "Status"
     "Admin"
+    "BizPartner"
     "Privilege"
     "Verify"
     "Pwd"
@@ -672,7 +700,7 @@ let pEU_fieldordersArray = [|
     "Json"
     "Agentable" |]
 
-let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Citizen]=@Citizen,[Refer]=@Refer,[Referer]=@Referer,[Discord]=@Discord,[DiscordId]=@DiscordId,[Google]=@Google,[GoogleId]=@GoogleId,[Apple]=@Apple,[AppleId]=@AppleId,[OAuthProvider]=@OAuthProvider,[OAuthID]=@OAuthID,[GTV]=@GTV,[Gettr]=@Gettr,[Farm]=@Farm,[CountFollows]=@CountFollows,[CountFollowers]=@CountFollowers,[CountMoments]=@CountMoments,[CountViews]=@CountViews,[CountComments]=@CountComments,[CountThumbUps]=@CountThumbUps,[CountThumbDns]=@CountThumbDns,[Lang]=@Lang,[BizOperator]=@BizOperator,[Url]=@Url,[About]=@About,[PublicPoints]=@PublicPoints,[Json]=@Json,[Agentable]=@Agentable"
+let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[BizPartner]=@BizPartner,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Citizen]=@Citizen,[Refer]=@Refer,[Referer]=@Referer,[Discord]=@Discord,[DiscordId]=@DiscordId,[Google]=@Google,[GoogleId]=@GoogleId,[Apple]=@Apple,[AppleId]=@AppleId,[OAuthProvider]=@OAuthProvider,[OAuthID]=@OAuthID,[GTV]=@GTV,[Gettr]=@Gettr,[Farm]=@Farm,[CountFollows]=@CountFollows,[CountFollowers]=@CountFollowers,[CountMoments]=@CountMoments,[CountViews]=@CountViews,[CountComments]=@CountComments,[CountThumbUps]=@CountThumbUps,[CountThumbDns]=@CountThumbDns,[Lang]=@Lang,[BizOperator]=@BizOperator,[Url]=@Url,[About]=@About,[PublicPoints]=@PublicPoints,[Json]=@Json,[Agentable]=@Agentable"
 
 let pEU_fields = [|
     Caption("Caption", 64)
@@ -682,6 +710,7 @@ let pEU_fields = [|
     SelectLines("Gender", [| ("Unknown","未知");("Male","男");("Female","女") |])
     SelectLines("Status", [| ("Normal","正常");("Frozen","冻结");("Terminated","注销") |])
     SelectLines("Admin", [| ("None","无");("Admin","管理员") |])
+    SelectLines("BizPartner", [| ("None","None");("Partner","") |])
     Integer("Privilege")
     SelectLines("Verify", [| ("Normal","常规");("Verified","认证") |])
     Chars("Pwd", 16)
@@ -726,6 +755,7 @@ let pEU_empty(): pEU = {
     Gender = EnumOfValue 0
     Status = EnumOfValue 0
     Admin = EnumOfValue 0
+    BizPartner = EnumOfValue 0
     Privilege = 0L
     Verify = EnumOfValue 0
     Pwd = ""
@@ -1249,12 +1279,12 @@ mutable HashFull: Chars
 mutable HashTiny: Chars
 mutable Src: Text
 mutable Promoter: FK
-mutable Biz: FK}
+mutable Partner: FK}
 
 
 type PLINK = Rcd<pPLINK>
 
-let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[Biz]"
+let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[Partner]"
 
 let pPLINK_fieldordersArray = [|
     "Expiry"
@@ -1262,9 +1292,9 @@ let pPLINK_fieldordersArray = [|
     "HashTiny"
     "Src"
     "Promoter"
-    "Biz" |]
+    "Partner" |]
 
-let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[Biz]=@Biz"
+let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[Partner]=@Partner"
 
 let pPLINK_fields = [|
     Timestamp("Expiry")
@@ -1272,7 +1302,7 @@ let pPLINK_fields = [|
     Chars("HashTiny", 7)
     Text("Src")
     FK("Promoter")
-    FK("Biz") |]
+    FK("Partner") |]
 
 let pPLINK_empty(): pPLINK = {
     Expiry = DateTime.MinValue
@@ -1280,7 +1310,7 @@ let pPLINK_empty(): pPLINK = {
     HashTiny = ""
     Src = ""
     Promoter = 0L
-    Biz = 0L }
+    Partner = 0L }
 
 let PLINK_id = ref 0L
 let PLINK_count = ref 0

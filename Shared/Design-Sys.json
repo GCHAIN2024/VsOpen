@@ -30,7 +30,8 @@
       },
       {
         "enum": "FK",
-        "name": "Biz"
+        "ref": "EndUser",
+        "name": "Partner"
       }
     ]
   },

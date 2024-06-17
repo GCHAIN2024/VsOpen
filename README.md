@@ -2,7 +2,7 @@
 
 [Github Repository](https://github.com/GCHAIN2024/GChainVsOpen)
 
-Domain: [cryptradeclub.com](https://gcha.in)
+Domain: [gcha.in](https://gcha.in)
 
 [Business docs](https://github.com/GCHAIN2024/GChainVsOpen/tree/main/Doc)
 

@@ -378,6 +378,11 @@
         "name": "Admin"
       },
       {
+        "enum": "SelectLines",
+        "lines": "None//None///Partner//",
+        "name": "BizPartner"
+      },
+      {
         "enum": "Integer",
         "name": "Privilege"
       },

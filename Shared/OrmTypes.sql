@@ -650,7 +650,7 @@ END
 
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_EndUser' AND xtype='U')
 BEGIN
-    CREATE TABLE Ca_EndUser ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Username] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[Tel] NVARCHAR(32) COLLATE Chinese_PRC_CI_AS,[Gender] INT,[Status] INT,[Admin] INT,[Privilege] BIGINT,[Verify] INT,[Pwd] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS,[Online] BIT,[Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[Background] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[BasicAcct] BIGINT,[Citizen] BIGINT,[Refer] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Referer] BIGINT,[Discord] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[DiscordId] BIGINT,[Google] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[GoogleId] BIGINT,[Apple] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[AppleId] BIGINT,[OAuthProvider] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[OAuthID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[GTV] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Gettr] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Farm] BIGINT,[CountFollows] BIGINT,[CountFollowers] BIGINT,[CountMoments] BIGINT,[CountViews] BIGINT,[CountComments] BIGINT,[CountThumbUps] BIGINT,[CountThumbDns] BIGINT,[Lang] BIGINT,[BizOperator] BIGINT,[Url] NVARCHAR(MAX),[About] NVARCHAR(MAX),[PublicPoints] BIGINT,[Json] NVARCHAR(MAX),[Agentable] INT, CONSTRAINT [PK_Ca_EndUser] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+    CREATE TABLE Ca_EndUser ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Username] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[Tel] NVARCHAR(32) COLLATE Chinese_PRC_CI_AS,[Gender] INT,[Status] INT,[Admin] INT,[BizPartner] INT,[Privilege] BIGINT,[Verify] INT,[Pwd] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS,[Online] BIT,[Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[Background] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[BasicAcct] BIGINT,[Citizen] BIGINT,[Refer] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Referer] BIGINT,[Discord] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[DiscordId] BIGINT,[Google] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[GoogleId] BIGINT,[Apple] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[AppleId] BIGINT,[OAuthProvider] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[OAuthID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[GTV] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Gettr] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[Farm] BIGINT,[CountFollows] BIGINT,[CountFollowers] BIGINT,[CountMoments] BIGINT,[CountViews] BIGINT,[CountComments] BIGINT,[CountThumbUps] BIGINT,[CountThumbDns] BIGINT,[Lang] BIGINT,[BizOperator] BIGINT,[Url] NVARCHAR(MAX),[About] NVARCHAR(MAX),[PublicPoints] BIGINT,[Json] NVARCHAR(MAX),[Agentable] INT, CONSTRAINT [PK_Ca_EndUser] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 --[Ca_EndUser]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Caption')
@@ -714,6 +714,15 @@ END
 ELSE
 BEGIN
  ALTER TABLE Ca_EndUser ADD [Admin] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Ca_EndUser]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='BizPartner')
+BEGIN
+ ALTER TABLE Ca_EndUser ALTER COLUMN [BizPartner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Ca_EndUser ADD [BizPartner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 --[Ca_EndUser]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Privilege')
@@ -1364,7 +1373,7 @@ END
 
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_PromotedLink' AND xtype='U')
 BEGIN
-    CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[Biz] BIGINT, CONSTRAINT [PK_Sys_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+    CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[Partner] BIGINT, CONSTRAINT [PK_Sys_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 --[Sys_PromotedLink]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Expiry')
@@ -1412,11 +1421,11 @@ BEGIN
  ALTER TABLE Sys_PromotedLink ADD [Promoter] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 --[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Biz')
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Partner')
 BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [Biz] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+ ALTER TABLE Sys_PromotedLink ALTER COLUMN [Partner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 ELSE
 BEGIN
- ALTER TABLE Sys_PromotedLink ADD [Biz] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+ ALTER TABLE Sys_PromotedLink ADD [Partner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END

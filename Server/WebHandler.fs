@@ -17,8 +17,6 @@ open Shared.Types
 open Shared.OrmMor
 open Shared.CustomMor
 
-open Server.Common
-
 open UtilWebServer.Common
 
 open BizLogics.TinyLink
@@ -65,16 +63,17 @@ let echoHandler x =
     | _ -> Fail(Error.ApiNotExists, x)
 
 
-let apiHandler json = 
+let apiHandler json api = 
 
-    match json with
-    | Json.Str apiname -> 
-        match apiname with
-        | "CheckoutTinyLink" -> 
-            //url__tinylink
-            ()
-        | _ -> ()
+    match api with
+    | "CheckoutTinyLink" -> 
 
+        let partner = tryFindStrByAtt "partner" json
+        let url = tryFindStrByAtt "url" json
+        let session = tryFindStrByAtt "session" json
+
+        //url__tinylink
+        ()
     | _ -> ()
 
 
@@ -87,10 +86,7 @@ let wsHandler zweb wsp =
         (wsp.bin, ref 0)
         |> bin__Msg with
     | ApiRequest json ->
-
-        match tryFindByAtt "api" json with
-        | Some (n,v) -> apiHandler v
-        | _ -> ()
+        apiHandler json (tryFindStrByAtt "api" json)
 
     | _ -> ()
 
