@@ -615,10 +615,6 @@
         "name": "Caption"
       },
       {
-        "enum": "Bin",
-        "name": "Content"
-      },
-      {
         "enum": "SelectLines",
         "lines": "None//未加密///Sys//系统加密///Usr//用户加密",
         "name": "Encrypt"

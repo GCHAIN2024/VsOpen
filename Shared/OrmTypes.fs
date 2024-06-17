@@ -944,7 +944,6 @@ let fileFileTypeEnum__caption e =
 
 type pFILE = {
 mutable Caption: Caption
-mutable Content: Bin
 mutable Encrypt: fileEncryptEnum
 mutable SHA256: Text
 mutable Size: Integer
@@ -958,11 +957,10 @@ mutable JSON: Text}
 
 type FILE = Rcd<pFILE>
 
-let FILE_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Content],[Encrypt],[SHA256],[Size],[Bind],[BindType],[State],[Folder],[FileType],[JSON]"
+let FILE_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Encrypt],[SHA256],[Size],[Bind],[BindType],[State],[Folder],[FileType],[JSON]"
 
 let pFILE_fieldordersArray = [|
     "Caption"
-    "Content"
     "Encrypt"
     "SHA256"
     "Size"
@@ -973,11 +971,10 @@ let pFILE_fieldordersArray = [|
     "FileType"
     "JSON" |]
 
-let FILE_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Content]=@Content,[Encrypt]=@Encrypt,[SHA256]=@SHA256,[Size]=@Size,[Bind]=@Bind,[BindType]=@BindType,[State]=@State,[Folder]=@Folder,[FileType]=@FileType,[JSON]=@JSON"
+let FILE_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Encrypt]=@Encrypt,[SHA256]=@SHA256,[Size]=@Size,[Bind]=@Bind,[BindType]=@BindType,[State]=@State,[Folder]=@Folder,[FileType]=@FileType,[JSON]=@JSON"
 
 let pFILE_fields = [|
     Caption("Caption", 256)
-    Bin("Content")
     SelectLines("Encrypt", [| ("None","未加密");("Sys","系统加密");("Usr","用户加密") |])
     Text("SHA256")
     Integer("Size")
@@ -990,7 +987,6 @@ let pFILE_fields = [|
 
 let pFILE_empty(): pFILE = {
     Caption = ""
-    Content = [||]
     Encrypt = EnumOfValue 0
     SHA256 = ""
     Size = 0L
@@ -1327,40 +1323,7 @@ let BIZOWNER_id = ref 0L
 let BIZOWNER_count = ref 0
 let BIZOWNER_table = "Core_BizOwner"
 
-// [Sys_Log] (LOG)
-
-type pLOG = {
-mutable Location: Text
-mutable Content: Text
-mutable Sql: Text}
-
-
-type LOG = Rcd<pLOG>
-
-let LOG_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Location],[Content],[Sql]"
-
-let pLOG_fieldordersArray = [|
-    "Location"
-    "Content"
-    "Sql" |]
-
-let LOG_sql_update = "[Updatedat]=@Updatedat,[Location]=@Location,[Content]=@Content,[Sql]=@Sql"
-
-let pLOG_fields = [|
-    Text("Location")
-    Text("Content")
-    Text("Sql") |]
-
-let pLOG_empty(): pLOG = {
-    Location = ""
-    Content = ""
-    Sql = "" }
-
-let LOG_id = ref 0L
-let LOG_count = ref 0
-let LOG_table = "Sys_Log"
-
-// [Sys_PromotedLink] (PLINK)
+// [Core_PromotedLink] (PLINK)
 
 type pPLINK = {
 mutable Expiry: Timestamp
@@ -1411,4 +1374,37 @@ let pPLINK_empty(): pPLINK = {
 
 let PLINK_id = ref 0L
 let PLINK_count = ref 0
-let PLINK_table = "Sys_PromotedLink"
+let PLINK_table = "Core_PromotedLink"
+
+// [Sys_Log] (LOG)
+
+type pLOG = {
+mutable Location: Text
+mutable Content: Text
+mutable Sql: Text}
+
+
+type LOG = Rcd<pLOG>
+
+let LOG_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Location],[Content],[Sql]"
+
+let pLOG_fieldordersArray = [|
+    "Location"
+    "Content"
+    "Sql" |]
+
+let LOG_sql_update = "[Updatedat]=@Updatedat,[Location]=@Location,[Content]=@Content,[Sql]=@Sql"
+
+let pLOG_fields = [|
+    Text("Location")
+    Text("Content")
+    Text("Sql") |]
+
+let pLOG_empty(): pLOG = {
+    Location = ""
+    Content = ""
+    Sql = "" }
+
+let LOG_id = ref 0L
+let LOG_count = ref 0
+let LOG_table = "Sys_Log"

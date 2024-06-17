@@ -70,6 +70,8 @@ let apiHandler json api =
 
         let bizowner = tryFindStrByAtt "bizowner" json
         let url = tryFindStrByAtt "url" json
+        let data = tryFindStrByAtt "data" json
+        let dst = tryFindStrByAtt "dst" json
         let session = tryFindStrByAtt "session" json
 
         //url__tinylink

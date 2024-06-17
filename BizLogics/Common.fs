@@ -26,9 +26,13 @@ fsDir: string }
 type EuComplex = {
 eu: EU }
 
+type BizComplex = {
+biz: BIZ }
+
 type Runtime = {
 host: Host
 ecs: ConcurrentDictionary<int64,EuComplex>
+bcs: ConcurrentDictionary<string,BizComplex>
 zweb: ZmqWeb
 output: string -> unit }
 
@@ -38,24 +42,26 @@ type HostEnum =
 
 let hostEnum = 
     match Environment.MachineName with
-    | _ -> RevengeDev
+    | "MAIN" -> RevengeDev
+    | _ -> Prod
 
 let host e = 
 
     match e with
     | Prod -> 
         {
-            conn = "server=127.0.0.1; user=sa; database=GCHAIN"
+            conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
             defaultHtml = "index.html"
             fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
     | _ -> 
         {
-            conn = "server=127.0.0.1; user=sa; database=GCHAIN"
+            conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
             defaultHtml = "index.html"
             fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
 
 let runtime = {
     host = host hostEnum
     ecs = new ConcurrentDictionary<int64,EuComplex>()
+    bcs = new ConcurrentDictionary<string,BizComplex>()
     zweb = zweb
     output = output }

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Include="Common.fs" />
+    <Compile Include="Ca.fs" />
     <Compile Include="Init.fs" />
     <Compile Include="TinyLink.fs" />
   </ItemGroup>

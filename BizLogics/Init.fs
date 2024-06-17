@@ -19,6 +19,7 @@ open Shared.OrmMor
 open Shared.Types
 
 open BizLogics.Common
+open BizLogics.Ca
 
 let init runtime = 
 
@@ -51,3 +52,24 @@ let init runtime =
             {
                 eu = i })
     |> loadAll runtime.output conn EU_metadata
+
+    (fun (i:BIZ) -> 
+        runtime.bcs[i.p.Code] <- 
+            {
+                biz = i })
+    |> loadAll runtime.output conn BIZ_metadata
+
+    [|  "X"
+        "GOOGLE"
+        "FACEBOOK"
+        "INSTAGRAM" |]
+    |> Array.iter(fun code ->
+        if runtime.bcs.ContainsKey code = false then
+            match createBiz code with
+            | Some biz -> 
+                runtime.bcs[code] <- 
+                    {   
+                        biz = biz }
+            | None ->
+                halt runtime.output ("BizLogics.Init.createBiz [" + code + "]") ""
+        ())

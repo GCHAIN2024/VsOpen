@@ -1042,7 +1042,7 @@ END
 
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_File' AND xtype='U')
 BEGIN
-    CREATE TABLE Ca_File ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[Content] ,[Encrypt] INT,[SHA256] NVARCHAR(MAX),[Size] BIGINT,[Bind] BIGINT,[BindType] INT,[State] INT,[Folder] BIGINT,[FileType] INT,[JSON] NVARCHAR(MAX), CONSTRAINT [PK_Ca_File] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+    CREATE TABLE Ca_File ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS,[Encrypt] INT,[SHA256] NVARCHAR(MAX),[Size] BIGINT,[Bind] BIGINT,[BindType] INT,[State] INT,[Folder] BIGINT,[FileType] INT,[JSON] NVARCHAR(MAX), CONSTRAINT [PK_Ca_File] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 --[Ca_File]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Caption')
@@ -1052,15 +1052,6 @@ END
 ELSE
 BEGIN
  ALTER TABLE Ca_File ADD [Caption] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Ca_File]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Content')
-BEGIN
- ALTER TABLE Ca_File ALTER COLUMN [Content] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_File ADD [Content] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 --[Ca_File]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Encrypt')
@@ -1380,6 +1371,83 @@ BEGIN
  ALTER TABLE Core_BizOwner ADD [State] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 
+IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_PromotedLink' AND xtype='U')
+BEGIN
+    CREATE TABLE Core_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[Dst] BIGINT,[BizOwner] BIGINT,[Data] NVARCHAR(MAX), CONSTRAINT [PK_Core_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Expiry')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [Expiry] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [Expiry] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='HashFull')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [HashFull] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [HashFull] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='HashTiny')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [HashTiny] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [HashTiny] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Src')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [Src] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [Src] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Promoter')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [Promoter] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [Promoter] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Dst')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [Dst] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [Dst] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='BizOwner')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Core_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Data')
+BEGIN
+ ALTER TABLE Core_PromotedLink ALTER COLUMN [Data] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_PromotedLink ADD [Data] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_Log' AND xtype='U')
 BEGIN
     CREATE TABLE Sys_Log ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Location] NVARCHAR(MAX),[Content] NVARCHAR(MAX),[Sql] NVARCHAR(MAX), CONSTRAINT [PK_Sys_Log] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
@@ -1410,81 +1478,4 @@ END
 ELSE
 BEGIN
  ALTER TABLE Sys_Log ADD [Sql] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-
-IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_PromotedLink' AND xtype='U')
-BEGIN
-    CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[Dst] BIGINT,[BizOwner] BIGINT,[Data] NVARCHAR(MAX), CONSTRAINT [PK_Sys_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Expiry')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [Expiry] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [Expiry] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='HashFull')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [HashFull] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [HashFull] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='HashTiny')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [HashTiny] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [HashTiny] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Src')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [Src] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [Src] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Promoter')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [Promoter] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [Promoter] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Dst')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [Dst] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [Dst] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='BizOwner')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
---[Sys_PromotedLink]--------------------
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Data')
-BEGIN
- ALTER TABLE Sys_PromotedLink ALTER COLUMN [Data] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
-END
-ELSE
-BEGIN
- ALTER TABLE Sys_PromotedLink ADD [Data] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
