@@ -23,6 +23,9 @@ open BizLogics.Ca
 
 let init runtime = 
 
+    "Init ..."
+    |> runtime.output
+
     conn <- runtime.host.conn
 
     dbLoggero <- 

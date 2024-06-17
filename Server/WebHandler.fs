@@ -19,6 +19,7 @@ open Shared.CustomMor
 
 open UtilWebServer.Common
 
+open BizLogics.Common
 open BizLogics.TinyLink
 
 let r1 = string__regex @"\w+"
@@ -71,11 +72,26 @@ let apiHandler json api =
         let bizowner = tryFindStrByAtt "bizowner" json
         let url = tryFindStrByAtt "url" json
         let data = tryFindStrByAtt "data" json
-        let dst = tryFindStrByAtt "dst" json
+        let dsto = 
+            let code = tryFindStrByAtt "dst" json
+            if runtime.bcs.ContainsKey code then
+                runtime.bcs[code].biz
+                |> Some
+            else
+                None
+                
         let session = tryFindStrByAtt "session" json
 
-        //url__tinylink
-        ()
+        match 
+            url__tinylinko 
+                url
+                dsto
+                data
+                None
+                None with
+        | Some plink -> ()
+        | None -> ()
+
     | _ -> ()
 
 
