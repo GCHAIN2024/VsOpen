@@ -42,7 +42,14 @@ let plugin req =
                 let plink = hashFull__plinks[hashFull]
 
                 o <-
-                    plink.p.Src
+                    [|  
+                        "HTTP/1.1 302 Found"
+                        "Location: " + plink.p.Src
+                        "Content-Length: 0"
+                        "Date: Mon, 17 Jun 2024 12:00:00 GMT"
+                        "Connection: close"
+                        "" |]
+                    |> String.concat crlf
                     |> Encoding.UTF8.GetBytes
                     |> Some
     o
