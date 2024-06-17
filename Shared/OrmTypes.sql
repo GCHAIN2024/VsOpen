@@ -1414,7 +1414,7 @@ END
 
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_PromotedLink' AND xtype='U')
 BEGIN
-    CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[BizOwner] BIGINT, CONSTRAINT [PK_Sys_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+    CREATE TABLE Sys_PromotedLink ([ID] BIGINT NOT NULL,[Createdat] BIGINT NOT NULL,[Updatedat] BIGINT NOT NULL,[Sort] BIGINT NOT NULL,[Expiry] BIGINT,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS,[Src] NVARCHAR(MAX),[Promoter] BIGINT,[Dst] BIGINT,[BizOwner] BIGINT,[Data] NVARCHAR(MAX), CONSTRAINT [PK_Sys_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 --[Sys_PromotedLink]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Expiry')
@@ -1462,6 +1462,15 @@ BEGIN
  ALTER TABLE Sys_PromotedLink ADD [Promoter] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END
 --[Sys_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Dst')
+BEGIN
+ ALTER TABLE Sys_PromotedLink ALTER COLUMN [Dst] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Sys_PromotedLink ADD [Dst] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Sys_PromotedLink]--------------------
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='BizOwner')
 BEGIN
  ALTER TABLE Sys_PromotedLink ALTER COLUMN [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
@@ -1469,4 +1478,13 @@ END
 ELSE
 BEGIN
  ALTER TABLE Sys_PromotedLink ADD [BizOwner] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+--[Sys_PromotedLink]--------------------
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_PromotedLink') AND name='Data')
+BEGIN
+ ALTER TABLE Sys_PromotedLink ALTER COLUMN [Data] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
+END
+ELSE
+BEGIN
+ ALTER TABLE Sys_PromotedLink ADD [Data] NCHAR(64) COLLATE Chinese_PRC_CI_AS 
 END

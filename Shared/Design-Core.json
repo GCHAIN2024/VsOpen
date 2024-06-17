@@ -29,8 +29,17 @@
       },
       {
         "enum": "FK",
+        "ref": "Biz",
+        "name": "Dst"
+      },
+      {
+        "enum": "FK",
         "ref": "Core_BizOwner",
         "name": "BizOwner"
+      },
+      {
+        "enum": "Text",
+        "name": "Data"
       }
     ]
   },

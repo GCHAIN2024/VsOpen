@@ -2930,7 +2930,13 @@ let pPLINK__bin (bb:BytesBuilder) (p:pPLINK) =
     
     p.Promoter |> BitConverter.GetBytes |> bb.append
     
+    p.Dst |> BitConverter.GetBytes |> bb.append
+    
     p.BizOwner |> BitConverter.GetBytes |> bb.append
+    
+    let binData = p.Data |> Encoding.UTF8.GetBytes
+    binData.Length |> BitConverter.GetBytes |> bb.append
+    binData |> bb.append
 
 let PLINK__bin (bb:BytesBuilder) (v:PLINK) =
     v.ID |> BitConverter.GetBytes |> bb.append
@@ -2966,8 +2972,16 @@ let bin__pPLINK (bi:BinIndexed):pPLINK =
     p.Promoter <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
     
+    p.Dst <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
     p.BizOwner <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
+    
+    let count_Data = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.Data <- Encoding.UTF8.GetString(bin,index.Value,count_Data)
+    index.Value <- index.Value + count_Data
     
     p
 
@@ -2999,7 +3013,9 @@ let pPLINK__json (p:pPLINK) =
         ("HashTiny",p.HashTiny |> Json.Str)
         ("Src",p.Src |> Json.Str)
         ("Promoter",p.Promoter.ToString() |> Json.Num)
-        ("BizOwner",p.BizOwner.ToString() |> Json.Num) |]
+        ("Dst",p.Dst.ToString() |> Json.Num)
+        ("BizOwner",p.BizOwner.ToString() |> Json.Num)
+        ("Data",p.Data |> Json.Str) |]
     |> Json.Braket
 
 let PLINK__json (v:PLINK) =
@@ -3015,7 +3031,9 @@ let PLINK__json (v:PLINK) =
         ("HashTiny",p.HashTiny |> Json.Str)
         ("Src",p.Src |> Json.Str)
         ("Promoter",p.Promoter.ToString() |> Json.Num)
-        ("BizOwner",p.BizOwner.ToString() |> Json.Num) |]
+        ("Dst",p.Dst.ToString() |> Json.Num)
+        ("BizOwner",p.BizOwner.ToString() |> Json.Num)
+        ("Data",p.Data |> Json.Str) |]
     |> Json.Braket
 
 let PLINK__jsonTbw (w:TextBlockWriter) (v:PLINK) =
@@ -3040,7 +3058,11 @@ let json__pPLINKo (json:Json):pPLINK option =
     
     p.Promoter <- checkfield fields "Promoter" |> parse_int64
     
+    p.Dst <- checkfield fields "Dst" |> parse_int64
+    
     p.BizOwner <- checkfield fields "BizOwner" |> parse_int64
+    
+    p.Data <- checkfield fields "Data"
     
     p |> Some
     
@@ -3065,7 +3087,11 @@ let json__PLINKo (json:Json):PLINK option =
     
     p.Promoter <- checkfield fields "Promoter" |> parse_int64
     
+    p.Dst <- checkfield fields "Dst" |> parse_int64
+    
     p.BizOwner <- checkfield fields "BizOwner" |> parse_int64
+    
+    p.Data <- checkfield fields "Data"
     
     {
         ID = ID
@@ -4547,7 +4573,9 @@ let db__pPLINK(line:Object[]): pPLINK =
     p.HashTiny <- string(line.[6]).TrimEnd()
     p.Src <- string(line.[7]).TrimEnd()
     p.Promoter <- if Convert.IsDBNull(line.[8]) then 0L else line.[8] :?> int64
-    p.BizOwner <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
+    p.Dst <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
+    p.BizOwner <- if Convert.IsDBNull(line.[10]) then 0L else line.[10] :?> int64
+    p.Data <- string(line.[11]).TrimEnd()
 
     p
 
@@ -4557,7 +4585,9 @@ let pPLINK__sps (p:pPLINK) = [|
     new SqlParameter("HashTiny", p.HashTiny)
     new SqlParameter("Src", p.Src)
     new SqlParameter("Promoter", p.Promoter)
-    new SqlParameter("BizOwner", p.BizOwner) |]
+    new SqlParameter("Dst", p.Dst)
+    new SqlParameter("BizOwner", p.BizOwner)
+    new SqlParameter("Data", p.Data) |]
 
 let db__PLINK = db__Rcd db__pPLINK
 
@@ -4571,7 +4601,9 @@ let pPLINK_clone (p:pPLINK): pPLINK = {
     HashTiny = p.HashTiny
     Src = p.Src
     Promoter = p.Promoter
-    BizOwner = p.BizOwner }
+    Dst = p.Dst
+    BizOwner = p.BizOwner
+    Data = p.Data }
 
 let PLINK_update_transaction output (updater,suc,fail) (rcd:PLINK) =
     let rollback_p = rcd.p |> pPLINK_clone
@@ -4636,7 +4668,9 @@ let PLINKTxSqlServer =
     ,[HashTiny]
     ,[Src]
     ,[Promoter]
-    ,[BizOwner])
+    ,[Dst]
+    ,[BizOwner]
+    ,[Data])
     END
     """
 

@@ -1368,12 +1368,14 @@ mutable HashFull: Chars
 mutable HashTiny: Chars
 mutable Src: Text
 mutable Promoter: FK
-mutable BizOwner: FK}
+mutable Dst: FK
+mutable BizOwner: FK
+mutable Data: Text}
 
 
 type PLINK = Rcd<pPLINK>
 
-let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[BizOwner]"
+let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[Dst],[BizOwner],[Data]"
 
 let pPLINK_fieldordersArray = [|
     "Expiry"
@@ -1381,9 +1383,11 @@ let pPLINK_fieldordersArray = [|
     "HashTiny"
     "Src"
     "Promoter"
-    "BizOwner" |]
+    "Dst"
+    "BizOwner"
+    "Data" |]
 
-let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[BizOwner]=@BizOwner"
+let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[Dst]=@Dst,[BizOwner]=@BizOwner,[Data]=@Data"
 
 let pPLINK_fields = [|
     Timestamp("Expiry")
@@ -1391,7 +1395,9 @@ let pPLINK_fields = [|
     Chars("HashTiny", 7)
     Text("Src")
     FK("Promoter")
-    FK("BizOwner") |]
+    FK("Dst")
+    FK("BizOwner")
+    Text("Data") |]
 
 let pPLINK_empty(): pPLINK = {
     Expiry = DateTime.MinValue
@@ -1399,7 +1405,9 @@ let pPLINK_empty(): pPLINK = {
     HashTiny = ""
     Src = ""
     Promoter = 0L
-    BizOwner = 0L }
+    Dst = 0L
+    BizOwner = 0L
+    Data = "" }
 
 let PLINK_id = ref 0L
 let PLINK_count = ref 0

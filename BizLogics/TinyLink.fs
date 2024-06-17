@@ -21,16 +21,35 @@ let expireGeneral = new TimeSpan(180,0,0)
 let hashFull__plinks = new ConcurrentDictionary<string,PLINK>()
 let tiny__full = new ConcurrentDictionary<string,string>()
 
-let checkcollition promoter (url:string) =
+let checkcollition 
+    promoter 
+    (url:string) 
+    (dsto:BIZ option)
+    (data:string) =
+
     let mutable repeater = 0
     let mutable hashTiny = ""
 
     while hashTiny = "" || tiny__full.ContainsKey hashTiny do
         
         let hash =
+
+            let dstBin = 
+                match dsto with
+                | Some dst -> dst.ID
+                | None -> 0L
+                |> BitConverter.GetBytes
+
+            let dataBin = 
+                [|  data.Length |> BitConverter.GetBytes
+                    data |> Encoding.UTF8.GetBytes  |]
+                |> Array.concat
+
             [|  repeater |> BitConverter.GetBytes
                 promoter
-                url |> Encoding.UTF8.GetBytes |]
+                url |> Encoding.UTF8.GetBytes
+                dstBin
+                dataBin |]
             |> Array.concat
             |> bin__sha256
 
@@ -42,6 +61,8 @@ let checkcollition promoter (url:string) =
 
 let url__tinylinko 
     (src:string) 
+    (dsto:BIZ option)
+    data
     (promotero:EU option)
     (bizownero:BIZOWNER option) = 
 
@@ -76,7 +97,12 @@ let url__tinylinko
             let p = pPLINK_empty()
 
             p.HashFull <- hashFull
-            p.HashTiny <- checkcollition promoter url
+            p.HashTiny <- checkcollition promoter url dsto data
+            p.Src <- url
+            p.Dst <-
+                match dsto with
+                | Some dst -> dst.ID
+                | None -> 0L
             p.BizOwner <-
                 match bizownero with
                 | Some bizowner -> bizowner.ID
@@ -85,8 +111,8 @@ let url__tinylinko
                 match promotero with
                 | Some promoter -> promoter.ID
                 | None -> 0L
+            p.Data <- data
             p.Expiry <- DateTime.UtcNow.Add expireGeneral
-            p.Src <- url
 
             p
             |> populateCreateTx pretx PLINK_metadata
