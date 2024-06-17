@@ -16,6 +16,8 @@ open Server.WebHandler
 
 open UtilWebServer.Common
 
+open BizLogics.Common
+
 [<EntryPoint>]
 
 let main argv =

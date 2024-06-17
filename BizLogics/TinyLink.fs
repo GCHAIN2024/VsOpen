@@ -43,7 +43,7 @@ let checkcollition promoter (url:string) =
 let url__tinylinko 
     (src:string) 
     (promotero:EU option)
-    (bizo:BIZ option) = 
+    (partnero:EU option) = 
 
     let promoter = 
         match promotero with
@@ -77,9 +77,9 @@ let url__tinylinko
 
             p.HashFull <- hashFull
             p.HashTiny <- checkcollition promoter url
-            p.Biz <-
-                match bizo with
-                | Some biz -> biz.ID
+            p.Partner <-
+                match partnero with
+                | Some partner -> partner.ID
                 | None -> 0L
             p.Promoter <-
                 match promotero with

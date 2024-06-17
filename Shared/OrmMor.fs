@@ -1298,6 +1298,8 @@ let pEU__bin (bb:BytesBuilder) (p:pEU) =
     
     p.Admin |> EnumToValue |> BitConverter.GetBytes |> bb.append
     
+    p.BizPartner |> EnumToValue |> BitConverter.GetBytes |> bb.append
+    
     p.Privilege |> BitConverter.GetBytes |> bb.append
     
     p.Verify |> EnumToValue |> BitConverter.GetBytes |> bb.append
@@ -1436,6 +1438,9 @@ let bin__pEU (bi:BinIndexed):pEU =
     index.Value <- index.Value + 4
     
     p.Admin <- BitConverter.ToInt32(bin,index.Value) |> EnumOfValue
+    index.Value <- index.Value + 4
+    
+    p.BizPartner <- BitConverter.ToInt32(bin,index.Value) |> EnumOfValue
     index.Value <- index.Value + 4
     
     p.Privilege <- BitConverter.ToInt64(bin,index.Value)
@@ -1603,6 +1608,7 @@ let pEU__json (p:pEU) =
         ("Gender",(p.Gender |> EnumToValue).ToString() |> Json.Num)
         ("Status",(p.Status |> EnumToValue).ToString() |> Json.Num)
         ("Admin",(p.Admin |> EnumToValue).ToString() |> Json.Num)
+        ("BizPartner",(p.BizPartner |> EnumToValue).ToString() |> Json.Num)
         ("Privilege",p.Privilege.ToString() |> Json.Num)
         ("Verify",(p.Verify |> EnumToValue).ToString() |> Json.Num)
         ("Pwd",p.Pwd |> Json.Str)
@@ -1655,6 +1661,7 @@ let EU__json (v:EU) =
         ("Gender",(p.Gender |> EnumToValue).ToString() |> Json.Num)
         ("Status",(p.Status |> EnumToValue).ToString() |> Json.Num)
         ("Admin",(p.Admin |> EnumToValue).ToString() |> Json.Num)
+        ("BizPartner",(p.BizPartner |> EnumToValue).ToString() |> Json.Num)
         ("Privilege",p.Privilege.ToString() |> Json.Num)
         ("Verify",(p.Verify |> EnumToValue).ToString() |> Json.Num)
         ("Pwd",p.Pwd |> Json.Str)
@@ -1717,6 +1724,8 @@ let json__pEUo (json:Json):pEU option =
     p.Status <- checkfield fields "Status" |> parse_int32 |> EnumOfValue
     
     p.Admin <- checkfield fields "Admin" |> parse_int32 |> EnumOfValue
+    
+    p.BizPartner <- checkfield fields "BizPartner" |> parse_int32 |> EnumOfValue
     
     p.Privilege <- checkfield fields "Privilege" |> parse_int64
     
@@ -1814,6 +1823,8 @@ let json__EUo (json:Json):EU option =
     p.Status <- checkfield fields "Status" |> parse_int32 |> EnumOfValue
     
     p.Admin <- checkfield fields "Admin" |> parse_int32 |> EnumOfValue
+    
+    p.BizPartner <- checkfield fields "BizPartner" |> parse_int32 |> EnumOfValue
     
     p.Privilege <- checkfield fields "Privilege" |> parse_int64
     
@@ -2783,7 +2794,7 @@ let pPLINK__bin (bb:BytesBuilder) (p:pPLINK) =
     
     p.Promoter |> BitConverter.GetBytes |> bb.append
     
-    p.Biz |> BitConverter.GetBytes |> bb.append
+    p.Partner |> BitConverter.GetBytes |> bb.append
 
 let PLINK__bin (bb:BytesBuilder) (v:PLINK) =
     v.ID |> BitConverter.GetBytes |> bb.append
@@ -2819,7 +2830,7 @@ let bin__pPLINK (bi:BinIndexed):pPLINK =
     p.Promoter <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
     
-    p.Biz <- BitConverter.ToInt64(bin,index.Value)
+    p.Partner <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
     
     p
@@ -2852,7 +2863,7 @@ let pPLINK__json (p:pPLINK) =
         ("HashTiny",p.HashTiny |> Json.Str)
         ("Src",p.Src |> Json.Str)
         ("Promoter",p.Promoter.ToString() |> Json.Num)
-        ("Biz",p.Biz.ToString() |> Json.Num) |]
+        ("Partner",p.Partner.ToString() |> Json.Num) |]
     |> Json.Braket
 
 let PLINK__json (v:PLINK) =
@@ -2868,7 +2879,7 @@ let PLINK__json (v:PLINK) =
         ("HashTiny",p.HashTiny |> Json.Str)
         ("Src",p.Src |> Json.Str)
         ("Promoter",p.Promoter.ToString() |> Json.Num)
-        ("Biz",p.Biz.ToString() |> Json.Num) |]
+        ("Partner",p.Partner.ToString() |> Json.Num) |]
     |> Json.Braket
 
 let PLINK__jsonTbw (w:TextBlockWriter) (v:PLINK) =
@@ -2893,7 +2904,7 @@ let json__pPLINKo (json:Json):pPLINK option =
     
     p.Promoter <- checkfield fields "Promoter" |> parse_int64
     
-    p.Biz <- checkfield fields "Biz" |> parse_int64
+    p.Partner <- checkfield fields "Partner" |> parse_int64
     
     p |> Some
     
@@ -2918,7 +2929,7 @@ let json__PLINKo (json:Json):PLINK option =
     
     p.Promoter <- checkfield fields "Promoter" |> parse_int64
     
-    p.Biz <- checkfield fields "Biz" |> parse_int64
+    p.Partner <- checkfield fields "Partner" |> parse_int64
     
     {
         ID = ID
@@ -3532,41 +3543,42 @@ let db__pEU(line:Object[]): pEU =
     p.Gender <- EnumOfValue(if Convert.IsDBNull(line.[8]) then 0 else line.[8] :?> int)
     p.Status <- EnumOfValue(if Convert.IsDBNull(line.[9]) then 0 else line.[9] :?> int)
     p.Admin <- EnumOfValue(if Convert.IsDBNull(line.[10]) then 0 else line.[10] :?> int)
-    p.Privilege <- if Convert.IsDBNull(line.[11]) then 0L else line.[11] :?> int64
-    p.Verify <- EnumOfValue(if Convert.IsDBNull(line.[12]) then 0 else line.[12] :?> int)
-    p.Pwd <- string(line.[13]).TrimEnd()
-    p.Online <- if Convert.IsDBNull(line.[14]) then false else line.[14] :?> bool
-    p.Icon <- string(line.[15]).TrimEnd()
-    p.Background <- string(line.[16]).TrimEnd()
-    p.BasicAcct <- if Convert.IsDBNull(line.[17]) then 0L else line.[17] :?> int64
-    p.Citizen <- if Convert.IsDBNull(line.[18]) then 0L else line.[18] :?> int64
-    p.Refer <- string(line.[19]).TrimEnd()
-    p.Referer <- if Convert.IsDBNull(line.[20]) then 0L else line.[20] :?> int64
-    p.Discord <- string(line.[21]).TrimEnd()
-    p.DiscordId <- if Convert.IsDBNull(line.[22]) then 0L else line.[22] :?> int64
-    p.Google <- string(line.[23]).TrimEnd()
-    p.GoogleId <- if Convert.IsDBNull(line.[24]) then 0L else line.[24] :?> int64
-    p.Apple <- string(line.[25]).TrimEnd()
-    p.AppleId <- if Convert.IsDBNull(line.[26]) then 0L else line.[26] :?> int64
-    p.OAuthProvider <- string(line.[27]).TrimEnd()
-    p.OAuthID <- string(line.[28]).TrimEnd()
-    p.GTV <- string(line.[29]).TrimEnd()
-    p.Gettr <- string(line.[30]).TrimEnd()
-    p.Farm <- if Convert.IsDBNull(line.[31]) then 0L else line.[31] :?> int64
-    p.CountFollows <- if Convert.IsDBNull(line.[32]) then 0L else line.[32] :?> int64
-    p.CountFollowers <- if Convert.IsDBNull(line.[33]) then 0L else line.[33] :?> int64
-    p.CountMoments <- if Convert.IsDBNull(line.[34]) then 0L else line.[34] :?> int64
-    p.CountViews <- if Convert.IsDBNull(line.[35]) then 0L else line.[35] :?> int64
-    p.CountComments <- if Convert.IsDBNull(line.[36]) then 0L else line.[36] :?> int64
-    p.CountThumbUps <- if Convert.IsDBNull(line.[37]) then 0L else line.[37] :?> int64
-    p.CountThumbDns <- if Convert.IsDBNull(line.[38]) then 0L else line.[38] :?> int64
-    p.Lang <- if Convert.IsDBNull(line.[39]) then 0L else line.[39] :?> int64
-    p.BizOperator <- if Convert.IsDBNull(line.[40]) then 0L else line.[40] :?> int64
-    p.Url <- string(line.[41]).TrimEnd()
-    p.About <- string(line.[42]).TrimEnd()
-    p.PublicPoints <- if Convert.IsDBNull(line.[43]) then 0L else line.[43] :?> int64
-    p.Json <- string(line.[44]).TrimEnd()
-    p.Agentable <- EnumOfValue(if Convert.IsDBNull(line.[45]) then 0 else line.[45] :?> int)
+    p.BizPartner <- EnumOfValue(if Convert.IsDBNull(line.[11]) then 0 else line.[11] :?> int)
+    p.Privilege <- if Convert.IsDBNull(line.[12]) then 0L else line.[12] :?> int64
+    p.Verify <- EnumOfValue(if Convert.IsDBNull(line.[13]) then 0 else line.[13] :?> int)
+    p.Pwd <- string(line.[14]).TrimEnd()
+    p.Online <- if Convert.IsDBNull(line.[15]) then false else line.[15] :?> bool
+    p.Icon <- string(line.[16]).TrimEnd()
+    p.Background <- string(line.[17]).TrimEnd()
+    p.BasicAcct <- if Convert.IsDBNull(line.[18]) then 0L else line.[18] :?> int64
+    p.Citizen <- if Convert.IsDBNull(line.[19]) then 0L else line.[19] :?> int64
+    p.Refer <- string(line.[20]).TrimEnd()
+    p.Referer <- if Convert.IsDBNull(line.[21]) then 0L else line.[21] :?> int64
+    p.Discord <- string(line.[22]).TrimEnd()
+    p.DiscordId <- if Convert.IsDBNull(line.[23]) then 0L else line.[23] :?> int64
+    p.Google <- string(line.[24]).TrimEnd()
+    p.GoogleId <- if Convert.IsDBNull(line.[25]) then 0L else line.[25] :?> int64
+    p.Apple <- string(line.[26]).TrimEnd()
+    p.AppleId <- if Convert.IsDBNull(line.[27]) then 0L else line.[27] :?> int64
+    p.OAuthProvider <- string(line.[28]).TrimEnd()
+    p.OAuthID <- string(line.[29]).TrimEnd()
+    p.GTV <- string(line.[30]).TrimEnd()
+    p.Gettr <- string(line.[31]).TrimEnd()
+    p.Farm <- if Convert.IsDBNull(line.[32]) then 0L else line.[32] :?> int64
+    p.CountFollows <- if Convert.IsDBNull(line.[33]) then 0L else line.[33] :?> int64
+    p.CountFollowers <- if Convert.IsDBNull(line.[34]) then 0L else line.[34] :?> int64
+    p.CountMoments <- if Convert.IsDBNull(line.[35]) then 0L else line.[35] :?> int64
+    p.CountViews <- if Convert.IsDBNull(line.[36]) then 0L else line.[36] :?> int64
+    p.CountComments <- if Convert.IsDBNull(line.[37]) then 0L else line.[37] :?> int64
+    p.CountThumbUps <- if Convert.IsDBNull(line.[38]) then 0L else line.[38] :?> int64
+    p.CountThumbDns <- if Convert.IsDBNull(line.[39]) then 0L else line.[39] :?> int64
+    p.Lang <- if Convert.IsDBNull(line.[40]) then 0L else line.[40] :?> int64
+    p.BizOperator <- if Convert.IsDBNull(line.[41]) then 0L else line.[41] :?> int64
+    p.Url <- string(line.[42]).TrimEnd()
+    p.About <- string(line.[43]).TrimEnd()
+    p.PublicPoints <- if Convert.IsDBNull(line.[44]) then 0L else line.[44] :?> int64
+    p.Json <- string(line.[45]).TrimEnd()
+    p.Agentable <- EnumOfValue(if Convert.IsDBNull(line.[46]) then 0 else line.[46] :?> int)
 
     p
 
@@ -3578,6 +3590,7 @@ let pEU__sps (p:pEU) = [|
     new SqlParameter("Gender", p.Gender)
     new SqlParameter("Status", p.Status)
     new SqlParameter("Admin", p.Admin)
+    new SqlParameter("BizPartner", p.BizPartner)
     new SqlParameter("Privilege", p.Privilege)
     new SqlParameter("Verify", p.Verify)
     new SqlParameter("Pwd", p.Pwd)
@@ -3628,6 +3641,7 @@ let pEU_clone (p:pEU): pEU = {
     Gender = p.Gender
     Status = p.Status
     Admin = p.Admin
+    BizPartner = p.BizPartner
     Privilege = p.Privilege
     Verify = p.Verify
     Pwd = p.Pwd
@@ -3729,6 +3743,7 @@ let EUTxSqlServer =
     ,[Gender]
     ,[Status]
     ,[Admin]
+    ,[BizPartner]
     ,[Privilege]
     ,[Verify]
     ,[Pwd]
@@ -4302,7 +4317,7 @@ let db__pPLINK(line:Object[]): pPLINK =
     p.HashTiny <- string(line.[6]).TrimEnd()
     p.Src <- string(line.[7]).TrimEnd()
     p.Promoter <- if Convert.IsDBNull(line.[8]) then 0L else line.[8] :?> int64
-    p.Biz <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
+    p.Partner <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
 
     p
 
@@ -4312,7 +4327,7 @@ let pPLINK__sps (p:pPLINK) = [|
     new SqlParameter("HashTiny", p.HashTiny)
     new SqlParameter("Src", p.Src)
     new SqlParameter("Promoter", p.Promoter)
-    new SqlParameter("Biz", p.Biz) |]
+    new SqlParameter("Partner", p.Partner) |]
 
 let db__PLINK = db__Rcd db__pPLINK
 
@@ -4326,7 +4341,7 @@ let pPLINK_clone (p:pPLINK): pPLINK = {
     HashTiny = p.HashTiny
     Src = p.Src
     Promoter = p.Promoter
-    Biz = p.Biz }
+    Partner = p.Partner }
 
 let PLINK_update_transaction output (updater,suc,fail) (rcd:PLINK) =
     let rollback_p = rcd.p |> pPLINK_clone
@@ -4391,7 +4406,7 @@ let PLINKTxSqlServer =
     ,[HashTiny]
     ,[Src]
     ,[Promoter]
-    ,[Biz])
+    ,[Partner])
     END
     """
 
