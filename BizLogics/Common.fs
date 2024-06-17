@@ -56,5 +56,6 @@ let host e =
 
 let runtime = {
     host = host hostEnum
+    ecs = new ConcurrentDictionary<int64,EuComplex>()
     zweb = zweb
     output = output }

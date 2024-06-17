@@ -11,18 +11,18 @@ open Util.Perf
 open Util.Http
 open Util.Zmq
 
-open Server.Common
 open Server.WebHandler
 
 open UtilWebServer.Common
 
 open BizLogics.Common
+open BizLogics.Init
 
 [<EntryPoint>]
 
 let main argv =
 
-    init()
+    init runtime
 
     let httpHandler = 
         httpEcho 
