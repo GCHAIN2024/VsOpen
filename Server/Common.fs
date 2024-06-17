@@ -27,11 +27,28 @@ host: Host
 zweb: ZmqWeb
 output: string -> unit }
 
+type HostEnum = 
+| Prod
+| RevengeDev
+
+let hostEnum = 
+    match Environment.MachineName with
+    | _ -> RevengeDev
+
+let host e = 
+
+    match e with
+    | Prod -> {
+            conn = "server=127.0.0.1; user=sa; database=GCHAIN"
+            defaultHtml = "index.html"
+            fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
+    | _ -> {
+            conn = "server=127.0.0.1; user=sa; database=GCHAIN"
+            defaultHtml = "index.html"
+            fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
+
 let runtime = {
-    host = {
-        conn = "server=127.0.0.1; user=sa; database=GCHAIN"
-        defaultHtml = "index.html"
-        fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
+    host = host hostEnum
     zweb = zweb
     output = output }
 
@@ -39,23 +56,24 @@ let init() =
 
     conn <- runtime.host.conn
 
-    dbLoggero <- (fun log -> 
+    dbLoggero <- 
+        (fun log -> 
     
-        let p = pLOG_empty()
+            let p = pLOG_empty()
 
-        p.Content <- log.content
-        p.Location <- log.location
-        p.Sql <- log.sql
+            p.Content <- log.content
+            p.Location <- log.location
+            p.Sql <- log.sql
 
-        let pretx = None |> opctx__pretx
+            let pretx = None |> opctx__pretx
 
-        let tid = Interlocked.Increment LOG_metadata.id
+            let tid = Interlocked.Increment LOG_metadata.id
 
-        (tid,pretx.dt,pretx.dt,tid,p)
-        |> build_create_sql LOG_metadata
-        |> pretx.sqls.Add
+            (tid,pretx.dt,pretx.dt,tid,p)
+            |> build_create_sql LOG_metadata
+            |> pretx.sqls.Add
 
-        pretx
-        |> pipeline conn
-        |> ignore)
+            pretx
+            |> pipeline conn
+            |> ignore)
         |> Some

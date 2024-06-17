@@ -3,7 +3,7 @@
 
 [W403] Jun 17 MO
 1. Integrate the WebSocekt-based API with both the backend and frontend.
-2. Deploy the frontend application utilizing our proprietary fire service infrastructure.
+2. Deploy the frontend application [gcha.in](gcha.in) (utilizing our proprietary fire service infrastructure)
 3. Implement and utilize Tailwind CSS for styling and layout.
 
 
