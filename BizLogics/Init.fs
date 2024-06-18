@@ -76,3 +76,7 @@ let init runtime =
             | None ->
                 halt runtime.output ("BizLogics.Init.createBiz [" + code + "]") ""
         ())
+
+    (fun i -> 
+        runtime.bizowners[i.ID] <- i)
+    |> loadAll runtime.output conn BIZOWNER_metadata

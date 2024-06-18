@@ -18,6 +18,7 @@ open Shared.OrmMor
 open Shared.CustomMor
 
 open UtilWebServer.Common
+open UtilWebServer.Json
 
 open BizLogics.Common
 open BizLogics.TinyLink
@@ -69,7 +70,14 @@ let apiHandler json api =
     match api with
     | "CheckoutTinyLink" -> 
 
-        let bizowner = tryFindStrByAtt "bizowner" json
+        let bizownero =
+            (fun id -> 
+                if runtime.bizowners.ContainsKey id then
+                    runtime.bizowners[id] |> Some
+                else
+                    None)
+            |> tryLoadFromJsonId json "bizowner"
+
         let url = tryFindStrByAtt "url" json
         let data = tryFindStrByAtt "data" json
         let dsto = 
@@ -79,16 +87,18 @@ let apiHandler json api =
                 |> Some
             else
                 None
-                
-        let session = tryFindStrByAtt "session" json
+           
+        let promotero =            
+            let session = tryFindStrByAtt "session" json
+            None
 
         match 
             url__tinylinko 
                 url
                 dsto
                 data
-                None
-                None with
+                promotero
+                bizownero with
         | Some plink -> ()
         | None -> ()
 

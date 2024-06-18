@@ -29,10 +29,18 @@ eu: EU }
 type BizComplex = {
 biz: BIZ }
 
+type SessionRole =
+| EndUser of EuComplex
+| Visitor
+
+type Session = UtilWebServer.Auth.Session<SessionRole,unit>
+
 type Runtime = {
 host: Host
 ecs: ConcurrentDictionary<int64,EuComplex>
 bcs: ConcurrentDictionary<string,BizComplex>
+bizowners: ConcurrentDictionary<int64,BIZOWNER>
+sessions: ConcurrentDictionary<string,Session>
 zweb: ZmqWeb
 output: string -> unit }
 
@@ -63,5 +71,7 @@ let runtime = {
     host = host hostEnum
     ecs = new ConcurrentDictionary<int64,EuComplex>()
     bcs = new ConcurrentDictionary<string,BizComplex>()
+    bizowners = new ConcurrentDictionary<int64,BIZOWNER>()
+    sessions = new ConcurrentDictionary<string,Session>()
     zweb = zweb
     output = output }
