@@ -37,7 +37,7 @@ let main argv =
         output 
         httpHandler
         wsHandler 
-        zweb
+        runtime.zweb
 
     Util.Runtime.halt output "" ""
 
