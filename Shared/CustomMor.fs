@@ -24,48 +24,48 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
-// [Error] Structure
+// [Er] Structure
 
-let Error__bin (bb:BytesBuilder) (v:Error) =
+let Er__bin (bb:BytesBuilder) (v:Er) =
 
     match v with
-    | Error.ApiNotExists ->
+    | Er.ApiNotExists ->
         int32__bin bb 0
-    | Error.InvalideParameter ->
+    | Er.InvalideParameter ->
         int32__bin bb 1
-    | Error.Internal ->
+    | Er.Internal ->
         int32__bin bb 2
 
-let bin__Error (bi:BinIndexed):Error =
+let bin__Er (bi:BinIndexed):Er =
     let bin,index = bi
 
     match bin__int32 bi with
-    | 2 -> Error.Internal
-    | 1 -> Error.InvalideParameter
-    | _ -> Error.ApiNotExists
+    | 2 -> Er.Internal
+    | 1 -> Er.InvalideParameter
+    | _ -> Er.ApiNotExists
 
-let Error__json (v:Error) =
+let Er__json (v:Er) =
 
     let items = new List<string * Json>()
 
     match v with
-    | Error.ApiNotExists ->
+    | Er.ApiNotExists ->
         ("enum",int32__json 0) |> items.Add
-    | Error.InvalideParameter ->
+    | Er.InvalideParameter ->
         ("enum",int32__json 1) |> items.Add
-    | Error.Internal ->
+    | Er.Internal ->
         ("enum",int32__json 2) |> items.Add
 
     items.ToArray() |> Json.Braket
 
-let Error__jsonTbw (w:TextBlockWriter) (v:Error) =
-    json__str w (Error__json v)
+let Er__jsonTbw (w:TextBlockWriter) (v:Er) =
+    json__str w (Er__json v)
 
-let Error__jsonStr (v:Error) =
-    (Error__json v) |> json__strFinal
+let Er__jsonStr (v:Er) =
+    (Er__json v) |> json__strFinal
 
 
-let json__Erroro (json:Json):Error option =
+let json__Ero (json:Json):Er option =
     let fields = json |> json__items
 
     match json__tryFindByName json "enum" with
@@ -73,9 +73,9 @@ let json__Erroro (json:Json):Error option =
         match json__int32o json with
         | Some i ->
             match i with
-            | 0 -> Error.ApiNotExists |> Some
-            | 1 -> Error.InvalideParameter |> Some
-            | 2 -> Error.Internal |> Some
+            | 0 -> Er.ApiNotExists |> Some
+            | 1 -> Er.InvalideParameter |> Some
+            | 2 -> Er.Internal |> Some
             | _ -> None
         | None -> None
     | None -> None

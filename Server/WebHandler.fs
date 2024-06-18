@@ -58,11 +58,11 @@ let echoHandler x =
     match x.service with
     | "public" -> 
         match x.api with
-        | _ -> Fail(Error.ApiNotExists, x)
+        | _ -> Fail(Er.ApiNotExists, x)
     | "admin" -> 
         match x.api with
-        | _ -> Fail(Error.ApiNotExists, x)
-    | _ -> Fail(Error.ApiNotExists, x)
+        | _ -> Fail(Er.ApiNotExists, x)
+    | _ -> Fail(Er.ApiNotExists, x)
 
 
 let apiHandler json api = 

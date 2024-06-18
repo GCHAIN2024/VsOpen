@@ -11,7 +11,7 @@ open Shared.OrmTypes
 
 //[TypeManaged]{
 
-type Error = 
+type Er = 
 | ApiNotExists
 | InvalideParameter
 | Internal
