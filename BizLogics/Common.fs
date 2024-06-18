@@ -67,11 +67,12 @@ let host e =
             defaultHtml = "index.html"
             fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
 
+
 let runtime = {
     host = host hostEnum
     ecs = new ConcurrentDictionary<int64,EuComplex>()
     bcs = new ConcurrentDictionary<string,BizComplex>()
     bizowners = new ConcurrentDictionary<int64,BIZOWNER>()
     sessions = new ConcurrentDictionary<string,Session>()
-    zweb = zweb
+    zweb = port__zweb 80
     output = output }

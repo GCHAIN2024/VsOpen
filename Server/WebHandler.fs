@@ -116,7 +116,9 @@ let wsHandler zweb wsp =
     | ApiRequest json ->
         apiHandler json (tryFindStrByAtt "api" json)
 
-    | _ -> ()
+    | _ ->
+        Console.WriteLine("None")
+        ()
 
     //wsp.bin |> binPushWsToAll zweb
 
