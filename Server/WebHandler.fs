@@ -85,7 +85,8 @@ let wsHandlerZweb zweb wsp =
             |> Msg__bin bb
             bb.bytes()
 
-        ()
+        rep
+        |> binPushWs__conn zweb wsp.client
     | _ ->
         Console.WriteLine("None")
         ()
