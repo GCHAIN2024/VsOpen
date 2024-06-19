@@ -50,15 +50,10 @@ let apiCheckoutTinyLink json =
 
     [|  ("tinylink","")  |]
 
-let apiHandler json api = 
-
-    let mutable ero = None
+let branch api json (ero: ref<Er option>) = 
 
     match api with
     | "CheckoutTinyLink" -> apiCheckoutTinyLink json
     | _ -> 
-        ero <- Some Er.ApiNotExists
+        ero.Value <- Some Er.ApiNotExists
         [||]
-    |> Array.map(fun (k,v) -> k,(Json.Str v))
-    |> Json.Braket
-    |> Msg.ApiResponse

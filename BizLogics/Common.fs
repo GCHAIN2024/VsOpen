@@ -18,13 +18,6 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
-type Host = {
-mutable zmq: bool
-mutable port: int
-mutable conn: string
-mutable defaultHtml: string
-mutable fsDir: string }
-
 let defaultHost() = {
     zmq = true
     port = 80

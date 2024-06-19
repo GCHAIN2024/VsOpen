@@ -12,6 +12,8 @@ open Util.Http
 open Util.Zmq
 open Util.WebServer
 
+open Shared.Types
+
 open Server.WebHandler
 
 open UtilWebServer.Common
@@ -33,7 +35,7 @@ let main argv =
                 runtime.host.fsDir 
                 runtime.host.defaultHtml 
                 runtime 
-                echoHandler
+                (fun x -> Fail(Er.ApiNotExists, x))
             |> reqhandler__httpHandler
 
         lauchWebServer 

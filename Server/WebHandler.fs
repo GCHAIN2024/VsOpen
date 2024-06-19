@@ -20,6 +20,7 @@ open Shared.CustomMor
 
 open UtilWebServer.Common
 open UtilWebServer.Json
+open UtilWebServer.Api
 
 open BizLogics.Common
 open BizLogics.TinyLink
@@ -56,15 +57,12 @@ let plugin req =
                     |> Some
     o
 
-let echoHandler x =
-    match x.service with
-    | "public" -> 
-        match x.api with
-        | _ -> Fail(Er.ApiNotExists, x)
-    | "admin" -> 
-        match x.api with
-        | _ -> Fail(Er.ApiNotExists, x)
-    | _ -> Fail(Er.ApiNotExists, x)
+let req__rep json = 
+    let bb = new BytesBuilder()
+    apiHandler branch json (tryFindStrByAtt "api" json)
+    |> Msg.ApiResponse
+    |> Msg__bin bb
+    bb.bytes()
 
 let wsHandlerZweb zweb wsp =
 
@@ -78,14 +76,8 @@ let wsHandlerZweb zweb wsp =
         (wsp.bin, ref 0)
         |> bin__Msg with
     | ApiRequest json ->
-
-        let rep = 
-            let bb = new BytesBuilder()
-            apiHandler json (tryFindStrByAtt "api" json)
-            |> Msg__bin bb
-            bb.bytes()
-
-        rep
+        json
+        |> req__rep
         |> binPushWs__conn zweb wsp.client
     | _ ->
         Console.WriteLine("None")
@@ -107,8 +99,9 @@ let wsHandler (incoming:byte[]) =
         (incoming, ref 0)
         |> bin__Msg with
     | ApiRequest json ->
-        let rep = apiHandler json (tryFindStrByAtt "api" json)
-        ()
+        json
+        |> req__rep
+        |> ignore
     | _ ->
         Console.WriteLine("None")
         ()
