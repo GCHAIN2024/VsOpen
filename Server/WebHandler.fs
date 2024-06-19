@@ -105,27 +105,27 @@ let apiHandler json api =
     | _ -> ()
 
 
-//let wsHandler zweb wsp =
+let wsHandlerZweb zweb wsp =
 
-//    "<< Client: " + wsp.client.ToString() + " << incoming " + wsp.bin.Length.ToString() + " bytes"
-//    |> output
+    "<< Client: " + wsp.client.ToString() + " << incoming " + wsp.bin.Length.ToString() + " bytes"
+    |> output
 
-//    match
-//        (wsp.bin, ref 0)
-//        |> bin__Msg with
-//    | ApiRequest json ->
-//        apiHandler json (tryFindStrByAtt "api" json)
+    match
+        (wsp.bin, ref 0)
+        |> bin__Msg with
+    | ApiRequest json ->
+        apiHandler json (tryFindStrByAtt "api" json)
 
-//    | _ ->
-//        Console.WriteLine("None")
-//        ()
+    | _ ->
+        Console.WriteLine("None")
+        ()
 
-//    //wsp.bin |> binPushWsToAll zweb
+    //wsp.bin |> binPushWsToAll zweb
 
-//    ">> Server Broadcast >> " + wsp.bin.Length.ToString() + " bytes"
-//    |> output
+    ">> Server Broadcast >> " + wsp.bin.Length.ToString() + " bytes"
+    |> output
 
-//    None
+    None
 
 let wsHandler (incoming:byte[]) =
 
