@@ -30,3 +30,6 @@
 /BizLogics/obj
 /.vs/GCHAIN-All/v17/.futdcache.v2
 .vs/GCHAIN-All/DesignTimeBuild/.dtbcache.v2
+
+/Deploy/as/**
+/Deploy/js/**
