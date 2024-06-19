@@ -61,5 +61,4 @@ let apiHandler json api =
         [||]
     |> Array.map(fun (k,v) -> k,(Json.Str v))
     |> Json.Braket
-    |> json__strFinal
-    |> Encoding.UTF8.GetBytes
+    |> Msg.ApiResponse

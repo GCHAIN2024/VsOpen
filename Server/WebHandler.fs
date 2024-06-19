@@ -8,6 +8,7 @@ open System.Diagnostics
 open Util.Cat
 open Util.Perf
 open Util.Text
+open Util.Bin
 open Util.Json
 open Util.Http
 open Util.Zmq
@@ -77,7 +78,13 @@ let wsHandlerZweb zweb wsp =
         (wsp.bin, ref 0)
         |> bin__Msg with
     | ApiRequest json ->
-        let rep = apiHandler json (tryFindStrByAtt "api" json)
+
+        let rep = 
+            let bb = new BytesBuilder()
+            apiHandler json (tryFindStrByAtt "api" json)
+            |> Msg__bin bb
+            bb.bytes()
+
         ()
     | _ ->
         Console.WriteLine("None")
