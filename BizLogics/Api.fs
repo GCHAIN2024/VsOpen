@@ -8,13 +8,29 @@ open System.Text
 open Util.Json
 
 open UtilWebServer.Json
+open UtilWebServer.Api
 
+open Shared.OrmTypes
+open Shared.OrmMor
 open Shared.Types
 
 open BizLogics.Common
 open BizLogics.TinyLink
 
+
+let apiListBiz json =
+    let list = 
+        runtime.bcs.Values
+        |> Seq.toArray
+        |> Array.map(fun i -> i.biz)
+        |> Array.map BIZ__json
+        |> Json.Ary
+    
+    [|  ok
+        ("list",list)   |]
+
 let apiCheckoutTinyLink json =
+
     let bizownero =
         (fun id -> 
             if runtime.bizowners.ContainsKey id then
@@ -45,15 +61,14 @@ let apiCheckoutTinyLink json =
             promotero
             bizownero with
     | Some plink -> 
-        ()
-    | None -> ()
+        plink
+        |> PLINK__json
+        |> wrapOk "plink"
+    | None -> [|  er Er.Internal  |]
 
-    [|  ("tinylink","")  |]
-
-let branch api json (ero: ref<Er option>) = 
+let branch json api = 
 
     match api with
+    | "ListBiz" -> apiListBiz json
     | "CheckoutTinyLink" -> apiCheckoutTinyLink json
-    | _ -> 
-        ero.Value <- Some Er.ApiNotExists
-        [||]
+    | _ -> [|  er Er.ApiNotExists   |]
