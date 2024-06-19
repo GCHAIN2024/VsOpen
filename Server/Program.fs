@@ -10,6 +10,7 @@ open Util.Cat
 open Util.Perf
 open Util.Http
 open Util.Zmq
+open Util.WebServer
 
 open Server.WebHandler
 
@@ -42,17 +43,15 @@ let main argv =
             (runtime.host.port |> port__zweb)
 
     else
-        let engine = 
-            Util.WebServer.prepEngine 
-                output
-                (Some plugin)
-                runtime.host.fsDir
-                runtime.host.defaultHtml
-                runtime
-                wsHandler
-                runtime.host.port
-
-        Util.WebServer.startEngine engine
+        prepEngine 
+            output
+            (Some plugin)
+            runtime.host.fsDir
+            runtime.host.defaultHtml
+            runtime
+            wsHandler
+            runtime.host.port
+        |> startEngine
 
     Util.Runtime.halt output "" ""
 
