@@ -42,7 +42,6 @@ ecs: ConcurrentDictionary<int64,EuComplex>
 bcs: ConcurrentDictionary<string,BizComplex>
 bizowners: ConcurrentDictionary<int64,BIZOWNER>
 sessions: ConcurrentDictionary<string,Session>
-zweb: ZmqWeb
 output: string -> unit }
 
 type HostEnum = 
@@ -79,5 +78,4 @@ let runtime =
         bcs = new ConcurrentDictionary<string,BizComplex>()
         bizowners = new ConcurrentDictionary<int64,BIZOWNER>()
         sessions = new ConcurrentDictionary<string,Session>()
-        zweb = port__zweb host.port
         output = output }

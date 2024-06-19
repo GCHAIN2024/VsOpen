@@ -24,20 +24,32 @@ let main argv =
 
     init runtime
 
-    let httpHandler = 
-        httpEcho 
-            (Some plugin) 
-            runtime.host.fsDir 
-            runtime.host.defaultHtml 
-            runtime 
-            echoHandler
-        |> reqhandler__httpHandler
+    //let httpHandler = 
+    //    httpEcho 
+    //        (Some plugin) 
+    //        runtime.host.fsDir 
+    //        runtime.host.defaultHtml 
+    //        runtime 
+    //        echoHandler
+    //    |> reqhandler__httpHandler
 
-    lauchWebServer 
-        output 
-        httpHandler
-        wsHandler 
-        runtime.zweb
+    //lauchWebServer 
+    //    output 
+    //    httpHandler
+    //    wsHandler 
+    //    runtime.zweb
+
+    let engine = 
+        Util.WebServer.prepEngine 
+            output
+            (Some plugin)
+            runtime.host.fsDir
+            runtime.host.defaultHtml
+            runtime
+            wsHandler
+            runtime.host.port
+
+    Util.WebServer.startEngine engine
 
     Util.Runtime.halt output "" ""
 
