@@ -11,6 +11,7 @@ open Util.DbTx
 open Util.Orm
 open Util.Zmq
 
+open UtilWebServer.Constants
 open UtilWebServer.DbLogger
 open UtilWebServer.Init
 
@@ -30,24 +31,12 @@ let init runtime =
 
     dbLoggero <- 
         (fun log -> 
-    
             let p = pLOG_empty()
-
             p.Content <- log.content
             p.Location <- log.location
             p.Sql <- log.sql
-
-            let pretx = None |> opctx__pretx
-
-            let tid = Interlocked.Increment LOG_metadata.id
-
-            (tid,pretx.dt,pretx.dt,tid,p)
-            |> build_create_sql LOG_metadata
-            |> pretx.sqls.Add
-
-            pretx
-            |> pipeline conn
-            |> ignore)
+            p)
+        |> createDbLogger LOG_metadata conn
         |> Some
 
     (fun i -> 
@@ -62,10 +51,7 @@ let init runtime =
                 biz = i })
     |> loadAll runtime.output conn BIZ_metadata
 
-    [|  "X"
-        "GOOGLE"
-        "FACEBOOK"
-        "INSTAGRAM" |]
+    freqBizCodes
     |> Array.iter(fun code ->
         if runtime.bcs.ContainsKey code = false then
             match createBiz code with
