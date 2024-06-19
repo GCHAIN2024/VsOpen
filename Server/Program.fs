@@ -25,7 +25,7 @@ let main argv =
 
     init runtime
 
-    if true then
+    if runtime.host.zmq then
 
         let httpHandler = 
             httpEcho 

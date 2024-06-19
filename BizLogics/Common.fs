@@ -19,6 +19,7 @@ open Shared.Types
 open Shared.OrmMor
 
 type Host = {
+zmq: bool
 port: int
 conn: string
 defaultHtml: string
@@ -58,12 +59,14 @@ let host e =
     match e with
     | Prod -> 
         {
+            zmq = true
             port = 80
             conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
             defaultHtml = "index.html"
             fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
-    | _ -> 
+    | RevengeDev -> 
         {
+            zmq = false
             port = 80
             conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
             defaultHtml = "index.html"
