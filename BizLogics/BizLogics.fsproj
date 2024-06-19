@@ -10,6 +10,7 @@
     <Compile Include="Ca.fs" />
     <Compile Include="Init.fs" />
     <Compile Include="TinyLink.fs" />
+    <Compile Include="Api.fs" />
   </ItemGroup>
 
   <ItemGroup>

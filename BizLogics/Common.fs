@@ -19,11 +19,18 @@ open Shared.Types
 open Shared.OrmMor
 
 type Host = {
-zmq: bool
-port: int
-conn: string
-defaultHtml: string
-fsDir: string }
+mutable zmq: bool
+mutable port: int
+mutable conn: string
+mutable defaultHtml: string
+mutable fsDir: string }
+
+let defaultHost() = {
+    zmq = true
+    port = 80
+    conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
+    defaultHtml = "index.html"
+    fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
 
 type EuComplex = {
 eu: EU }
@@ -56,21 +63,15 @@ let hostEnum =
 
 let host e = 
 
+    let h = defaultHost()
+
     match e with
     | Prod -> 
-        {
-            zmq = true
-            port = 80
-            conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
-            defaultHtml = "index.html"
-            fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
+        h.zmq <- true
     | RevengeDev -> 
-        {
-            zmq = false
-            port = 80
-            conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
-            defaultHtml = "index.html"
-            fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
+        h.zmq <- true
+
+    h
 
 let runtime = 
     let host = host hostEnum

@@ -22,6 +22,7 @@ open UtilWebServer.Json
 
 open BizLogics.Common
 open BizLogics.TinyLink
+open BizLogics.Api
 
 let r1 = string__regex @"\w+"
 
@@ -64,58 +65,20 @@ let echoHandler x =
         | _ -> Fail(Er.ApiNotExists, x)
     | _ -> Fail(Er.ApiNotExists, x)
 
-
-let apiHandler json api = 
-
-    match api with
-    | "CheckoutTinyLink" -> 
-
-        let bizownero =
-            (fun id -> 
-                if runtime.bizowners.ContainsKey id then
-                    runtime.bizowners[id] |> Some
-                else
-                    None)
-            |> tryLoadFromJsonId json "bizowner"
-
-        let url = tryFindStrByAtt "url" json
-        let data = tryFindStrByAtt "data" json
-        let dsto = 
-            let code = tryFindStrByAtt "dst" json
-            if runtime.bcs.ContainsKey code then
-                runtime.bcs[code].biz
-                |> Some
-            else
-                None
-           
-        let promotero =            
-            let session = tryFindStrByAtt "session" json
-            None
-
-        match 
-            url__tinylinko 
-                url
-                dsto
-                data
-                promotero
-                bizownero with
-        | Some plink -> ()
-        | None -> ()
-
-    | _ -> ()
-
-
 let wsHandlerZweb zweb wsp =
 
     "<< Client: " + wsp.client.ToString() + " << incoming " + wsp.bin.Length.ToString() + " bytes"
     |> output
 
+    if wsp.bin.Length > 20 then 
+        ()
+
     match
         (wsp.bin, ref 0)
         |> bin__Msg with
     | ApiRequest json ->
-        apiHandler json (tryFindStrByAtt "api" json)
-
+        let rep = apiHandler json (tryFindStrByAtt "api" json)
+        ()
     | _ ->
         Console.WriteLine("None")
         ()
@@ -136,8 +99,8 @@ let wsHandler (incoming:byte[]) =
         (incoming, ref 0)
         |> bin__Msg with
     | ApiRequest json ->
-        apiHandler json (tryFindStrByAtt "api" json)
-
+        let rep = apiHandler json (tryFindStrByAtt "api" json)
+        ()
     | _ ->
         Console.WriteLine("None")
         ()
