@@ -41,6 +41,10 @@ let init runtime =
 
     Shared.OrmMor.init()
 
+    (fun (i:LANG) -> 
+        runtime.langs[i.p.Code2] <- i)
+    |> loadAll runtime.output conn LANG_metadata
+
     (fun i -> 
         runtime.ecs[i.ID] <- 
             {

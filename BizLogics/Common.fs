@@ -39,6 +39,7 @@ type Session = UtilWebServer.Auth.Session<SessionRole,unit>
 
 type Runtime = {
 host: Host
+langs: ConcurrentDictionary<string,LANG>
 ecs: ConcurrentDictionary<int64,EuComplex>
 bcs: ConcurrentDictionary<string,BizComplex>
 bizowners: ConcurrentDictionary<int64,BIZOWNER>
@@ -71,6 +72,7 @@ let runtime =
 
     {
         host = host
+        langs = new ConcurrentDictionary<string,LANG>()
         ecs = new ConcurrentDictionary<int64,EuComplex>()
         bcs = new ConcurrentDictionary<string,BizComplex>()
         bizowners = new ConcurrentDictionary<int64,BIZOWNER>()
