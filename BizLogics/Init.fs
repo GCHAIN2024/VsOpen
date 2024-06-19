@@ -39,6 +39,8 @@ let init runtime =
         |> createDbLogger LOG_metadata conn
         |> Some
 
+    Shared.OrmMor.init()
+
     (fun i -> 
         runtime.ecs[i.ID] <- 
             {
