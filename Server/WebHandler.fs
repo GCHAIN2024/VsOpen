@@ -102,14 +102,5 @@ let wsHandler (incoming:byte[]) =
     | ApiRequest json ->
         json
         |> req__rep
-        |> ignore
-    | _ ->
-        Console.WriteLine("None")
-        ()
-
-    //wsp.bin |> binPushWsToAll zweb
-
-    //">> Server Broadcast >> " + incoming.Length.ToString() + " bytes"
-    //|> output
-
-    None
+        |> Some
+    | _ -> None

@@ -64,7 +64,7 @@ let host e =
         h.zmq <- true
     | RevengeDev -> 
         h.zmq <- false
-        h.port <- 8000
+        //h.port <- 8000
 
     h
 
