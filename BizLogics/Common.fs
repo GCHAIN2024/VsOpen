@@ -63,7 +63,8 @@ let host e =
     | Prod -> 
         h.zmq <- true
     | RevengeDev -> 
-        h.zmq <- true
+        h.zmq <- false
+        h.port <- 8000
 
     h
 
