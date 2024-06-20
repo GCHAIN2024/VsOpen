@@ -18,7 +18,11 @@ open BizLogics.Common
 open BizLogics.TinyLink
 
 
-let apiListBiz json =
+let api_Public_Ping json =
+    [|  ok
+        ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
+
+let api_Public_ListBiz json =
     let list = 
         runtime.bcs.Values
         |> Seq.toArray
@@ -29,7 +33,7 @@ let apiListBiz json =
     [|  ok
         ("list",list)   |]
 
-let apiCheckoutTinyLink json =
+let api_Public_CheckoutTinyLink json =
 
     let bizownero =
         (fun id -> 
@@ -69,6 +73,6 @@ let apiCheckoutTinyLink json =
 let branch json api = 
 
     match api with
-    | "ListBiz" -> apiListBiz json
-    | "CheckoutTinyLink" -> apiCheckoutTinyLink json
+    | "ListBiz" -> api_Public_ListBiz json
+    | "CheckoutTinyLink" -> api_Public_CheckoutTinyLink json
     | _ -> [|  er Er.ApiNotExists   |]

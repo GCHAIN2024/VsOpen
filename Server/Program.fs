@@ -29,25 +29,26 @@ let main argv =
 
     if runtime.host.zmq then
 
-        let httpHandler = 
-            httpEcho 
-                (Some plugin) 
-                runtime.host.fsDir 
-                runtime.host.defaultHtml 
-                runtime 
-                (fun x -> Fail(Er.ApiNotExists, x))
-            |> reqhandler__httpHandler
+        //let httpHandler = 
+        //    httpEcho 
+        //        (Some echo) 
+        //        runtime.host.fsDir 
+        //        runtime.host.defaultHtml 
+        //        runtime 
+        //        (fun x -> Fail(Er.ApiNotExists, x))
+        //    |> reqhandler__httpHandler
 
-        lauchWebServer 
-            output 
-            httpHandler
-            wsHandlerZweb 
-            (runtime.host.port |> port__zweb)
+        //lauchWebServer 
+        //    output 
+        //    httpHandler
+        //    wsHandlerZweb 
+        //    (runtime.host.port |> port__zweb)
+        ()
 
     else
         prepEngine 
             output
-            (Some plugin)
+            echo
             runtime.host.fsDir
             runtime.host.defaultHtml
             runtime

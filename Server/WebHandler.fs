@@ -11,6 +11,7 @@ open Util.Text
 open Util.Bin
 open Util.Json
 open Util.Http
+open Util.HttpServer
 open Util.Zmq
 
 open Shared.OrmTypes
@@ -29,41 +30,58 @@ open BizLogics.Api
 let r1 = string__regex @"\w+"
 
 //  https://cha.in/t/a1Bz7wS
-let plugin req = 
+let hTinyLink req = 
+    let m = 
+        req.pathline.Substring 3
+        |> regex_match r1
 
-    let mutable o = None
+    if m.Length = 3 then
+        if tiny__full.ContainsKey m then
+            let hashFull = tiny__full[m]
+            let plink = hashFull__plinks[hashFull]
+
+            [|  
+                "HTTP/1.1 302 Found"
+                "Location: " + plink.p.Src
+                "Content-Length: 0"
+                "Date: Mon, 17 Jun 2024 12:00:00 GMT"
+                "Connection: close"
+                "" |]
+            |> String.concat crlf
+            |> Encoding.UTF8.GetBytes
+        else
+            rep404
+    else
+        rep404
+
+let branch service api json = 
+
+    match service with
+    | "public" -> 
+        match api with
+        | "ping" -> api_Public_Ping json
+        | "listBiz" -> api_Public_ListBiz json
+        | "checkoutTinyLink" -> api_Public_CheckoutTinyLink json
+        | _ -> [|  er Er.ApiNotExists   |]
+    | "eu" -> [|  er Er.ApiNotExists   |]
+    | "admin" -> [|  er Er.ApiNotExists   |]
+    | "open" -> [|  er Er.ApiNotExists   |]
+    | _ -> [|  er Er.ApiNotExists   |]
+
+let echo req = 
 
     if req.pathline.StartsWith "/t/" then
+        hTinyLink req
+        |> Some
+    else if req.path.Length = 3 then
+        if req.path[0] = "api" then
+            echoApiHandler branch req
+            |> Some
+        else
+            None
+    else
+        None
 
-        let m = 
-            req.pathline.Substring(3)
-            |> regex_match r1
-
-        if m.Length = 3 then
-            if tiny__full.ContainsKey m then
-                let hashFull = tiny__full[m]
-                let plink = hashFull__plinks[hashFull]
-
-                o <-
-                    [|  
-                        "HTTP/1.1 302 Found"
-                        "Location: " + plink.p.Src
-                        "Content-Length: 0"
-                        "Date: Mon, 17 Jun 2024 12:00:00 GMT"
-                        "Connection: close"
-                        "" |]
-                    |> String.concat crlf
-                    |> Encoding.UTF8.GetBytes
-                    |> Some
-    o
-
-let req__rep json = 
-    let bb = new BytesBuilder()
-    json
-    |> apiHandler branch
-    |> Msg.ApiResponse
-    |> Msg__bin bb
-    bb.bytes()
 
 let wsHandlerZweb zweb wsp =
 
@@ -76,10 +94,6 @@ let wsHandlerZweb zweb wsp =
     match
         (wsp.bin, ref 0)
         |> bin__Msg with
-    | ApiRequest json ->
-        json
-        |> req__rep
-        |> binPushWs__conn zweb wsp.client
     | _ ->
         Console.WriteLine("None")
         ()
@@ -96,11 +110,13 @@ let wsHandler (incoming:byte[]) =
     "<< incoming " + incoming.Length.ToString() + " bytes"
     |> output
 
-    match
-        (incoming, ref 0)
-        |> bin__Msg with
-    | ApiRequest json ->
-        json
-        |> req__rep
-        |> Some
-    | _ -> None
+    //match
+    //    (incoming, ref 0)
+    //    |> bin__Msg with
+    //| ApiRequest json ->
+    //    json
+    //    |> req__rep
+    //    |> Some
+    //| _ -> None
+
+    None
