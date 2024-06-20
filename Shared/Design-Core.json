@@ -1,8 +1,8 @@
 ﻿[
 
   {
-    "name": "Core_PromotedLink",
-    "shorthand": "plink",
+    "name": "Core_CryptoLink",
+    "shorthand": "clink",
     "fields": [
       {
         "enum": "Timestamp",
@@ -15,7 +15,7 @@
       },
       {
         "enum": "Chars",
-        "length": 7,
+        "length": 9,
         "name": "HashTiny"
       },
       {

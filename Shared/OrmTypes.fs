@@ -1323,9 +1323,9 @@ let BIZOWNER_id = ref 0L
 let BIZOWNER_count = ref 0
 let BIZOWNER_table = "Core_BizOwner"
 
-// [Core_PromotedLink] (PLINK)
+// [Core_CryptoLink] (CLINK)
 
-type pPLINK = {
+type pCLINK = {
 mutable Expiry: Timestamp
 mutable HashFull: Chars
 mutable HashTiny: Chars
@@ -1336,11 +1336,11 @@ mutable BizOwner: FK
 mutable Data: Text}
 
 
-type PLINK = Rcd<pPLINK>
+type CLINK = Rcd<pCLINK>
 
-let PLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[Dst],[BizOwner],[Data]"
+let CLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[Promoter],[Dst],[BizOwner],[Data]"
 
-let pPLINK_fieldordersArray = [|
+let pCLINK_fieldordersArray = [|
     "Expiry"
     "HashFull"
     "HashTiny"
@@ -1350,19 +1350,19 @@ let pPLINK_fieldordersArray = [|
     "BizOwner"
     "Data" |]
 
-let PLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[Dst]=@Dst,[BizOwner]=@BizOwner,[Data]=@Data"
+let CLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[Promoter]=@Promoter,[Dst]=@Dst,[BizOwner]=@BizOwner,[Data]=@Data"
 
-let pPLINK_fields = [|
+let pCLINK_fields = [|
     Timestamp("Expiry")
     Chars("HashFull", 64)
-    Chars("HashTiny", 7)
+    Chars("HashTiny", 9)
     Text("Src")
     FK("Promoter")
     FK("Dst")
     FK("BizOwner")
     Text("Data") |]
 
-let pPLINK_empty(): pPLINK = {
+let pCLINK_empty(): pCLINK = {
     Expiry = DateTime.MinValue
     HashFull = ""
     HashTiny = ""
@@ -1372,9 +1372,9 @@ let pPLINK_empty(): pPLINK = {
     BizOwner = 0L
     Data = "" }
 
-let PLINK_id = ref 0L
-let PLINK_count = ref 0
-let PLINK_table = "Core_PromotedLink"
+let CLINK_id = ref 0L
+let CLINK_count = ref 0
+let CLINK_table = "Core_CryptoLink"
 
 // [Sys_Log] (LOG)
 

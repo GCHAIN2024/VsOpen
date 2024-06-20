@@ -2719,9 +2719,9 @@ let json__BIZOWNERo (json:Json):BIZOWNER option =
         
     | None -> None
 
-// [PLINK] Structure
+// [CLINK] Structure
 
-let pPLINK__bin (bb:BytesBuilder) (p:pPLINK) =
+let pCLINK__bin (bb:BytesBuilder) (p:pCLINK) =
 
     
     p.Expiry.Ticks |> BitConverter.GetBytes |> bb.append
@@ -2748,18 +2748,18 @@ let pPLINK__bin (bb:BytesBuilder) (p:pPLINK) =
     binData.Length |> BitConverter.GetBytes |> bb.append
     binData |> bb.append
 
-let PLINK__bin (bb:BytesBuilder) (v:PLINK) =
+let CLINK__bin (bb:BytesBuilder) (v:CLINK) =
     v.ID |> BitConverter.GetBytes |> bb.append
     v.Sort |> BitConverter.GetBytes |> bb.append
     DateTime__bin bb v.Createdat
     DateTime__bin bb v.Updatedat
     
-    pPLINK__bin bb v.p
+    pCLINK__bin bb v.p
 
-let bin__pPLINK (bi:BinIndexed):pPLINK =
+let bin__pCLINK (bi:BinIndexed):pCLINK =
     let bin,index = bi
 
-    let p = pPLINK_empty()
+    let p = pCLINK_empty()
     
     p.Expiry <- BitConverter.ToInt64(bin,index.Value) |> DateTime.FromBinary
     index.Value <- index.Value + 8
@@ -2795,7 +2795,7 @@ let bin__pPLINK (bi:BinIndexed):pPLINK =
     
     p
 
-let bin__PLINK (bi:BinIndexed):PLINK =
+let bin__CLINK (bi:BinIndexed):CLINK =
     let bin,index = bi
 
     let ID = BitConverter.ToInt64(bin,index.Value)
@@ -2813,9 +2813,9 @@ let bin__PLINK (bi:BinIndexed):PLINK =
         Sort = Sort
         Createdat = Createdat
         Updatedat = Updatedat
-        p = bin__pPLINK bi }
+        p = bin__pCLINK bi }
 
-let pPLINK__json (p:pPLINK) =
+let pCLINK__json (p:pCLINK) =
 
     [|
         ("Expiry",(p.Expiry |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
@@ -2828,7 +2828,7 @@ let pPLINK__json (p:pPLINK) =
         ("Data",p.Data |> Json.Str) |]
     |> Json.Braket
 
-let PLINK__json (v:PLINK) =
+let CLINK__json (v:CLINK) =
 
     let p = v.p
     
@@ -2836,26 +2836,26 @@ let PLINK__json (v:PLINK) =
         ("sort",v.Sort.ToString() |> Json.Num)
         ("createdat",(v.Createdat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
         ("updatedat",(v.Updatedat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
-        ("p",pPLINK__json v.p) |]
+        ("p",pCLINK__json v.p) |]
     |> Json.Braket
 
-let PLINK__jsonTbw (w:TextBlockWriter) (v:PLINK) =
-    json__str w (PLINK__json v)
+let CLINK__jsonTbw (w:TextBlockWriter) (v:CLINK) =
+    json__str w (CLINK__json v)
 
-let PLINK__jsonStr (v:PLINK) =
-    (PLINK__json v) |> json__strFinal
+let CLINK__jsonStr (v:CLINK) =
+    (CLINK__json v) |> json__strFinal
 
 
-let json__pPLINKo (json:Json):pPLINK option =
+let json__pCLINKo (json:Json):pCLINK option =
     let fields = json |> json__items
 
-    let p = pPLINK_empty()
+    let p = pCLINK_empty()
     
     p.Expiry <- checkfield fields "Expiry" |> parse_int64 |> Util.Time.unixtime__wintime
     
     p.HashFull <- checkfieldz fields "HashFull" 64
     
-    p.HashTiny <- checkfieldz fields "HashTiny" 7
+    p.HashTiny <- checkfieldz fields "HashTiny" 9
     
     p.Src <- checkfield fields "Src"
     
@@ -2870,7 +2870,7 @@ let json__pPLINKo (json:Json):pPLINK option =
     p |> Some
     
 
-let json__PLINKo (json:Json):PLINK option =
+let json__CLINKo (json:Json):CLINK option =
     let fields = json |> json__items
 
     let ID = checkfield fields "id" |> parse_int64
@@ -2882,7 +2882,7 @@ let json__PLINKo (json:Json):PLINK option =
         match
             json
             |> tryFindByAtt "p" with
-        | Some (s,v) -> json__pPLINKo v
+        | Some (s,v) -> json__pCLINKo v
         | None -> None
     
     match o with
@@ -2892,7 +2892,7 @@ let json__PLINKo (json:Json):PLINK option =
         
         p.HashFull <- checkfieldz fields "HashFull" 64
         
-        p.HashTiny <- checkfieldz fields "HashTiny" 7
+        p.HashTiny <- checkfieldz fields "HashTiny" 9
         
         p.Src <- checkfield fields "Src"
         
@@ -4423,8 +4423,8 @@ let BIZOWNERTxSqlServer =
     """
 
 
-let db__pPLINK(line:Object[]): pPLINK =
-    let p = pPLINK_empty()
+let db__pCLINK(line:Object[]): pCLINK =
+    let p = pCLINK_empty()
 
     p.Expiry <- DateTime.FromBinary(if Convert.IsDBNull(line.[4]) then DateTime.MinValue.Ticks else line.[4] :?> int64)
     p.HashFull <- string(line.[5]).TrimEnd()
@@ -4437,7 +4437,7 @@ let db__pPLINK(line:Object[]): pPLINK =
 
     p
 
-let pPLINK__sps (p:pPLINK) = [|
+let pCLINK__sps (p:pCLINK) = [|
     new SqlParameter("Expiry", p.Expiry.Ticks)
     new SqlParameter("HashFull", p.HashFull)
     new SqlParameter("HashTiny", p.HashTiny)
@@ -4447,13 +4447,13 @@ let pPLINK__sps (p:pPLINK) = [|
     new SqlParameter("BizOwner", p.BizOwner)
     new SqlParameter("Data", p.Data) |]
 
-let db__PLINK = db__Rcd db__pPLINK
+let db__CLINK = db__Rcd db__pCLINK
 
-let PLINK_wrapper item: PLINK =
+let CLINK_wrapper item: CLINK =
     let (i,c,u,s),p = item
     { ID = i; Createdat = c; Updatedat = u; Sort = s; p = p }
 
-let pPLINK_clone (p:pPLINK): pPLINK = {
+let pCLINK_clone (p:pCLINK): pCLINK = {
     Expiry = p.Expiry
     HashFull = p.HashFull
     HashTiny = p.HashTiny
@@ -4463,13 +4463,13 @@ let pPLINK_clone (p:pPLINK): pPLINK = {
     BizOwner = p.BizOwner
     Data = p.Data }
 
-let PLINK_update_transaction output (updater,suc,fail) (rcd:PLINK) =
-    let rollback_p = rcd.p |> pPLINK_clone
+let CLINK_update_transaction output (updater,suc,fail) (rcd:CLINK) =
+    let rollback_p = rcd.p |> pCLINK_clone
     let rollback_updatedat = rcd.Updatedat
     updater rcd.p
     let ctime,res =
         (rcd.ID,rcd.p,rollback_p,rollback_updatedat)
-        |> update (conn,output,PLINK_table,PLINK_sql_update,pPLINK__sps,suc,fail)
+        |> update (conn,output,CLINK_table,CLINK_sql_update,pCLINK__sps,suc,fail)
     match res with
     | Suc ctx ->
         rcd.Updatedat <- ctime
@@ -4479,45 +4479,45 @@ let PLINK_update_transaction output (updater,suc,fail) (rcd:PLINK) =
         rcd.Updatedat <- rollback_updatedat
         fail eso
 
-let PLINK_update output (rcd:PLINK) =
+let CLINK_update output (rcd:CLINK) =
     rcd
-    |> PLINK_update_transaction output ((fun p -> ()),(fun (ctime,ctx) -> ()),(fun dte -> ()))
+    |> CLINK_update_transaction output ((fun p -> ()),(fun (ctime,ctx) -> ()),(fun dte -> ()))
 
-let PLINK_create_incremental_transaction output (suc,fail) p =
-    let cid = Interlocked.Increment PLINK_id
+let CLINK_create_incremental_transaction output (suc,fail) p =
+    let cid = Interlocked.Increment CLINK_id
     let ctime = DateTime.UtcNow
-    match create (conn,output,PLINK_table,pPLINK__sps) (cid,ctime,p) with
-    | Suc ctx -> ((cid,ctime,ctime,cid),p) |> PLINK_wrapper |> suc
+    match create (conn,output,CLINK_table,pCLINK__sps) (cid,ctime,p) with
+    | Suc ctx -> ((cid,ctime,ctime,cid),p) |> CLINK_wrapper |> suc
     | Fail(eso,ctx) -> fail(eso,ctx)
 
-let PLINK_create output p =
-    PLINK_create_incremental_transaction output ((fun rcd -> ()),(fun (eso,ctx) -> ())) p
+let CLINK_create output p =
+    CLINK_create_incremental_transaction output ((fun rcd -> ()),(fun (eso,ctx) -> ())) p
     
 
-let id__PLINKo id: PLINK option = id__rcd(conn,PLINK_fieldorders,PLINK_table,db__PLINK) id
+let id__CLINKo id: CLINK option = id__rcd(conn,CLINK_fieldorders,CLINK_table,db__CLINK) id
 
-let PLINK_metadata = {
-    fieldorders = PLINK_fieldorders
-    db__rcd = db__PLINK 
-    wrapper = PLINK_wrapper
-    sps = pPLINK__sps
-    id = PLINK_id
-    id__rcdo = id__PLINKo
-    clone = pPLINK_clone
-    empty__p = pPLINK_empty
-    rcd__bin = PLINK__bin
-    bin__rcd = bin__PLINK
-    sql_update = PLINK_sql_update
-    rcd_update = PLINK_update
-    table = PLINK_table
-    shorthand = "plink" }
+let CLINK_metadata = {
+    fieldorders = CLINK_fieldorders
+    db__rcd = db__CLINK 
+    wrapper = CLINK_wrapper
+    sps = pCLINK__sps
+    id = CLINK_id
+    id__rcdo = id__CLINKo
+    clone = pCLINK_clone
+    empty__p = pCLINK_empty
+    rcd__bin = CLINK__bin
+    bin__rcd = bin__CLINK
+    sql_update = CLINK_sql_update
+    rcd_update = CLINK_update
+    table = CLINK_table
+    shorthand = "clink" }
 
-let PLINKTxSqlServer =
+let CLINKTxSqlServer =
     """
-    IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_PromotedLink' AND xtype='U')
+    IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_CryptoLink' AND xtype='U')
     BEGIN
 
-        CREATE TABLE Core_PromotedLink ([ID] BIGINT NOT NULL
+        CREATE TABLE Core_CryptoLink ([ID] BIGINT NOT NULL
     ,[Createdat] BIGINT NOT NULL
     ,[Updatedat] BIGINT NOT NULL
     ,[Sort] BIGINT NOT NULL,
@@ -4634,7 +4634,7 @@ type MetadataEnum =
 | LANG = 7
 | CWC = 8
 | BIZOWNER = 9
-| PLINK = 10
+| CLINK = 10
 | LOG = 11
 
 let tablenames = [|
@@ -4648,7 +4648,7 @@ let tablenames = [|
     LANG_metadata.table
     CWC_metadata.table
     BIZOWNER_metadata.table
-    PLINK_metadata.table
+    CLINK_metadata.table
     LOG_metadata.table |]
 
 let init() =
@@ -4763,15 +4763,15 @@ let init() =
     | Some v -> BIZOWNER_count.Value <- v :?> int32
     | None -> ()
 
-    match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Core_PromotedLink]") with
+    match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Core_CryptoLink]") with
     | Some v ->
         let max = v :?> int64
-        if max > PLINK_id.Value then
-            PLINK_id.Value <- max
+        if max > CLINK_id.Value then
+            CLINK_id.Value <- max
     | None -> ()
 
-    match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Core_PromotedLink]") with
-    | Some v -> PLINK_count.Value <- v :?> int32
+    match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Core_CryptoLink]") with
+    | Some v -> CLINK_count.Value <- v :?> int32
     | None -> ()
 
     match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Sys_Log]") with

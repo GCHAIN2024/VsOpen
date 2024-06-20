@@ -38,7 +38,7 @@ let hTinyLink req =
     if m.Length = 3 then
         if tiny__full.ContainsKey m then
             let hashFull = tiny__full[m]
-            let plink = hashFull__plinks[hashFull]
+            let plink = hashFull__clinks[hashFull]
 
             [|  
                 "HTTP/1.1 302 Found"
@@ -61,7 +61,7 @@ let branch service api json =
         match api with
         | "ping" -> api_Public_Ping json
         | "listBiz" -> api_Public_ListBiz json
-        | "checkoutTinyLink" -> api_Public_CheckoutTinyLink json
+        | "checkoutCryptoLink" -> api_Public_CheckoutCryptoLink json
         | _ -> [|  er Er.ApiNotExists   |]
     | "eu" -> [|  er Er.ApiNotExists   |]
     | "admin" -> [|  er Er.ApiNotExists   |]

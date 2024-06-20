@@ -33,7 +33,7 @@ let api_Public_ListBiz json =
     [|  ok
         ("list",list)   |]
 
-let api_Public_CheckoutTinyLink json =
+let api_Public_CheckoutCryptoLink json =
 
     let bizownero =
         (fun id -> 
@@ -58,21 +58,21 @@ let api_Public_CheckoutTinyLink json =
         None
 
     match 
-        url__tinylinko 
+        url__clinko 
             url
             dsto
             data
             promotero
             bizownero with
-    | Some plink -> 
-        plink
-        |> PLINK__json
-        |> wrapOk "plink"
+    | Some clink -> 
+        clink
+        |> CLINK__json
+        |> wrapOk "clink"
     | None -> [|  er Er.Internal  |]
 
 let branch json api = 
 
     match api with
     | "ListBiz" -> api_Public_ListBiz json
-    | "CheckoutTinyLink" -> api_Public_CheckoutTinyLink json
+    | "CheckoutTinyLink" -> api_Public_CheckoutCryptoLink json
     | _ -> [|  er Er.ApiNotExists   |]

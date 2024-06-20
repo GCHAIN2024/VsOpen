@@ -1,6 +1,7 @@
 ﻿module BizLogics.TinyLink
 
 open System
+open System.Numerics
 open System.Text
 open System.Collections.Concurrent
 
@@ -15,10 +16,13 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
-let tinyLinkLength = 7
+let alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+let tinyLinkLength = 9
+let adics = Util.Math.adics (uint64 alphabet.Length) tinyLinkLength
+
 let expireGeneral = new TimeSpan(180,0,0)
 
-let hashFull__plinks = new ConcurrentDictionary<string,PLINK>()
+let hashFull__clinks = new ConcurrentDictionary<string,CLINK>()
 let tiny__full = new ConcurrentDictionary<string,string>()
 
 let checkcollition 
@@ -51,15 +55,26 @@ let checkcollition
                 dstBin
                 dataBin |]
             |> Array.concat
-            |> bin__sha256
+            |> bin__sha256bin
 
-        hashTiny <- new string(Array.sub (hash.ToCharArray()) 0 tinyLinkLength)
+        hashTiny <- 
+            let bint = 
+                let v = BigInteger hash
+                if v < BigInteger.Zero then
+                    - v
+                else
+                    v
+            let m = BigInteger UInt64.MaxValue
+            let r = bint % m
+            r
+            |> uint64
+            |> uint64__str alphabet adics
 
         repeater <- repeater + 1
 
     hashTiny
 
-let url__tinylinko 
+let url__clinko 
     (src:string) 
     (dsto:BIZ option)
     data
@@ -85,8 +100,8 @@ let url__tinylinko
         |> Array.concat
         |> bin__sha256
 
-    if hashFull__plinks.ContainsKey hashFull then
-        hashFull__plinks[hashFull]
+    if hashFull__clinks.ContainsKey hashFull then
+        hashFull__clinks[hashFull]
         |> Some
     else
     
@@ -94,7 +109,7 @@ let url__tinylinko
     
         let rcd = 
 
-            let p = pPLINK_empty()
+            let p = pCLINK_empty()
 
             p.HashFull <- hashFull
             p.HashTiny <- checkcollition promoter url dsto data
@@ -115,12 +130,12 @@ let url__tinylinko
             p.Expiry <- DateTime.UtcNow.Add expireGeneral
 
             p
-            |> populateCreateTx pretx PLINK_metadata
+            |> populateCreateTx pretx CLINK_metadata
 
-        if pretx |> loggedPipeline "BizLogics.TinyLink.url__tinylink" conn then
+        if pretx |> loggedPipeline "BizLogics.TinyLink.url__clink" conn then
             
             tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
-            hashFull__plinks[rcd.p.HashFull] <- rcd
+            hashFull__clinks[rcd.p.HashFull] <- rcd
 
             Some rcd
         else

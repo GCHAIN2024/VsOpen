@@ -1737,104 +1737,104 @@ BEGIN
  ALTER TABLE Core_BizOwner ADD [State] INT
 END
 
--- [Core_PromotedLink] ----------------------
-IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_PromotedLink' AND xtype='U')
+-- [Core_CryptoLink] ----------------------
+IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_CryptoLink' AND xtype='U')
 
 BEGIN
 
-    CREATE TABLE Core_PromotedLink ([ID] BIGINT NOT NULL
+    CREATE TABLE Core_CryptoLink ([ID] BIGINT NOT NULL
         ,[Createdat] BIGINT NOT NULL
         ,[Updatedat] BIGINT NOT NULL
         ,[Sort] BIGINT NOT NULL,
         [Expiry] BIGINT
         ,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS
+        ,[HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
         ,[Src] NVARCHAR(MAX)
         ,[Promoter] BIGINT
         ,[Dst] BIGINT
         ,[BizOwner] BIGINT
         ,[Data] NVARCHAR(MAX)
-, CONSTRAINT [PK_Core_PromotedLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+, CONSTRAINT [PK_Core_CryptoLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 
 
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Expiry')
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Expiry')
 BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [Expiry] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Core_PromotedLink ADD [Expiry] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='HashFull')
-BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Expiry] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_PromotedLink ADD [HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+ ALTER TABLE Core_CryptoLink ADD [Expiry] BIGINT
 END
 
 
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='HashTiny')
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='HashFull')
 BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Core_PromotedLink ADD [HashTiny] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Src')
-BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [Src] NVARCHAR(MAX)
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
 END
 ELSE
 BEGIN
- ALTER TABLE Core_PromotedLink ADD [Src] NVARCHAR(MAX)
+ ALTER TABLE Core_CryptoLink ADD [HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
 END
 
 
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Promoter')
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='HashTiny')
 BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [Promoter] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Core_PromotedLink ADD [Promoter] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Dst')
-BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [Dst] BIGINT
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
 END
 ELSE
 BEGIN
- ALTER TABLE Core_PromotedLink ADD [Dst] BIGINT
+ ALTER TABLE Core_CryptoLink ADD [HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
 END
 
 
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='BizOwner')
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Src')
 BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [BizOwner] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Core_PromotedLink ADD [BizOwner] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_PromotedLink') AND name='Data')
-BEGIN
- ALTER TABLE Core_PromotedLink ALTER COLUMN [Data] NVARCHAR(MAX)
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Src] NVARCHAR(MAX)
 END
 ELSE
 BEGIN
- ALTER TABLE Core_PromotedLink ADD [Data] NVARCHAR(MAX)
+ ALTER TABLE Core_CryptoLink ADD [Src] NVARCHAR(MAX)
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Promoter')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Promoter] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [Promoter] BIGINT
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Dst')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Dst] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [Dst] BIGINT
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='BizOwner')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [BizOwner] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [BizOwner] BIGINT
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Data')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Data] NVARCHAR(MAX)
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [Data] NVARCHAR(MAX)
 END
 
 -- [Sys_Log] ----------------------
