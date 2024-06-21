@@ -12,6 +12,7 @@ open Util.DbTx
 open UtilWebServer.DbLogger
 open UtilWebServer.Db
 open UtilWebServer.OpenGraph
+open UtilWebServer.SSR
 
 open Shared.OrmTypes
 open Shared.Types
@@ -25,6 +26,13 @@ let adics = Util.Math.adics (uint64 alphabet.Length) tinyLinkLength
 
 let expireGeneral = new TimeSpan(180,0,0)
 
+let clink__ssrPage (clink:CLINK) = 
+    {
+        title = "GCHAIN Crypto Link " + clink.p.HashTiny
+        desc = clink.p.HashFull
+        image = clink.p.OgImg
+        url = "https://gcha.in/t/" + clink.p.Src
+        noscript = "" }
 
 let checkcollition 
     promoter 
