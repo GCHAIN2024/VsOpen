@@ -1750,6 +1750,7 @@ BEGIN
         ,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
         ,[HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
         ,[Src] NVARCHAR(MAX)
+        ,[DomainName] BIGINT
         ,[Promoter] BIGINT
         ,[Dst] BIGINT
         ,[BizOwner] BIGINT
@@ -1795,6 +1796,16 @@ END
 ELSE
 BEGIN
  ALTER TABLE Core_CryptoLink ADD [Src] NVARCHAR(MAX)
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='DomainName')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [DomainName] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [DomainName] BIGINT
 END
 
 

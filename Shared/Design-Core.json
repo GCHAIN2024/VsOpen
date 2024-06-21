@@ -24,6 +24,11 @@
       },
       {
         "enum": "FK",
+        "ref": "Core_DomainName",
+        "name": "DomainName"
+      },
+      {
+        "enum": "FK",
         "ref": "EndUser",
         "name": "Promoter"
       },

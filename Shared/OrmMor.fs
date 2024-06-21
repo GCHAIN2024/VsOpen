@@ -2738,6 +2738,8 @@ let pCLINK__bin (bb:BytesBuilder) (p:pCLINK) =
     binSrc.Length |> BitConverter.GetBytes |> bb.append
     binSrc |> bb.append
     
+    p.DomainName |> BitConverter.GetBytes |> bb.append
+    
     p.Promoter |> BitConverter.GetBytes |> bb.append
     
     p.Dst |> BitConverter.GetBytes |> bb.append
@@ -2778,6 +2780,9 @@ let bin__pCLINK (bi:BinIndexed):pCLINK =
     index.Value <- index.Value + 4
     p.Src <- Encoding.UTF8.GetString(bin,index.Value,count_Src)
     index.Value <- index.Value + count_Src
+    
+    p.DomainName <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
     
     p.Promoter <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
@@ -2822,6 +2827,7 @@ let pCLINK__json (p:pCLINK) =
         ("HashFull",p.HashFull |> Json.Str)
         ("HashTiny",p.HashTiny |> Json.Str)
         ("Src",p.Src |> Json.Str)
+        ("DomainName",p.DomainName.ToString() |> Json.Num)
         ("Promoter",p.Promoter.ToString() |> Json.Num)
         ("Dst",p.Dst.ToString() |> Json.Num)
         ("BizOwner",p.BizOwner.ToString() |> Json.Num)
@@ -2859,6 +2865,8 @@ let json__pCLINKo (json:Json):pCLINK option =
     
     p.Src <- checkfield fields "Src"
     
+    p.DomainName <- checkfield fields "DomainName" |> parse_int64
+    
     p.Promoter <- checkfield fields "Promoter" |> parse_int64
     
     p.Dst <- checkfield fields "Dst" |> parse_int64
@@ -2895,6 +2903,8 @@ let json__CLINKo (json:Json):CLINK option =
         p.HashTiny <- checkfieldz fields "HashTiny" 9
         
         p.Src <- checkfield fields "Src"
+        
+        p.DomainName <- checkfield fields "DomainName" |> parse_int64
         
         p.Promoter <- checkfield fields "Promoter" |> parse_int64
         
@@ -4572,10 +4582,11 @@ let db__pCLINK(line:Object[]): pCLINK =
     p.HashFull <- string(line.[5]).TrimEnd()
     p.HashTiny <- string(line.[6]).TrimEnd()
     p.Src <- string(line.[7]).TrimEnd()
-    p.Promoter <- if Convert.IsDBNull(line.[8]) then 0L else line.[8] :?> int64
-    p.Dst <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
-    p.BizOwner <- if Convert.IsDBNull(line.[10]) then 0L else line.[10] :?> int64
-    p.Data <- string(line.[11]).TrimEnd()
+    p.DomainName <- if Convert.IsDBNull(line.[8]) then 0L else line.[8] :?> int64
+    p.Promoter <- if Convert.IsDBNull(line.[9]) then 0L else line.[9] :?> int64
+    p.Dst <- if Convert.IsDBNull(line.[10]) then 0L else line.[10] :?> int64
+    p.BizOwner <- if Convert.IsDBNull(line.[11]) then 0L else line.[11] :?> int64
+    p.Data <- string(line.[12]).TrimEnd()
 
     p
 
@@ -4584,6 +4595,7 @@ let pCLINK__sps (p:pCLINK) = [|
     new SqlParameter("HashFull", p.HashFull)
     new SqlParameter("HashTiny", p.HashTiny)
     new SqlParameter("Src", p.Src)
+    new SqlParameter("DomainName", p.DomainName)
     new SqlParameter("Promoter", p.Promoter)
     new SqlParameter("Dst", p.Dst)
     new SqlParameter("BizOwner", p.BizOwner)
@@ -4600,6 +4612,7 @@ let pCLINK_clone (p:pCLINK): pCLINK = {
     HashFull = p.HashFull
     HashTiny = p.HashTiny
     Src = p.Src
+    DomainName = p.DomainName
     Promoter = p.Promoter
     Dst = p.Dst
     BizOwner = p.BizOwner
@@ -4667,6 +4680,7 @@ let CLINKTxSqlServer =
     ,[HashFull]
     ,[HashTiny]
     ,[Src]
+    ,[DomainName]
     ,[Promoter]
     ,[Dst]
     ,[BizOwner]
