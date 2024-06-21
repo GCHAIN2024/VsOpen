@@ -1837,6 +1837,62 @@ BEGIN
  ALTER TABLE Core_CryptoLink ADD [Data] NVARCHAR(MAX)
 END
 
+-- [Core_DomainName] ----------------------
+IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_DomainName' AND xtype='U')
+
+BEGIN
+
+    CREATE TABLE Core_DomainName ([ID] BIGINT NOT NULL
+        ,[Createdat] BIGINT NOT NULL
+        ,[Updatedat] BIGINT NOT NULL
+        ,[Sort] BIGINT NOT NULL,
+        [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+        ,[Biz] BIGINT
+        ,[EndUser] BIGINT
+        ,[BizOwner] BIGINT
+, CONSTRAINT [PK_Core_DomainName] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='Caption')
+BEGIN
+ ALTER TABLE Core_DomainName ALTER COLUMN [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_DomainName ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='Biz')
+BEGIN
+ ALTER TABLE Core_DomainName ALTER COLUMN [Biz] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_DomainName ADD [Biz] BIGINT
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='EndUser')
+BEGIN
+ ALTER TABLE Core_DomainName ALTER COLUMN [EndUser] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_DomainName ADD [EndUser] BIGINT
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='BizOwner')
+BEGIN
+ ALTER TABLE Core_DomainName ALTER COLUMN [BizOwner] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_DomainName ADD [BizOwner] BIGINT
+END
+
 -- [Sys_Log] ----------------------
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_Log' AND xtype='U')
 

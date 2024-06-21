@@ -2913,6 +2913,148 @@ let json__CLINKo (json:Json):CLINK option =
         
     | None -> None
 
+// [DOMAINNAME] Structure
+
+let pDOMAINNAME__bin (bb:BytesBuilder) (p:pDOMAINNAME) =
+
+    
+    let binCaption = p.Caption |> Encoding.UTF8.GetBytes
+    binCaption.Length |> BitConverter.GetBytes |> bb.append
+    binCaption |> bb.append
+    
+    p.Biz |> BitConverter.GetBytes |> bb.append
+    
+    p.EndUser |> BitConverter.GetBytes |> bb.append
+    
+    p.BizOwner |> BitConverter.GetBytes |> bb.append
+
+let DOMAINNAME__bin (bb:BytesBuilder) (v:DOMAINNAME) =
+    v.ID |> BitConverter.GetBytes |> bb.append
+    v.Sort |> BitConverter.GetBytes |> bb.append
+    DateTime__bin bb v.Createdat
+    DateTime__bin bb v.Updatedat
+    
+    pDOMAINNAME__bin bb v.p
+
+let bin__pDOMAINNAME (bi:BinIndexed):pDOMAINNAME =
+    let bin,index = bi
+
+    let p = pDOMAINNAME_empty()
+    
+    let count_Caption = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.Caption <- Encoding.UTF8.GetString(bin,index.Value,count_Caption)
+    index.Value <- index.Value + count_Caption
+    
+    p.Biz <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    p.EndUser <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    p.BizOwner <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    p
+
+let bin__DOMAINNAME (bi:BinIndexed):DOMAINNAME =
+    let bin,index = bi
+
+    let ID = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Sort = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Createdat = bin__DateTime bi
+    
+    let Updatedat = bin__DateTime bi
+    
+    {
+        ID = ID
+        Sort = Sort
+        Createdat = Createdat
+        Updatedat = Updatedat
+        p = bin__pDOMAINNAME bi }
+
+let pDOMAINNAME__json (p:pDOMAINNAME) =
+
+    [|
+        ("Caption",p.Caption |> Json.Str)
+        ("Biz",p.Biz.ToString() |> Json.Num)
+        ("EndUser",p.EndUser.ToString() |> Json.Num)
+        ("BizOwner",p.BizOwner.ToString() |> Json.Num) |]
+    |> Json.Braket
+
+let DOMAINNAME__json (v:DOMAINNAME) =
+
+    let p = v.p
+    
+    [|  ("id",v.ID.ToString() |> Json.Num)
+        ("sort",v.Sort.ToString() |> Json.Num)
+        ("createdat",(v.Createdat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("updatedat",(v.Updatedat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("p",pDOMAINNAME__json v.p) |]
+    |> Json.Braket
+
+let DOMAINNAME__jsonTbw (w:TextBlockWriter) (v:DOMAINNAME) =
+    json__str w (DOMAINNAME__json v)
+
+let DOMAINNAME__jsonStr (v:DOMAINNAME) =
+    (DOMAINNAME__json v) |> json__strFinal
+
+
+let json__pDOMAINNAMEo (json:Json):pDOMAINNAME option =
+    let fields = json |> json__items
+
+    let p = pDOMAINNAME_empty()
+    
+    p.Caption <- checkfieldz fields "Caption" 64
+    
+    p.Biz <- checkfield fields "Biz" |> parse_int64
+    
+    p.EndUser <- checkfield fields "EndUser" |> parse_int64
+    
+    p.BizOwner <- checkfield fields "BizOwner" |> parse_int64
+    
+    p |> Some
+    
+
+let json__DOMAINNAMEo (json:Json):DOMAINNAME option =
+    let fields = json |> json__items
+
+    let ID = checkfield fields "id" |> parse_int64
+    let Sort = checkfield fields "sort" |> parse_int64
+    let Createdat = checkfield fields "createdat" |> parse_int64 |> DateTime.FromBinary
+    let Updatedat = checkfield fields "updatedat" |> parse_int64 |> DateTime.FromBinary
+    
+    let o  =
+        match
+            json
+            |> tryFindByAtt "p" with
+        | Some (s,v) -> json__pDOMAINNAMEo v
+        | None -> None
+    
+    match o with
+    | Some p ->
+        
+        p.Caption <- checkfieldz fields "Caption" 64
+        
+        p.Biz <- checkfield fields "Biz" |> parse_int64
+        
+        p.EndUser <- checkfield fields "EndUser" |> parse_int64
+        
+        p.BizOwner <- checkfield fields "BizOwner" |> parse_int64
+        
+        {
+            ID = ID
+            Sort = Sort
+            Createdat = Createdat
+            Updatedat = Updatedat
+            p = p } |> Some
+        
+    | None -> None
+
 // [LOG] Structure
 
 let pLOG__bin (bb:BytesBuilder) (p:pLOG) =
@@ -4533,6 +4675,100 @@ let CLINKTxSqlServer =
     """
 
 
+let db__pDOMAINNAME(line:Object[]): pDOMAINNAME =
+    let p = pDOMAINNAME_empty()
+
+    p.Caption <- string(line.[4]).TrimEnd()
+    p.Biz <- if Convert.IsDBNull(line.[5]) then 0L else line.[5] :?> int64
+    p.EndUser <- if Convert.IsDBNull(line.[6]) then 0L else line.[6] :?> int64
+    p.BizOwner <- if Convert.IsDBNull(line.[7]) then 0L else line.[7] :?> int64
+
+    p
+
+let pDOMAINNAME__sps (p:pDOMAINNAME) = [|
+    new SqlParameter("Caption", p.Caption)
+    new SqlParameter("Biz", p.Biz)
+    new SqlParameter("EndUser", p.EndUser)
+    new SqlParameter("BizOwner", p.BizOwner) |]
+
+let db__DOMAINNAME = db__Rcd db__pDOMAINNAME
+
+let DOMAINNAME_wrapper item: DOMAINNAME =
+    let (i,c,u,s),p = item
+    { ID = i; Createdat = c; Updatedat = u; Sort = s; p = p }
+
+let pDOMAINNAME_clone (p:pDOMAINNAME): pDOMAINNAME = {
+    Caption = p.Caption
+    Biz = p.Biz
+    EndUser = p.EndUser
+    BizOwner = p.BizOwner }
+
+let DOMAINNAME_update_transaction output (updater,suc,fail) (rcd:DOMAINNAME) =
+    let rollback_p = rcd.p |> pDOMAINNAME_clone
+    let rollback_updatedat = rcd.Updatedat
+    updater rcd.p
+    let ctime,res =
+        (rcd.ID,rcd.p,rollback_p,rollback_updatedat)
+        |> update (conn,output,DOMAINNAME_table,DOMAINNAME_sql_update,pDOMAINNAME__sps,suc,fail)
+    match res with
+    | Suc ctx ->
+        rcd.Updatedat <- ctime
+        suc(ctime,ctx)
+    | Fail(eso,ctx) ->
+        rcd.p <- rollback_p
+        rcd.Updatedat <- rollback_updatedat
+        fail eso
+
+let DOMAINNAME_update output (rcd:DOMAINNAME) =
+    rcd
+    |> DOMAINNAME_update_transaction output ((fun p -> ()),(fun (ctime,ctx) -> ()),(fun dte -> ()))
+
+let DOMAINNAME_create_incremental_transaction output (suc,fail) p =
+    let cid = Interlocked.Increment DOMAINNAME_id
+    let ctime = DateTime.UtcNow
+    match create (conn,output,DOMAINNAME_table,pDOMAINNAME__sps) (cid,ctime,p) with
+    | Suc ctx -> ((cid,ctime,ctime,cid),p) |> DOMAINNAME_wrapper |> suc
+    | Fail(eso,ctx) -> fail(eso,ctx)
+
+let DOMAINNAME_create output p =
+    DOMAINNAME_create_incremental_transaction output ((fun rcd -> ()),(fun (eso,ctx) -> ())) p
+    
+
+let id__DOMAINNAMEo id: DOMAINNAME option = id__rcd(conn,DOMAINNAME_fieldorders,DOMAINNAME_table,db__DOMAINNAME) id
+
+let DOMAINNAME_metadata = {
+    fieldorders = DOMAINNAME_fieldorders
+    db__rcd = db__DOMAINNAME 
+    wrapper = DOMAINNAME_wrapper
+    sps = pDOMAINNAME__sps
+    id = DOMAINNAME_id
+    id__rcdo = id__DOMAINNAMEo
+    clone = pDOMAINNAME_clone
+    empty__p = pDOMAINNAME_empty
+    rcd__bin = DOMAINNAME__bin
+    bin__rcd = bin__DOMAINNAME
+    sql_update = DOMAINNAME_sql_update
+    rcd_update = DOMAINNAME_update
+    table = DOMAINNAME_table
+    shorthand = "domainname" }
+
+let DOMAINNAMETxSqlServer =
+    """
+    IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_DomainName' AND xtype='U')
+    BEGIN
+
+        CREATE TABLE Core_DomainName ([ID] BIGINT NOT NULL
+    ,[Createdat] BIGINT NOT NULL
+    ,[Updatedat] BIGINT NOT NULL
+    ,[Sort] BIGINT NOT NULL,
+    ,[Caption]
+    ,[Biz]
+    ,[EndUser]
+    ,[BizOwner])
+    END
+    """
+
+
 let db__pLOG(line:Object[]): pLOG =
     let p = pLOG_empty()
 
@@ -4635,7 +4871,8 @@ type MetadataEnum =
 | CWC = 8
 | BIZOWNER = 9
 | CLINK = 10
-| LOG = 11
+| DOMAINNAME = 11
+| LOG = 12
 
 let tablenames = [|
     ADDRESS_metadata.table
@@ -4649,6 +4886,7 @@ let tablenames = [|
     CWC_metadata.table
     BIZOWNER_metadata.table
     CLINK_metadata.table
+    DOMAINNAME_metadata.table
     LOG_metadata.table |]
 
 let init() =
@@ -4772,6 +5010,17 @@ let init() =
 
     match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Core_CryptoLink]") with
     | Some v -> CLINK_count.Value <- v :?> int32
+    | None -> ()
+
+    match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Core_DomainName]") with
+    | Some v ->
+        let max = v :?> int64
+        if max > DOMAINNAME_id.Value then
+            DOMAINNAME_id.Value <- max
+    | None -> ()
+
+    match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Core_DomainName]") with
+    | Some v -> DOMAINNAME_count.Value <- v :?> int32
     | None -> ()
 
     match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Sys_Log]") with

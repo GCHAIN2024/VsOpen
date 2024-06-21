@@ -1376,6 +1376,43 @@ let CLINK_id = ref 0L
 let CLINK_count = ref 0
 let CLINK_table = "Core_CryptoLink"
 
+// [Core_DomainName] (DOMAINNAME)
+
+type pDOMAINNAME = {
+mutable Caption: Chars
+mutable Biz: FK
+mutable EndUser: FK
+mutable BizOwner: FK}
+
+
+type DOMAINNAME = Rcd<pDOMAINNAME>
+
+let DOMAINNAME_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Biz],[EndUser],[BizOwner]"
+
+let pDOMAINNAME_fieldordersArray = [|
+    "Caption"
+    "Biz"
+    "EndUser"
+    "BizOwner" |]
+
+let DOMAINNAME_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Biz]=@Biz,[EndUser]=@EndUser,[BizOwner]=@BizOwner"
+
+let pDOMAINNAME_fields = [|
+    Chars("Caption", 64)
+    FK("Biz")
+    FK("EndUser")
+    FK("BizOwner") |]
+
+let pDOMAINNAME_empty(): pDOMAINNAME = {
+    Caption = ""
+    Biz = 0L
+    EndUser = 0L
+    BizOwner = 0L }
+
+let DOMAINNAME_id = ref 0L
+let DOMAINNAME_count = ref 0
+let DOMAINNAME_table = "Core_DomainName"
+
 // [Sys_Log] (LOG)
 
 type pLOG = {

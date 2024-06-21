@@ -5,6 +5,7 @@ module BizLogics.Api
 open System
 open System.Text
 
+open Util.Text
 open Util.Json
 
 open UtilWebServer.Json
@@ -35,6 +36,17 @@ let api_Public_ListBiz json =
 
 let api_Public_CheckoutCryptoLink json =
 
+    let url,domainnameo = 
+        let url = (tryFindStrByAtt "url" json).Trim()
+        let domainame = (Util.Http.url__domainame url).ToLower()
+
+        let o = 
+            runtime.domainnames.Values
+            |> Seq.tryFind(fun v -> v.p.Caption = domainame)
+
+        url,o
+        
+
     let bizownero =
         (fun id -> 
             if runtime.bizowners.ContainsKey id then
@@ -43,7 +55,6 @@ let api_Public_CheckoutCryptoLink json =
                 None)
         |> tryLoadFromJsonId json "bizowner"
 
-    let url = tryFindStrByAtt "url" json
     let data = tryFindStrByAtt "data" json
     let dsto = 
         let code = tryFindStrByAtt "dst" json

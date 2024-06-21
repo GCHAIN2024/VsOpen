@@ -16,14 +16,14 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
+open BizLogics.Common
+
 let alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 let tinyLinkLength = 9
 let adics = Util.Math.adics (uint64 alphabet.Length) tinyLinkLength
 
 let expireGeneral = new TimeSpan(180,0,0)
 
-let hashFull__clinks = new ConcurrentDictionary<string,CLINK>()
-let tiny__full = new ConcurrentDictionary<string,string>()
 
 let checkcollition 
     promoter 
@@ -34,7 +34,7 @@ let checkcollition
     let mutable repeater = 0
     let mutable hashTiny = ""
 
-    while hashTiny = "" || tiny__full.ContainsKey hashTiny do
+    while hashTiny = "" || runtime.tiny__full.ContainsKey hashTiny do
         
         let hash =
 
@@ -100,8 +100,8 @@ let url__clinko
         |> Array.concat
         |> bin__sha256
 
-    if hashFull__clinks.ContainsKey hashFull then
-        hashFull__clinks[hashFull]
+    if runtime.hashFull__clinks.ContainsKey hashFull then
+        runtime.hashFull__clinks[hashFull]
         |> Some
     else
     
@@ -134,8 +134,8 @@ let url__clinko
 
         if pretx |> loggedPipeline "BizLogics.TinyLink.url__clink" conn then
             
-            tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
-            hashFull__clinks[rcd.p.HashFull] <- rcd
+            runtime.tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
+            runtime.hashFull__clinks[rcd.p.HashFull] <- rcd
 
             Some rcd
         else

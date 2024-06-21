@@ -46,6 +46,31 @@
 
 
   {
+    "name": "Core_DomainName",
+    "shorthand": "domainname",
+    "fields": [
+      {
+        "enum": "Chars",
+        "length": 64,
+        "name": "Caption"
+      },
+      {
+        "enum": "FK",
+        "name": "Biz"
+      },
+      {
+        "enum": "FK",
+        "name": "EndUser"
+      },
+      {
+        "enum": "FK",
+        "name": "BizOwner"
+      }
+
+    ]
+  },
+
+  {
     "name": "Core_BizOwner",
     "shorthand": "bizowner",
     "fields": [
