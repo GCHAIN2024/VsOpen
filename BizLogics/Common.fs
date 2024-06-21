@@ -64,7 +64,7 @@ let host e =
 
     match e with
     | Prod -> 
-        h.zmq <- true
+        h.zmq <- false
     | RevengeDev -> 
         h.zmq <- false
         //h.port <- 8000
