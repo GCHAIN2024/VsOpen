@@ -58,13 +58,10 @@ let hTinyLink req =
                 |> String.concat crlf
                 |> Encoding.UTF8.GetBytes
             else
-                let html = 
-                    // title,desc,
-                    (plink.p.HashTiny,plink.p.HashFull,"","")
-                    |> render ssrTriple
-
-                [|  html |]
-                |> Array.concat
+                // title,desc,
+                (plink.p.HashTiny,plink.p.HashFull,"","")
+                |> render ssrTriple
+                |> bin__StandardResponse "text/html"
         else
             rep404
     else
