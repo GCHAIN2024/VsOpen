@@ -40,7 +40,7 @@ let hTinyLink req =
         req.pathline.Substring 3
         |> regex_match r1
 
-    if m.Length = 3 then
+    if m.Length > 5 then
         if runtime.tiny__full.ContainsKey m then
             let hashFull = runtime.tiny__full[m]
             let plink = runtime.hashFull__clinks[hashFull]
@@ -59,11 +59,17 @@ let hTinyLink req =
                 |> Encoding.UTF8.GetBytes
             else
                 // title,desc,
-                (plink.p.HashTiny,plink.p.HashFull,"","")
+                (plink.p.HashTiny,plink.p.HashFull,"","","")
                 |> render ssrTriple
                 |> bin__StandardResponse "text/html"
         else
-            rep404
+
+            // title,desc,
+            ("aaa","bbb","sss","ttt","")
+            |> render ssrTriple
+            |> bin__StandardResponse "text/html"
+
+            //rep404
     else
         rep404
 
@@ -83,7 +89,10 @@ let branch service api json =
 
 let echo req = 
 
-    if req.pathline.StartsWith "/t/" then
+    if req.pathline.StartsWith "/gchain" then
+        req.pathline <- "/"
+        None
+    else if req.pathline.StartsWith "/t/" then
         hTinyLink req
         |> Some
     else if req.path.Length = 3 then
