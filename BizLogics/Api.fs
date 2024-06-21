@@ -36,16 +36,12 @@ let api_Public_ListBiz json =
 
 let api_Public_CheckoutCryptoLink json =
 
-    let url,domainnameo = 
+    let url,urlLength = 
         let url = (tryFindStrByAtt "url" json).Trim()
-        let domainame = (Util.Http.url__domainame url).ToLower()
-
-        let o = 
-            runtime.domainnames.Values
-            |> Seq.tryFind(fun v -> v.p.Caption = domainame)
-
-        url,o
-        
+        if url.StartsWith "http" then
+            url,url.Length
+        else
+            "https://" + url,url.Length
 
     let bizownero =
         (fun id -> 
@@ -68,18 +64,21 @@ let api_Public_CheckoutCryptoLink json =
         let session = tryFindStrByAtt "session" json
         None
 
-    match 
-        url__clinko 
-            url
-            dsto
-            data
-            promotero
-            bizownero with
-    | Some clink -> 
-        clink
-        |> CLINK__json
-        |> wrapOk "clink"
-    | None -> [|  er Er.Internal  |]
+    if urlLength = 0 then
+        [|  er Er.InvalideParameter  |]
+    else
+        match 
+            url__clinko 
+                url
+                dsto
+                data
+                promotero
+                bizownero with
+        | Some clink -> 
+            clink
+            |> CLINK__json
+            |> wrapOk "clink"
+        | None -> [|  er Er.Internal  |]
 
 let branch json api = 
 

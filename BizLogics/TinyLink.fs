@@ -11,6 +11,7 @@ open Util.DbTx
 
 open UtilWebServer.DbLogger
 open UtilWebServer.Db
+open UtilWebServer.OpenGraph
 
 open Shared.OrmTypes
 open Shared.Types
@@ -81,22 +82,20 @@ let url__clinko
     (promotero:EU option)
     (bizownero:BIZOWNER option) = 
 
+    let domainnameo = 
+        let domainame = (Util.Http.url__domainame src).ToLower()
+
+        runtime.domainnames.Values
+        |> Seq.tryFind(fun v -> v.p.Caption = domainame)
+
     let promoter = 
         match promotero with
         | Some eu -> eu.ID |> BitConverter.GetBytes
         | None -> 0L |> BitConverter.GetBytes
 
-    let url = 
-        let mutable s = src.Trim()
-        let i = s.IndexOf "://"
-        if i > 0 then
-            s.Substring(i + 3)
-        else
-            s
-
     let hashFull =  
         [|  promoter
-            url |> Encoding.UTF8.GetBytes |]
+            src |> Encoding.UTF8.GetBytes |]
         |> Array.concat
         |> bin__sha256
 
@@ -112,8 +111,8 @@ let url__clinko
             let p = pCLINK_empty()
 
             p.HashFull <- hashFull
-            p.HashTiny <- checkcollition promoter url dsto data
-            p.Src <- url
+            p.HashTiny <- checkcollition promoter src dsto data
+            p.Src <- src
             p.Dst <-
                 match dsto with
                 | Some dst -> dst.ID
@@ -128,6 +127,11 @@ let url__clinko
                 | None -> 0L
             p.Data <- data
             p.Expiry <- DateTime.UtcNow.Add expireGeneral
+
+            let title,desc,image = load p.Src
+            p.OgTitle <- title
+            p.OgDesc <- desc
+            p.OgImg <- image
 
             p
             |> populateCreateTx pretx CLINK_metadata

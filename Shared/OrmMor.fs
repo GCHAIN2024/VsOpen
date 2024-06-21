@@ -2749,6 +2749,18 @@ let pCLINK__bin (bb:BytesBuilder) (p:pCLINK) =
     let binData = p.Data |> Encoding.UTF8.GetBytes
     binData.Length |> BitConverter.GetBytes |> bb.append
     binData |> bb.append
+    
+    let binOgTitle = p.OgTitle |> Encoding.UTF8.GetBytes
+    binOgTitle.Length |> BitConverter.GetBytes |> bb.append
+    binOgTitle |> bb.append
+    
+    let binOgDesc = p.OgDesc |> Encoding.UTF8.GetBytes
+    binOgDesc.Length |> BitConverter.GetBytes |> bb.append
+    binOgDesc |> bb.append
+    
+    let binOgImg = p.OgImg |> Encoding.UTF8.GetBytes
+    binOgImg.Length |> BitConverter.GetBytes |> bb.append
+    binOgImg |> bb.append
 
 let CLINK__bin (bb:BytesBuilder) (v:CLINK) =
     v.ID |> BitConverter.GetBytes |> bb.append
@@ -2798,6 +2810,21 @@ let bin__pCLINK (bi:BinIndexed):pCLINK =
     p.Data <- Encoding.UTF8.GetString(bin,index.Value,count_Data)
     index.Value <- index.Value + count_Data
     
+    let count_OgTitle = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.OgTitle <- Encoding.UTF8.GetString(bin,index.Value,count_OgTitle)
+    index.Value <- index.Value + count_OgTitle
+    
+    let count_OgDesc = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.OgDesc <- Encoding.UTF8.GetString(bin,index.Value,count_OgDesc)
+    index.Value <- index.Value + count_OgDesc
+    
+    let count_OgImg = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.OgImg <- Encoding.UTF8.GetString(bin,index.Value,count_OgImg)
+    index.Value <- index.Value + count_OgImg
+    
     p
 
 let bin__CLINK (bi:BinIndexed):CLINK =
@@ -2831,7 +2858,10 @@ let pCLINK__json (p:pCLINK) =
         ("Promoter",p.Promoter.ToString() |> Json.Num)
         ("Dst",p.Dst.ToString() |> Json.Num)
         ("BizOwner",p.BizOwner.ToString() |> Json.Num)
-        ("Data",p.Data |> Json.Str) |]
+        ("Data",p.Data |> Json.Str)
+        ("OgTitle",p.OgTitle |> Json.Str)
+        ("OgDesc",p.OgDesc |> Json.Str)
+        ("OgImg",p.OgImg |> Json.Str) |]
     |> Json.Braket
 
 let CLINK__json (v:CLINK) =
@@ -2875,6 +2905,12 @@ let json__pCLINKo (json:Json):pCLINK option =
     
     p.Data <- checkfield fields "Data"
     
+    p.OgTitle <- checkfield fields "OgTitle"
+    
+    p.OgDesc <- checkfield fields "OgDesc"
+    
+    p.OgImg <- checkfield fields "OgImg"
+    
     p |> Some
     
 
@@ -2913,6 +2949,12 @@ let json__CLINKo (json:Json):CLINK option =
         p.BizOwner <- checkfield fields "BizOwner" |> parse_int64
         
         p.Data <- checkfield fields "Data"
+        
+        p.OgTitle <- checkfield fields "OgTitle"
+        
+        p.OgDesc <- checkfield fields "OgDesc"
+        
+        p.OgImg <- checkfield fields "OgImg"
         
         {
             ID = ID
@@ -4587,6 +4629,9 @@ let db__pCLINK(line:Object[]): pCLINK =
     p.Dst <- if Convert.IsDBNull(line.[10]) then 0L else line.[10] :?> int64
     p.BizOwner <- if Convert.IsDBNull(line.[11]) then 0L else line.[11] :?> int64
     p.Data <- string(line.[12]).TrimEnd()
+    p.OgTitle <- string(line.[13]).TrimEnd()
+    p.OgDesc <- string(line.[14]).TrimEnd()
+    p.OgImg <- string(line.[15]).TrimEnd()
 
     p
 
@@ -4599,7 +4644,10 @@ let pCLINK__sps (p:pCLINK) = [|
     new SqlParameter("Promoter", p.Promoter)
     new SqlParameter("Dst", p.Dst)
     new SqlParameter("BizOwner", p.BizOwner)
-    new SqlParameter("Data", p.Data) |]
+    new SqlParameter("Data", p.Data)
+    new SqlParameter("OgTitle", p.OgTitle)
+    new SqlParameter("OgDesc", p.OgDesc)
+    new SqlParameter("OgImg", p.OgImg) |]
 
 let db__CLINK = db__Rcd db__pCLINK
 
@@ -4616,7 +4664,10 @@ let pCLINK_clone (p:pCLINK): pCLINK = {
     Promoter = p.Promoter
     Dst = p.Dst
     BizOwner = p.BizOwner
-    Data = p.Data }
+    Data = p.Data
+    OgTitle = p.OgTitle
+    OgDesc = p.OgDesc
+    OgImg = p.OgImg }
 
 let CLINK_update_transaction output (updater,suc,fail) (rcd:CLINK) =
     let rollback_p = rcd.p |> pCLINK_clone
@@ -4684,7 +4735,10 @@ let CLINKTxSqlServer =
     ,[Promoter]
     ,[Dst]
     ,[BizOwner]
-    ,[Data])
+    ,[Data]
+    ,[OgTitle]
+    ,[OgDesc]
+    ,[OgImg])
     END
     """
 

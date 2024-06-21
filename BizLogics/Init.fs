@@ -72,3 +72,8 @@ let init runtime =
     (fun i -> 
         runtime.bizowners[i.ID] <- i)
     |> loadAll runtime.output conn BIZOWNER_metadata
+
+    (fun i -> 
+        runtime.hashFull__clinks[i.p.HashFull] <- i
+        runtime.tiny__full[i.p.HashTiny] <- i.p.HashFull)
+    |> loadAll runtime.output conn CLINK_metadata

@@ -45,6 +45,18 @@
       {
         "enum": "Text",
         "name": "Data"
+      },
+      {
+        "enum": "Text",
+        "name": "OgTitle"
+      },
+      {
+        "enum": "Text",
+        "name": "OgDesc"
+      },
+      {
+        "enum": "Text",
+        "name": "OgImg"
       }
     ]
   },

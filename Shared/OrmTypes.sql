@@ -1755,6 +1755,9 @@ BEGIN
         ,[Dst] BIGINT
         ,[BizOwner] BIGINT
         ,[Data] NVARCHAR(MAX)
+        ,[OgTitle] NVARCHAR(MAX)
+        ,[OgDesc] NVARCHAR(MAX)
+        ,[OgImg] NVARCHAR(MAX)
 , CONSTRAINT [PK_Core_CryptoLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 
@@ -1846,6 +1849,36 @@ END
 ELSE
 BEGIN
  ALTER TABLE Core_CryptoLink ADD [Data] NVARCHAR(MAX)
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='OgTitle')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [OgTitle] NVARCHAR(MAX)
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [OgTitle] NVARCHAR(MAX)
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='OgDesc')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [OgDesc] NVARCHAR(MAX)
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [OgDesc] NVARCHAR(MAX)
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='OgImg')
+BEGIN
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [OgImg] NVARCHAR(MAX)
+END
+ELSE
+BEGIN
+ ALTER TABLE Core_CryptoLink ADD [OgImg] NVARCHAR(MAX)
 END
 
 -- [Core_DomainName] ----------------------

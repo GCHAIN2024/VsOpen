@@ -59,7 +59,7 @@ let hTinyLink req =
                 |> Encoding.UTF8.GetBytes
             else
                 // title,desc,
-                (plink.p.HashTiny,plink.p.HashFull,"","","")
+                ("GHAIN Crypto Link " + plink.p.HashTiny,plink.p.HashFull,"","","")
                 |> render ssrTriple
                 |> bin__StandardResponse "text/html"
         else
