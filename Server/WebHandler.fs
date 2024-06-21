@@ -22,10 +22,15 @@ open Shared.CustomMor
 open UtilWebServer.Common
 open UtilWebServer.Json
 open UtilWebServer.Api
+open UtilWebServer.SSR
 
 open BizLogics.Common
 open BizLogics.TinyLink
 open BizLogics.Api
+
+let ssrTriple = 
+    runtime.host.fsDir + "\\" + runtime.host.defaultHtml
+    |> vueIndex
 
 let r1 = string__regex @"\w+"
 
@@ -40,15 +45,26 @@ let hTinyLink req =
             let hashFull = runtime.tiny__full[m]
             let plink = runtime.hashFull__clinks[hashFull]
 
-            [|  
-                "HTTP/1.1 302 Found"
-                "Location: " + plink.p.Src
-                "Content-Length: 0"
-                "Date: Mon, 17 Jun 2024 12:00:00 GMT"
-                "Connection: close"
-                "" |]
-            |> String.concat crlf
-            |> Encoding.UTF8.GetBytes
+            let forward = false
+
+            if forward then
+                [|  
+                    "HTTP/1.1 302 Found"
+                    "Location: " + plink.p.Src
+                    "Content-Length: 0"
+                    "Date: Mon, 17 Jun 2024 12:00:00 GMT"
+                    "Connection: close"
+                    "" |]
+                |> String.concat crlf
+                |> Encoding.UTF8.GetBytes
+            else
+                let html = 
+                    // title,desc,
+                    (plink.p.HashTiny,plink.p.HashFull,"","")
+                    |> render ssrTriple
+
+                [|  html |]
+                |> Array.concat
         else
             rep404
     else
