@@ -24,25 +24,21 @@ let api_Public_Ping json =
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
 let api_Public_ListBiz json =
-    let list = 
-        runtime.bcs.Values
-        |> Seq.toArray
-        |> Array.map(fun i -> i.biz)
-        |> Array.map BIZ__json
-        |> Json.Ary
-    
-    [|  ok
-        ("list",list)   |]
+    runtime.bcs.Values
+    |> Seq.toArray
+    |> Array.map(fun i -> i.biz)
+    |> Array.map BIZ__json
+    |> wrapOkAry
 
 let api_Public_LoadCryptoLink json =
     let tiny = tryFindStrByAtt "tiny" json
     if runtime.tiny__full.ContainsKey tiny then
         let full = runtime.tiny__full[tiny]
-        let clink = runtime.hashFull__clinks[full]
-        [|  ok
-            ("clink",CLINK__json clink)   |]
+        runtime.hashFull__clinks[full]
+        |> CLINK__json
+        |> wrapOk "clink"
     else
-        [|  er Er.InvalideParameter|]
+        er Er.InvalideParameter
 
 let api_Public_CheckoutCryptoLink json =
 
@@ -75,7 +71,7 @@ let api_Public_CheckoutCryptoLink json =
         None
 
     if urlLength = 0 then
-        [|  er Er.InvalideParameter  |]
+        er Er.InvalideParameter
     else
         match 
             url__clinko 
@@ -88,11 +84,11 @@ let api_Public_CheckoutCryptoLink json =
             clink
             |> CLINK__json
             |> wrapOk "clink"
-        | None -> [|  er Er.Internal  |]
+        | None -> er Er.Internal
 
 let branch json api = 
 
     match api with
     | "ListBiz" -> api_Public_ListBiz json
     | "CheckoutTinyLink" -> api_Public_CheckoutCryptoLink json
-    | _ -> [|  er Er.ApiNotExists   |]
+    | _ -> er Er.ApiNotExists

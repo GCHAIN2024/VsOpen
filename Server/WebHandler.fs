@@ -136,11 +136,11 @@ let branch service api json =
         | "listBiz" -> api_Public_ListBiz json
         | "loadCryptoLink" -> api_Public_LoadCryptoLink json
         | "checkoutCryptoLink" -> api_Public_CheckoutCryptoLink json
-        | _ -> [|  er Er.ApiNotExists   |]
-    | "eu" -> [|  er Er.ApiNotExists   |]
-    | "admin" -> [|  er Er.ApiNotExists   |]
-    | "open" -> [|  er Er.ApiNotExists   |]
-    | _ -> [|  er Er.ApiNotExists   |]
+        | _ -> er Er.ApiNotExists
+    | "eu" -> er Er.ApiNotExists
+    | "admin" -> er Er.ApiNotExists
+    | "open" -> er Er.ApiNotExists
+    | _ -> er Er.ApiNotExists
 
 let echo req = 
 
