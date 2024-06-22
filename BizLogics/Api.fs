@@ -34,6 +34,16 @@ let api_Public_ListBiz json =
     [|  ok
         ("list",list)   |]
 
+let api_Public_LoadCryptoLink json =
+    let tiny = tryFindStrByAtt "tiny" json
+    if runtime.tiny__full.ContainsKey tiny then
+        let full = runtime.tiny__full[tiny]
+        let clink = runtime.hashFull__clinks[full]
+        [|  ok
+            ("clink",CLINK__json clink)   |]
+    else
+        [|  er Er.InvalideParameter|]
+
 let api_Public_CheckoutCryptoLink json =
 
     let url,urlLength = 

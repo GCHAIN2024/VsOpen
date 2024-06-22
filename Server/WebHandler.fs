@@ -134,6 +134,7 @@ let branch service api json =
         match api with
         | "ping" -> api_Public_Ping json
         | "listBiz" -> api_Public_ListBiz json
+        | "loadCryptoLink" -> api_Public_LoadCryptoLink json
         | "checkoutCryptoLink" -> api_Public_CheckoutCryptoLink json
         | _ -> [|  er Er.ApiNotExists   |]
     | "eu" -> [|  er Er.ApiNotExists   |]
@@ -143,7 +144,7 @@ let branch service api json =
 
 let echo req = 
 
-    if req.pathline.StartsWith "/" || req.pathline.StartsWith "/gchain" then
+    if req.pathline = "/" || req.pathline = "/gchain" then
         ssrPageHome
         |> render (hash1,hash2)
         |> Some
