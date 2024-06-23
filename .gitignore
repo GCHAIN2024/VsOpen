@@ -1,9 +1,8 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
-**/obj/
-**/obj/Debug
-**/obj/Release
+**/obj/**
+**/bin/**
 
 /.vs/VsOpen/FileContentIndex
 /.vs/GCHAIN-All/FileContentIndex
@@ -33,5 +32,5 @@
 
 /Deploy/as/**
 /Deploy/js/**
-/Deploy/index.html
-/Deploy/panel.js
+
+.fake
