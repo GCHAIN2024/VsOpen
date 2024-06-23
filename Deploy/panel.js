@@ -13,7 +13,8 @@ const handler = {
     }
 };
 
-const panelstates = new Proxy({  showpanel: false}, handler);
+globalThis.panelrt = new Proxy({showpanel: false}, handler);
+const panelstates = globalThis.panelrt
 
 // 函数：创建 <div> 元素
 const createPanelDiv = () => {
@@ -75,15 +76,16 @@ const removePanel = () => {
     }
 };
 
+const tglPanel = () => {
+    panelstates.showpanel = !panelstates.showpanel
+}
 
 
 // 等待 DOM 完全加载后初始化
 document.addEventListener('DOMContentLoaded', () => {
-    panelstates.showpanel = true;
+    panelstates.showpanel = false;
     if (panelstates.showpanel) {
         renderPanel();
     }
-    setInterval(()=>{
-        panelstates.showpanel = !panelstates.showpanel
-    },2000)
+
 });

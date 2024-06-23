@@ -3,34 +3,10 @@
 ################################################################################
 **/obj/**
 **/bin/**
-
-/.vs/VsOpen/FileContentIndex
-/.vs/GCHAIN-All/FileContentIndex
-/Common/bin/Debug/net8.0
-/Common/obj
-/Server/bin/Debug/net8.0
-/Server/obj
-/Shared/obj/Debug/net8.0/Shared.AssemblyInfo.fs
-/Shared/obj/Debug/net8.0/Shared.AssemblyInfoInputs.cache
-/Shared/obj/Debug/net8.0/Shared.dll
-/Shared/obj/Debug/net8.0/Shared.fsproj.AssemblyReference.cache
-/Shared/obj/Debug/net8.0/Shared.fsproj.FileListAbsolute.txt
-/Shared/obj/Debug/net8.0/Shared.pdb
-/Shared/obj/Debug/net8.0/Shared.sourcelink.json
-/Shared/obj/Debug/net8.0/ref/Shared.dll
-/Shared/obj/Debug/net8.0/refint/Shared.dll
-/Shared/bin/Debug/net8.0/Shared.dll
-/Shared/bin/Debug/net8.0/Shared.pdb
-/Shared/bin/Debug/net8.0/Util.dll
-/Shared/bin/Debug/net8.0/Util.pdb
-/.vs/GCHAIN-All/v17/.suo
-/.vs/GCHAIN-All/v17/DocumentLayout.json
-/BizLogics/bin/Debug/net8.0
-/BizLogics/obj
-/.vs/GCHAIN-All/v17/.futdcache.v2
-.vs/GCHAIN-All/DesignTimeBuild/.dtbcache.v2
+**/.vs/**
 
 /Deploy/as/**
 /Deploy/js/**
+/Deploy/**
 
 .fake
