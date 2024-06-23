@@ -163,6 +163,7 @@ let echo req =
     else if req.pathline = "/open.js" then
         openJavaScript
         |> str__StandardResponse "text/javascript"
+        |> Some
     else if req.pathline.StartsWith "/t/" then
         hTinyLink req
         |> Some
