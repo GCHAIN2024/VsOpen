@@ -34,3 +34,4 @@
 /Deploy/js/**
 
 .fake
+/Deploy/index.html
