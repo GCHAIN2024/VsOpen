@@ -82,6 +82,15 @@ let ssrPageHome = {
     url = "https://gcha.in/"
     noscript = homePageNoscript }
 
+let openJavaScript = 
+    """
+    var body = document.getelementbyid("body");
+    // dom出来自己的一个div。 <div id="panel"></div>
+    //然后直接dom进去一段css。<style />
+    var panel = document.getelementbyid("panel");
+
+    """
+
 let r1 = string__regex @"\w+"
 
 //  https://cha.in/t/a1Bz7wS
@@ -144,10 +153,16 @@ let branch service api json =
 
 let echo req = 
 
-    if req.pathline = "/" || req.pathline = "/gchain" then
+    if req.pathline.StartsWith "/gchain" then
+        req.pathline <- req.pathline.Substring "/gchain".Length
+
+    if req.pathline = "/" then
         ssrPageHome
         |> render (hash1,hash2)
         |> Some
+    else if req.pathline = "/open.js" then
+        openJavaScript
+        |> str__StandardResponse "text/javascript"
     else if req.pathline.StartsWith "/t/" then
         hTinyLink req
         |> Some
