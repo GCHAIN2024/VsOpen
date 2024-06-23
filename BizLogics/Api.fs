@@ -7,6 +7,7 @@ open System.Text
 
 open Util.Text
 open Util.Json
+open Util.HttpClient
 
 open UtilWebServer.Json
 open UtilWebServer.Api
@@ -49,6 +50,21 @@ let api_Public_CheckoutCryptoLink json =
         else
             "https://" + url,url.Length
 
+    let domainnameo = 
+        let domainame = (Util.Http.url__domainame url)
+
+        runtime.domainnames.Values
+        |> Seq.tryFind(fun v -> v.p.Caption = domainame)
+
+    let htmlo = 
+        try
+            url
+            |> httpGet None
+            |> snd
+            |> Some
+        with
+        | _ -> None
+
     let bizownero =
         (fun id -> 
             if runtime.bizowners.ContainsKey id then
@@ -72,10 +88,14 @@ let api_Public_CheckoutCryptoLink json =
 
     if urlLength = 0 then
         er Er.InvalideParameter
+    else if htmlo.IsNone then
+        er Er.InvalideParameter
     else
         match 
             url__clinko 
                 url
+                domainnameo
+                htmlo.Value
                 dsto
                 data
                 promotero

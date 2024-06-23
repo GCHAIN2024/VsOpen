@@ -84,17 +84,13 @@ let checkcollition
     hashTiny
 
 let url__clinko 
-    (src:string) 
+    (src:string)
+    domainnameo
+    html
     (dsto:BIZ option)
     data
     (promotero:EU option)
     (bizownero:BIZOWNER option) = 
-
-    let domainnameo = 
-        let domainame = (Util.Http.url__domainame src).ToLower()
-
-        runtime.domainnames.Values
-        |> Seq.tryFind(fun v -> v.p.Caption = domainame)
 
     let promoter = 
         match promotero with
@@ -136,7 +132,7 @@ let url__clinko
             p.Data <- data
             p.Expiry <- DateTime.UtcNow.Add expireGeneral
 
-            let title,desc,image = load p.Src
+            let title,desc,image = parse html
             p.OgTitle <- title
             p.OgDesc <- desc
             p.OgImg <- image
