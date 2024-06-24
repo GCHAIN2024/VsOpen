@@ -9,7 +9,7 @@ if "%~1"=="--fc" set FORCE_FLAG=1
 echo Change DIR to %SLN_PATH%
 cd /d %SLN_PATH%
 
-echo git reset & git fetch
+echo git reset fetch
 git reset --hard HEAD
 git fetch origin
 
@@ -33,9 +33,10 @@ goto End_Script
 echo Force flag (--fc) detected. Executing commands unconditionally.
 
 :Execute_Build_n_Deploy
-echo git pull & to Server folder & Build
+echo git pull
 git pull origin main
 cd Server
+echo Build
 dotnet publish Server.fsproj -o "bin/Publish/%LATEST_COMMIT%"
 
 IF ERRORLEVEL 1 (
