@@ -22,7 +22,7 @@ open Shared.Types
 open BizLogics.Common
 open BizLogics.Ca
 
-let init runtime = 
+let init (runtime:Runtime) = 
 
     "Init ..."
     |> runtime.output
@@ -42,27 +42,27 @@ let init runtime =
     Shared.OrmMor.init()
 
     (fun (i:LANG) -> 
-        runtime.langs[i.p.Code2] <- i)
+        runtime.data.langs[i.p.Code2] <- i)
     |> loadAll runtime.output conn LANG_metadata
 
     (fun i -> 
-        runtime.ecs[i.ID] <- 
+        runtime.users[i.ID] <- 
             {
                 eu = i })
     |> loadAll runtime.output conn EU_metadata
 
     (fun (i:BIZ) -> 
-        runtime.bcs[i.p.Code] <- 
+        runtime.data.bcs[i.p.Code] <- 
             {
                 biz = i })
     |> loadAll runtime.output conn BIZ_metadata
 
     freqBizCodes
     |> Array.iter(fun code ->
-        if runtime.bcs.ContainsKey code = false then
+        if runtime.data.bcs.ContainsKey code = false then
             match createBiz code with
             | Some biz -> 
-                runtime.bcs[code] <- 
+                runtime.data.bcs[code] <- 
                     {   
                         biz = biz }
             | None ->
@@ -70,10 +70,10 @@ let init runtime =
         ())
 
     (fun i -> 
-        runtime.bizowners[i.ID] <- i)
+        runtime.data.bizowners[i.ID] <- i)
     |> loadAll runtime.output conn BIZOWNER_metadata
 
     (fun i -> 
-        runtime.hashFull__clinks[i.p.HashFull] <- i
-        runtime.tiny__full[i.p.HashTiny] <- i.p.HashFull)
+        runtime.data.hashFull__clinks[i.p.HashFull] <- i
+        runtime.data.tiny__full[i.p.HashTiny] <- i.p.HashFull)
     |> loadAll runtime.output conn CLINK_metadata

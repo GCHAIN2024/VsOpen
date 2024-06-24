@@ -48,26 +48,20 @@ let defaultHost() = {
 
     fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
 
+type Session = SessionTemplate<EuComplex,unit>
+type Sessions = SessionsTemplate<EuComplex,unit>
 
-type SessionRole =
-| EndUser of EuComplex
-| Visitor
-
-type Session = UtilWebServer.Auth.Session<SessionRole,unit>
-
-type Runtime = {
-host: Host
+type RuntimeData = {
 langs: ConcurrentDictionary<string,LANG>
 domainnames: ConcurrentDictionary<string,DOMAINNAME>
 hashFull__clinks: ConcurrentDictionary<string,CLINK>
 tiny__full: ConcurrentDictionary<string,string>
-ecs: ConcurrentDictionary<int64,EuComplex>
 bcs: ConcurrentDictionary<string,BizComplex>
-bizowners: ConcurrentDictionary<int64,BIZOWNER>
-sessions: ConcurrentDictionary<string,Session>
-output: string -> unit }
+bizowners: ConcurrentDictionary<int64,BIZOWNER> }
 
-type X = UtilWebServer.Api.ApiCtx<Runtime,Session, Er>
+type Runtime = RuntimeTemplate<EuComplex,unit,RuntimeData>
+
+type X = UtilWebServer.Api.ApiCtx<Runtime,Session,Er>
 
 type HostEnum = 
 | Prod
@@ -103,13 +97,14 @@ let runtime =
 
     {
         host = host
-        langs = new ConcurrentDictionary<string,LANG>()
-        domainnames = new ConcurrentDictionary<string,DOMAINNAME>()
-        hashFull__clinks = new ConcurrentDictionary<string,CLINK>()
-        tiny__full = new ConcurrentDictionary<string,string>()
-        ecs = new ConcurrentDictionary<int64,EuComplex>()
-        bcs = new ConcurrentDictionary<string,BizComplex>()
-        bizowners = new ConcurrentDictionary<int64,BIZOWNER>()
+        data = {
+            langs = new ConcurrentDictionary<string,LANG>()
+            domainnames = new ConcurrentDictionary<string,DOMAINNAME>()
+            hashFull__clinks = new ConcurrentDictionary<string,CLINK>()
+            tiny__full = new ConcurrentDictionary<string,string>()
+            bcs = new ConcurrentDictionary<string,BizComplex>()
+            bizowners = new ConcurrentDictionary<int64,BIZOWNER>() }
+        users = new ConcurrentDictionary<int64,EuComplex>()
         sessions = new ConcurrentDictionary<string,Session>()
         output = output }
 

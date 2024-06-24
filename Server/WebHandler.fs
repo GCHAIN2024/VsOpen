@@ -102,9 +102,9 @@ let hTinyLink req =
         |> regex_match r1
 
     if m.Length > 5 then
-        if runtime.tiny__full.ContainsKey m then
-            let hashFull = runtime.tiny__full[m]
-            let clink = runtime.hashFull__clinks[hashFull]
+        if runtime.data.tiny__full.ContainsKey m then
+            let hashFull = runtime.data.tiny__full[m]
+            let clink = runtime.data.hashFull__clinks[hashFull]
 
             let forward = false
 
@@ -140,9 +140,9 @@ let hTinyLink req =
 
 let checkSession = UtilWebServer.Auth.checkSession Er.Unauthorized runtime.sessions
 
-let checkSessionEu x = 
+let checkSessionUser x = 
     match x.sessiono.Value.identity with
-    | SessionRole.EndUser eu -> Suc x
+    | Some eu -> Suc x
     | _ -> Fail(Er.Unauthorized,x)
 
 let branching x = 
@@ -182,17 +182,17 @@ let branch service api json =
         x <- 
             x 
             |> bind checkSession
-            |> bind checkSessionEu
+            |> bind checkSessionUser
     | "admin" ->
         x <- 
             x 
             |> bind checkSession
-            |> bind checkSessionEu
+            |> bind checkSessionUser
     | "open" ->
         x <- 
             x 
             |> bind checkSession
-            |> bind checkSessionEu
+            |> bind checkSessionUser
 
     | _ -> ()
 

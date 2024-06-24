@@ -41,14 +41,14 @@ let ap = {
     complex__ids = fun ec -> (ec.eu.p.SocialAuthBiz,ec.eu.p.SocialAuthId)
     conn = conn }
 
-let tryFindExistingx = tryFindExisting ap runtime.ecs
-let tryCreateUserx = tryCreateUser ap runtime.ecs
+let tryFindExistingx = tryFindExisting ap runtime.users
+let tryCreateUserx = tryCreateUser ap runtime.users
 
 let checkoutEu bizCode id = 
 
     let bizId = 
-        if runtime.bcs.ContainsKey bizCode then
-            runtime.bcs[bizCode].biz.ID
+        if runtime.data.bcs.ContainsKey bizCode then
+            runtime.data.bcs[bizCode].biz.ID
         else
             0L
 

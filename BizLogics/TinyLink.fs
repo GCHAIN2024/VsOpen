@@ -43,7 +43,7 @@ let checkcollition
     let mutable repeater = 0
     let mutable hashTiny = ""
 
-    while hashTiny = "" || runtime.tiny__full.ContainsKey hashTiny do
+    while hashTiny = "" || runtime.data.tiny__full.ContainsKey hashTiny do
         
         let hash =
 
@@ -103,8 +103,8 @@ let url__clinko
         |> Array.concat
         |> bin__sha256
 
-    if runtime.hashFull__clinks.ContainsKey hashFull then
-        runtime.hashFull__clinks[hashFull]
+    if runtime.data.hashFull__clinks.ContainsKey hashFull then
+        runtime.data.hashFull__clinks[hashFull]
         |> Some
     else
     
@@ -142,8 +142,8 @@ let url__clinko
 
         if pretx |> loggedPipeline "BizLogics.TinyLink.url__clink" conn then
             
-            runtime.tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
-            runtime.hashFull__clinks[rcd.p.HashFull] <- rcd
+            runtime.data.tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
+            runtime.data.hashFull__clinks[rcd.p.HashFull] <- rcd
 
             Some rcd
         else

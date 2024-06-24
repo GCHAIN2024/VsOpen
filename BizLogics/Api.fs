@@ -28,7 +28,7 @@ let api_Public_Ping x =
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
 let api_Public_ListBiz x =
-    runtime.bcs.Values
+    runtime.data.bcs.Values
     |> Seq.toArray
     |> Array.map(fun i -> i.biz)
     |> Array.map BIZ__json
@@ -36,9 +36,9 @@ let api_Public_ListBiz x =
 
 let api_Public_LoadCryptoLink x =
     let tiny = tryFindStrByAtt "tiny" x.json
-    if runtime.tiny__full.ContainsKey tiny then
-        let full = runtime.tiny__full[tiny]
-        runtime.hashFull__clinks[full]
+    if runtime.data.tiny__full.ContainsKey tiny then
+        let full = runtime.data.tiny__full[tiny]
+        runtime.data.hashFull__clinks[full]
         |> CLINK__json
         |> wrapOk "clink"
     else
@@ -56,7 +56,7 @@ let api_Public_CheckoutCryptoLink x =
     let domainnameo = 
         let domainame = (Util.Http.url__domainame url)
 
-        runtime.domainnames.Values
+        runtime.data.domainnames.Values
         |> Seq.tryFind(fun v -> v.p.Caption = domainame)
 
     let htmlo = 
@@ -70,8 +70,8 @@ let api_Public_CheckoutCryptoLink x =
 
     let bizownero =
         (fun id -> 
-            if runtime.bizowners.ContainsKey id then
-                runtime.bizowners[id] |> Some
+            if runtime.data.bizowners.ContainsKey id then
+                runtime.data.bizowners[id] |> Some
             else
                 None)
         |> tryLoadFromJsonId x.json "bizowner"
@@ -79,8 +79,8 @@ let api_Public_CheckoutCryptoLink x =
     let data = tryFindStrByAtt "data" x.json
     let dsto = 
         let code = tryFindStrByAtt "dst" x.json
-        if runtime.bcs.ContainsKey code then
-            runtime.bcs[code].biz
+        if runtime.data.bcs.ContainsKey code then
+            runtime.data.bcs[code].biz
             |> Some
         else
             None
