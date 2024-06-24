@@ -160,6 +160,7 @@ let echo req =
     if req.pathline = "/" then
         ssrPageHome
         |> render (hash1,hash2)
+        |> bin__StandardResponse "text/html"
         |> Some
     else if req.pathline = "/open.js" then
         openJavaScript
