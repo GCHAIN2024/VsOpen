@@ -70,6 +70,7 @@ let host e =
     | ProdLinux ->
         h.zmq <- false
         h.conn <- "server=10.0.0.14;database=GCHAIN;Trusted_Connection=False;User ID=sa;Password=GCHAIN"
+        h.port <- 11781
     | RevengeDev -> 
         h.zmq <- false
 
