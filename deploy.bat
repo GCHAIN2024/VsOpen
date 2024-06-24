@@ -5,6 +5,17 @@ set FORCE_FLAG=0
 set SLN_PATH="C:\Dev\GCHAIN2024\GChainVsOpen"
 if "%~1"=="--fc" set FORCE_FLAG=1
 
+echo git pull Common
+cd /d "C:\Dev\Common"
+git reset --hard HEAD
+git fetch origin
+git pull origin main
+
+echo git pull JCS
+cd /d "C:\Dev\JCS"
+git reset --hard HEAD
+git fetch origin
+git pull origin main
 
 echo Change DIR to %SLN_PATH%
 cd /d %SLN_PATH%
