@@ -40,6 +40,9 @@ let ap = {
     complex__ids = fun ec -> (ec.eu.p.SocialAuthBiz,ec.eu.p.SocialAuthId)
     conn = conn }
 
+let tryFindExistingx = tryFindExisting ap runtime.ecs
+let tryCreateUserx = tryCreateUser ap runtime.ecs
+
 let checkoutEu bizCode id = 
 
     let bizId = 
@@ -50,10 +53,8 @@ let checkoutEu bizCode id =
 
     match bizCode with
     | "DISCORD" -> 
-        tryFindExisting ap runtime.ecs bizId id
-        |> optionProcess 
-            (fun ec -> Some ec)
-            (fun _ -> tryCreateUser ap (runtime.ecs) bizId id)
+        tryFindExistingx bizId id
+        |> optionProcessNone (fun _ -> tryCreateUserx bizId id)
 
     | _ -> None
 
