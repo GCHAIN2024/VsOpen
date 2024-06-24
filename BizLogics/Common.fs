@@ -67,6 +67,7 @@ let host e =
     match e with
     | Prod -> 
         h.zmq <- false
+        h.port <- 11781
     | ProdLinux ->
         h.zmq <- false
         h.conn <- "server=10.0.0.14;database=GCHAIN;Trusted_Connection=False;User ID=sa;Password=GCHAIN"
