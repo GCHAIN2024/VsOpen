@@ -26,6 +26,7 @@ open UtilWebServer.SSR
 
 open BizLogics.Common
 open BizLogics.TinyLink
+open BizLogics.Auth
 open BizLogics.Api
 
 let hash1,hash2 = 
@@ -142,7 +143,7 @@ let branch service api json =
     | "public" -> 
         match api with
         | "ping" -> api_Public_Ping json
-        | "auth" -> api_Public_Auth json
+        | "auth" -> auth json
         | "listBiz" -> api_Public_ListBiz json
         | "loadCryptoLink" -> api_Public_LoadCryptoLink json
         | "checkoutCryptoLink" -> api_Public_CheckoutCryptoLink json

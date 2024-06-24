@@ -27,32 +27,6 @@ let api_Public_Ping json =
     [|  ok
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
-let api_Public_Auth json =
-
-    match tryFindStrByAtt "biz" json with
-    | "DISCORD" ->
-        match
-            Discord.requestAccessToken
-                (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)
-                (tryFindStrByAtt "redirectUrl" json)
-                (tryFindStrByAtt "code" json)
-            |> Discord.requestUserInfo with
-        | Some (uid,usernameWithdiscriminator, avatar, json) -> 
-
-            match 
-                uid.ToString()
-                |> checkoutEu "DISCORD" with
-            | Some ec -> 
-                [|  ok
-                    ("ec", ec |> EuComplex__json)
-                    ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
-
-            | None -> er Er.Internal
-
-        | None -> er Er.InvalideParameter
-
-    | _ -> er Er.InvalideParameter
-
 let api_Public_ListBiz json =
     runtime.bcs.Values
     |> Seq.toArray

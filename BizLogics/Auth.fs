@@ -6,6 +6,7 @@ open System.Collections.Generic
 open System.Collections.Concurrent
 
 open Util.Text
+open Util.Json
 open Util.Crypto
 open Util.Db
 open Util.DbTx
@@ -15,13 +16,18 @@ open Util.Zmq
 open UtilWebServer.DbLogger
 open UtilWebServer.Db
 open UtilWebServer.Common
+open UtilWebServer.Json
+open UtilWebServer.Api
+open UtilWebServer.Open
 
 open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
+open Shared.CustomMor
 
 open BizLogics.Common
 open BizLogics.Ca
+
 
 let tryCreateEu bizId id = 
 
@@ -61,3 +67,29 @@ let checkoutEu bizCode id =
         | None -> tryCreateEu bizId id
 
     | _ -> None
+
+
+let auth json =
+
+    match tryFindStrByAtt "biz" json with
+    | "DISCORD" ->
+        match
+            Discord.requestAccessToken
+                (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)
+                (tryFindStrByAtt "redirectUrl" json)
+                (tryFindStrByAtt "code" json)
+            |> Discord.requestUserInfo with
+        | Some (uid,usernameWithdiscriminator, avatar, json) -> 
+
+            match 
+                uid.ToString()
+                |> checkoutEu "DISCORD" with
+            | Some ec -> 
+                [|  ok
+                    ("ec", ec |> EuComplex__json)   |]
+
+            | None -> er Er.Internal
+
+        | None -> er Er.InvalideParameter
+
+    | _ -> er Er.InvalideParameter
