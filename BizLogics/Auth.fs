@@ -5,6 +5,7 @@ open System.Text
 open System.Collections.Generic
 open System.Collections.Concurrent
 
+open Util.ADT
 open Util.Text
 open Util.Json
 open Util.Crypto
@@ -19,6 +20,7 @@ open UtilWebServer.Common
 open UtilWebServer.Json
 open UtilWebServer.Api
 open UtilWebServer.Open
+open UtilWebServer.Auth
 
 open Shared.OrmTypes
 open Shared.Types
@@ -28,68 +30,48 @@ open Shared.CustomMor
 open BizLogics.Common
 open BizLogics.Ca
 
-
 let tryCreateEu bizId id = 
-
-    let pretx = None |> opctx__pretx
-    
-    let rcd = 
-
+    (fun _ -> 
         let p = pEU_empty()
-            
         p.SocialAuthBiz <- bizId
         p.SocialAuthId <- id
+        p)
+    |> tryCreateUser
+        "BizLogics.Auth.tryCreateEu" 
+        conn    
+        EU_metadata
+    |> optionProcessSome
+        (fun rcd -> 
+            let ec = { eu = rcd }
+            runtime.ecs[rcd.ID] <- ec
+            ec)
 
-        p
-        |> populateCreateTx pretx EU_metadata
-
-    if pretx |> loggedPipeline "BizLogics.Auth.tryCreateEu" conn then
-        let ec = { eu = rcd }
-        runtime.ecs[rcd.ID] <- ec
-        Some ec
-    else
-        None
+let tryFindExisting bizId id = 
+    runtime.ecs.Values
+    |> Seq.tryFind(fun ec -> ec.eu.p.SocialAuthBiz = bizId && ec.eu.p.SocialAuthId = id)
 
 let checkoutEu bizCode id = 
 
+    let bizId = 
+        if runtime.bcs.ContainsKey bizCode then
+            runtime.bcs[bizCode].biz.ID
+        else
+            0L
+
     match bizCode with
     | "DISCORD" -> 
-
-        let bizId = runtime.bcs[bizCode].biz.ID
-        match
-            runtime.ecs.Values
-            |> Seq.tryFind(fun ec -> 
-                if ec.eu.p.SocialAuthBiz = bizId then
-                    ec.eu.p.SocialAuthId = id
-                else
-                    false) with
-        | Some ec -> Some ec
-        | None -> tryCreateEu bizId id
+        tryFindExisting bizId id
+        |> optionProcess 
+            (fun ec -> Some ec)
+            (fun _ -> tryCreateEu bizId id)
 
     | _ -> None
 
 
-let auth json =
+let auth =
+    socialAuth
+        (Er.Internal,Er.InvalideParameter)
+        (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)        
+        checkoutEu
+        EuComplex__json
 
-    match tryFindStrByAtt "biz" json with
-    | "DISCORD" ->
-        match
-            Discord.requestAccessToken
-                (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)
-                (tryFindStrByAtt "redirectUrl" json)
-                (tryFindStrByAtt "code" json)
-            |> Discord.requestUserInfo with
-        | Some (uid,usernameWithdiscriminator, avatar, json) -> 
-
-            match 
-                uid.ToString()
-                |> checkoutEu "DISCORD" with
-            | Some ec -> 
-                [|  ok
-                    ("ec", ec |> EuComplex__json)   |]
-
-            | None -> er Er.Internal
-
-        | None -> er Er.InvalideParameter
-
-    | _ -> er Er.InvalideParameter
