@@ -75,8 +75,6 @@ let host e =
     | RevengeDev -> 
         h.zmq <- false
 
-        //h.port <- 8000
-
     h
 
 let runtime = 
