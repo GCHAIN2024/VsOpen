@@ -11,6 +11,7 @@ open Util.HttpClient
 
 open UtilWebServer.Json
 open UtilWebServer.Api
+open UtilWebServer.Open
 
 open Shared.OrmTypes
 open Shared.OrmMor
@@ -25,9 +26,15 @@ let api_Public_Ping json =
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
 let api_Public_Auth json =
-    
+
     match tryFindStrByAtt "biz" json with
     | "DISCORD" ->
+        let uid, usernameWithdiscriminator, avatar, json = 
+            Discord.requestAccessToken
+                (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)
+                (tryFindStrByAtt "redirectUrl" json)
+                (tryFindStrByAtt "code" json)
+            |> Discord.requestUserInfo
 
         [|  ok
             ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]

@@ -26,6 +26,26 @@ let defaultHost() = {
     port = 80
     conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
     defaultHtml = "index.html"
+
+    openDiscordAppId = 
+        [|  "1254790111"
+            "913181274" |]
+        |> String.Concat
+    openDiscordPubKey = 
+        [|  "e0300e71e2dc"
+            "94ec42425c"
+            "eea8faed6b6"
+            "172158dbbc1"
+            "b882fa2750f"
+            "b55dec22a" |]
+        |> String.Concat
+    openDiscordSecret = 
+        [|  "YwZeJGUrR"
+            "JwL3E7V"
+            "cwlgtvJ_"
+            "oeT01nom" |]
+        |> String.Concat
+
     fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
 
 type EuComplex = {
