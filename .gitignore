@@ -11,3 +11,5 @@
 
 .fake
 /Deploy/index.html
+
+**/*.user
