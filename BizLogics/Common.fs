@@ -51,11 +51,13 @@ output: string -> unit }
 
 type HostEnum = 
 | Prod
+| ProdLinux
 | RevengeDev
 
 let hostEnum = 
     match Environment.MachineName with
     | "MAIN" -> RevengeDev
+    | "ikaubuntu" -> ProdLinux
     | _ -> Prod
 
 let host e = 
@@ -65,8 +67,12 @@ let host e =
     match e with
     | Prod -> 
         h.zmq <- false
+    | ProdLinux ->
+        h.zmq <- false
+        h.conn <- "server=10.0.0.14; database=GCHAIN; Trusted_Connection=True; User ID=sa; Password=@GCHAIN"
     | RevengeDev -> 
         h.zmq <- false
+
         //h.port <- 8000
 
     h
