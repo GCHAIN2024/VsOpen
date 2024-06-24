@@ -2,19 +2,16 @@
 @echo off
 setlocal
 set FORCE_FLAG=0
+set SLN_PATH="C:\Dev\GCHAIN2024\GChainVsOpen"
+if "%~1"=="--fc" set FORCE_FLAG=1
 
 
-@echo on
-cd /d C:\Dev\GCHAIN2024\GChainVsOpen
-@echo off
+echo Change DIR to %SLN_PATH%
+cd /d %SLN_PATH%
 
-
-if "%~1"=="--force" set FORCE_FLAG=1
-
-@echo on
+echo git reset & git fetch
 git reset --hard HEAD
 git fetch origin
-@echo off
 
 
 for /f %%i in ('git rev-parse origin/main') do set LATEST_COMMIT=%%i
@@ -32,16 +29,15 @@ if "%FORCE_FLAG%"=="1" (
 )
 goto End_Script
 
-
 :Force_Execute
-echo Force flag (--force) detected. Executing commands unconditionally.
+echo Force flag (--fc) detected. Executing commands unconditionally.
 
 :Execute_Build_n_Deploy
-@echo on
+echo git pull & to Server folder & Build
 git pull origin main
 cd Server
 dotnet publish Server.fsproj -o "bin/Publish/%LATEST_COMMIT%"
-@echo off
+
 IF ERRORLEVEL 1 (
     echo Publish failed.
     exit /b 1
@@ -60,7 +56,7 @@ cd bin/Publish/%LATEST_COMMIT%
 echo Change DIR to %LATEST_COMMIT%
 
 start "Server%LATEST_COMMIT%" cmd /k "C:\Dev\GCHAIN2024\GChainVsOpen\Server\bin\Publish\%commitHash%\Server.exe"
-
+echo restart Server.exe
 
 
 :End_Script
