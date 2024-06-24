@@ -37,20 +37,10 @@ let ap = {
     setSocialAuthId = fun p v -> p.SocialAuthId <- v
     empty__p = pEU_empty
     metadata = EU_metadata
+    p__complex = fun eu -> { eu = eu }
+    complex__ids = fun ec -> (ec.eu.p.SocialAuthBiz,ec.eu.p.SocialAuthId)
     loc = "BizLogics.Auth.tryCreateEu" 
     conn = conn }
-
-let tryCreateEu bizId id = 
-    tryCreateUser ap bizId id
-    |> optionProcessSome
-        (fun rcd -> 
-            let ec = { eu = rcd }
-            runtime.ecs[rcd.ID] <- ec
-            ec)
-
-let tryFindExisting bizId id = 
-    runtime.ecs.Values
-    |> Seq.tryFind(fun ec -> ec.eu.p.SocialAuthBiz = bizId && ec.eu.p.SocialAuthId = id)
 
 let checkoutEu bizCode id = 
 
@@ -62,10 +52,10 @@ let checkoutEu bizCode id =
 
     match bizCode with
     | "DISCORD" -> 
-        tryFindExisting bizId id
+        tryFindExisting ap runtime.ecs bizId id
         |> optionProcess 
             (fun ec -> Some ec)
-            (fun _ -> tryCreateEu bizId id)
+            (fun _ -> tryCreateUser ap (runtime.ecs) bizId id)
 
     | _ -> None
 
