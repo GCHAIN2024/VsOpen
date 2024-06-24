@@ -37,7 +37,9 @@ let ap = {
     getSocialAuthId = fun p -> p.SocialAuthId
     setSocialAuthId = fun p v -> p.SocialAuthId <- v
     metadata = EU_metadata
-    p__complex = fun eu -> { eu = eu }
+    p__complex = fun eu -> { 
+        clinks = new Dictionary<int64,CLINK>()
+        eu = eu }
     complex__ids = fun ec -> (ec.eu.p.SocialAuthBiz,ec.eu.p.SocialAuthId)
     conn = conn }
 

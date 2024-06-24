@@ -1,16 +1,18 @@
 ﻿
 
-module BizLogics.Api
+module BizLogics.ApiPublic
 
 open System
 open System.Text
 
+open Util.Cat
 open Util.Text
 open Util.Json
 open Util.HttpClient
 
 open UtilWebServer.Json
 open UtilWebServer.Api
+open UtilWebServer.Auth
 open UtilWebServer.Open
 
 open Shared.OrmTypes
@@ -85,9 +87,11 @@ let api_Public_CheckoutCryptoLink x =
         else
             None
            
-    let promotero =            
-        let session = tryFindStrByAtt "session" x.json
-        None
+    let ownero = 
+        checkSessionUsero
+            Er.Unauthorized 
+            runtime.sessions
+            x
 
     if urlLength = 0 then
         er Er.InvalideParameter
@@ -101,7 +105,7 @@ let api_Public_CheckoutCryptoLink x =
                 htmlo.Value
                 dsto
                 data
-                promotero
+                ownero
                 bizownero with
         | Some clink -> 
             clink

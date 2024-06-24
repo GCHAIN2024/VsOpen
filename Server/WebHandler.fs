@@ -28,7 +28,8 @@ open UtilWebServer.SSR
 open BizLogics.Common
 open BizLogics.TinyLink
 open BizLogics.Auth
-open BizLogics.Api
+open BizLogics.ApiPublic
+open BizLogics.ApiEu
 
 let hash1,hash2 = 
     runtime.host.fsDir + "\\" + runtime.host.defaultHtml
@@ -162,8 +163,9 @@ let branching x =
         | _ -> Fail(Er.ApiNotExists,x)
     | "eu" -> 
         
+        let ec = x.sessiono.Value.identity.Value
         match x.api with
-        | "myClinks" -> bindx api_Public_Ping
+        | "myClinks" -> bindx (api_Eu_MyClinks ec)
         | _ -> Fail(Er.ApiNotExists,x)
 
     | "admin" -> Fail(Er.ApiNotExists,x)

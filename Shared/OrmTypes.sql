@@ -1520,7 +1520,7 @@ BEGIN
         ,[HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
         ,[Src] NVARCHAR(MAX)
         ,[DomainName] BIGINT
-        ,[Promoter] BIGINT
+        ,[Owner] BIGINT
         ,[Dst] BIGINT
         ,[BizOwner] BIGINT
         ,[Data] NVARCHAR(MAX)
@@ -1581,13 +1581,13 @@ BEGIN
 END
 
 
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Promoter')
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Owner')
 BEGIN
- ALTER TABLE Core_CryptoLink ALTER COLUMN [Promoter] BIGINT
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Owner] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_CryptoLink ADD [Promoter] BIGINT
+ ALTER TABLE Core_CryptoLink ADD [Owner] BIGINT
 END
 
 
