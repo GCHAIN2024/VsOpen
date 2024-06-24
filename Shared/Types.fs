@@ -18,6 +18,7 @@ type Er =
 | Internal
 
 type EuComplex = {
+clinks: Dictionary<int64,CLINK>
 eu: EU }
 
 type BizComplex = {

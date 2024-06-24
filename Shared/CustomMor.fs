@@ -33,14 +33,17 @@ let Er__bin (bb:BytesBuilder) (v:Er) =
         int32__bin bb 0
     | Er.InvalideParameter ->
         int32__bin bb 1
-    | Er.Internal ->
+    | Er.Unauthorized ->
         int32__bin bb 2
+    | Er.Internal ->
+        int32__bin bb 3
 
 let bin__Er (bi:BinIndexed):Er =
     let bin,index = bi
 
     match bin__int32 bi with
-    | 2 -> Er.Internal
+    | 3 -> Er.Internal
+    | 2 -> Er.Unauthorized
     | 1 -> Er.InvalideParameter
     | _ -> Er.ApiNotExists
 
@@ -53,8 +56,10 @@ let Er__json (v:Er) =
         ("enum",int32__json 0) |> items.Add
     | Er.InvalideParameter ->
         ("enum",int32__json 1) |> items.Add
-    | Er.Internal ->
+    | Er.Unauthorized ->
         ("enum",int32__json 2) |> items.Add
+    | Er.Internal ->
+        ("enum",int32__json 3) |> items.Add
 
     items.ToArray() |> Json.Braket
 
@@ -75,7 +80,8 @@ let json__Ero (json:Json):Er option =
             match i with
             | 0 -> Er.ApiNotExists |> Some
             | 1 -> Er.InvalideParameter |> Some
-            | 2 -> Er.Internal |> Some
+            | 2 -> Er.Unauthorized |> Some
+            | 3 -> Er.Internal |> Some
             | _ -> None
         | None -> None
     | None -> None
@@ -84,12 +90,19 @@ let json__Ero (json:Json):Er option =
 
 let EuComplex__bin (bb:BytesBuilder) (v:EuComplex) =
 
+    Dictionary__bin (int64__bin) (CLINK__bin) bb v.clinks
     EU__bin bb v.eu
 
 let bin__EuComplex (bi:BinIndexed):EuComplex =
     let bin,index = bi
 
     {
+        clinks =
+            bi
+            |> (fun bi ->
+                let v = new Dictionary<int64,CLINK>()
+                bin__Dictionary (bin__int64) (bin__CLINK) v bi
+                v)
         eu =
             bi
             |> bin__EU
@@ -97,7 +110,8 @@ let bin__EuComplex (bi:BinIndexed):EuComplex =
 
 let EuComplex__json (v:EuComplex) =
 
-    [|  ("eu",EU__json v.eu)
+    [|  ("clinks",Dictionary__json (int64__json) (CLINK__json) v.clinks)
+        ("eu",EU__json v.eu)
          |]
     |> Json.Braket
 
@@ -113,6 +127,19 @@ let json__EuComplexo (json:Json):EuComplex option =
 
     let mutable passOptions = true
 
+    let clinkso =
+        match json__tryFindByName json "clinks" with
+        | None ->
+            passOptions <- false
+            None
+        | Some v -> 
+            match v |> (fun json ->
+                json__Dictionaryo (json__int64o) (json__CLINKo) (new Dictionary<int64,CLINK>()) json) with
+            | Some res -> Some res
+            | None ->
+                passOptions <- false
+                None
+
     let euo =
         match json__tryFindByName json "eu" with
         | None ->
@@ -127,6 +154,7 @@ let json__EuComplexo (json:Json):EuComplex option =
 
     if passOptions then
         {
+            clinks = clinkso.Value
             eu = euo.Value} |> Some
     else
         None

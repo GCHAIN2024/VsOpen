@@ -30,7 +30,7 @@
       {
         "enum": "FK",
         "ref": "EndUser",
-        "name": "Promoter"
+        "name": "Owner"
       },
       {
         "enum": "FK",

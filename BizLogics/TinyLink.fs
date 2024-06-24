@@ -89,12 +89,12 @@ let url__clinko
     html
     (dsto:BIZ option)
     data
-    (promotero:EU option)
+    (ownero:EuComplex option)
     (bizownero:BIZOWNER option) = 
 
     let promoter = 
-        match promotero with
-        | Some eu -> eu.ID |> BitConverter.GetBytes
+        match ownero with
+        | Some ec -> ec.eu.ID |> BitConverter.GetBytes
         | None -> 0L |> BitConverter.GetBytes
 
     let hashFull =  
@@ -125,9 +125,9 @@ let url__clinko
                 match bizownero with
                 | Some bizowner -> bizowner.ID
                 | None -> 0L
-            p.Promoter <-
-                match promotero with
-                | Some promoter -> promoter.ID
+            p.Owner <-
+                match ownero with
+                | Some owner -> owner.eu.ID
                 | None -> 0L
             p.Data <- data
             p.Expiry <- DateTime.UtcNow.Add expireGeneral

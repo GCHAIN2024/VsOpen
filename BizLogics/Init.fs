@@ -48,6 +48,7 @@ let init (runtime:Runtime) =
     (fun i -> 
         runtime.users[i.ID] <- 
             {
+                clinks = new Dictionary<int64,CLINK>()
                 eu = i })
     |> loadAll runtime.output conn EU_metadata
 
@@ -75,5 +76,8 @@ let init (runtime:Runtime) =
 
     (fun i -> 
         runtime.data.hashFull__clinks[i.p.HashFull] <- i
-        runtime.data.tiny__full[i.p.HashTiny] <- i.p.HashFull)
+        runtime.data.tiny__full[i.p.HashTiny] <- i.p.HashFull
+        
+        if i.p.Owner > 0L then
+            runtime.users[i.p.Owner].clinks[i.ID] <- i)
     |> loadAll runtime.output conn CLINK_metadata

@@ -1221,7 +1221,7 @@ mutable HashFull: Chars
 mutable HashTiny: Chars
 mutable Src: Text
 mutable DomainName: FK
-mutable Promoter: FK
+mutable Owner: FK
 mutable Dst: FK
 mutable BizOwner: FK
 mutable Data: Text
@@ -1232,7 +1232,7 @@ mutable OgImg: Text}
 
 type CLINK = Rcd<pCLINK>
 
-let CLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[DomainName],[Promoter],[Dst],[BizOwner],[Data],[OgTitle],[OgDesc],[OgImg]"
+let CLINK_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Expiry],[HashFull],[HashTiny],[Src],[DomainName],[Owner],[Dst],[BizOwner],[Data],[OgTitle],[OgDesc],[OgImg]"
 
 let pCLINK_fieldordersArray = [|
     "Expiry"
@@ -1240,7 +1240,7 @@ let pCLINK_fieldordersArray = [|
     "HashTiny"
     "Src"
     "DomainName"
-    "Promoter"
+    "Owner"
     "Dst"
     "BizOwner"
     "Data"
@@ -1248,7 +1248,7 @@ let pCLINK_fieldordersArray = [|
     "OgDesc"
     "OgImg" |]
 
-let CLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[DomainName]=@DomainName,[Promoter]=@Promoter,[Dst]=@Dst,[BizOwner]=@BizOwner,[Data]=@Data,[OgTitle]=@OgTitle,[OgDesc]=@OgDesc,[OgImg]=@OgImg"
+let CLINK_sql_update = "[Updatedat]=@Updatedat,[Expiry]=@Expiry,[HashFull]=@HashFull,[HashTiny]=@HashTiny,[Src]=@Src,[DomainName]=@DomainName,[Owner]=@Owner,[Dst]=@Dst,[BizOwner]=@BizOwner,[Data]=@Data,[OgTitle]=@OgTitle,[OgDesc]=@OgDesc,[OgImg]=@OgImg"
 
 let pCLINK_fields = [|
     Timestamp("Expiry")
@@ -1256,7 +1256,7 @@ let pCLINK_fields = [|
     Chars("HashTiny", 9)
     Text("Src")
     FK("DomainName")
-    FK("Promoter")
+    FK("Owner")
     FK("Dst")
     FK("BizOwner")
     Text("Data")
@@ -1270,7 +1270,7 @@ let pCLINK_empty(): pCLINK = {
     HashTiny = ""
     Src = ""
     DomainName = 0L
-    Promoter = 0L
+    Owner = 0L
     Dst = 0L
     BizOwner = 0L
     Data = ""
