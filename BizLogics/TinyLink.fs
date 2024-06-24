@@ -92,13 +92,13 @@ let url__clinko
     (ownero:EuComplex option)
     (bizownero:BIZOWNER option) = 
 
-    let promoter = 
+    let owner = 
         match ownero with
         | Some ec -> ec.eu.ID |> BitConverter.GetBytes
         | None -> 0L |> BitConverter.GetBytes
 
     let hashFull =  
-        [|  promoter
+        [|  owner
             src |> Encoding.UTF8.GetBytes |]
         |> Array.concat
         |> bin__sha256
@@ -115,7 +115,7 @@ let url__clinko
             let p = pCLINK_empty()
 
             p.HashFull <- hashFull
-            p.HashTiny <- checkcollition promoter src dsto data
+            p.HashTiny <- checkcollition owner src dsto data
             p.Src <- src
             p.Dst <-
                 match dsto with
