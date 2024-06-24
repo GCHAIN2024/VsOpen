@@ -35,11 +35,9 @@ let ap = {
     setSocialAuthBiz = fun p v -> p.SocialAuthBiz <- v
     getSocialAuthId = fun p -> p.SocialAuthId
     setSocialAuthId = fun p v -> p.SocialAuthId <- v
-    empty__p = pEU_empty
     metadata = EU_metadata
     p__complex = fun eu -> { eu = eu }
     complex__ids = fun ec -> (ec.eu.p.SocialAuthBiz,ec.eu.p.SocialAuthId)
-    loc = "BizLogics.Auth.tryCreateEu" 
     conn = conn }
 
 let checkoutEu bizCode id = 
