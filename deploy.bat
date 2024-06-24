@@ -16,6 +16,7 @@ git fetch origin
 
 for /f %%i in ('git rev-parse origin/main') do set LATEST_COMMIT=%%i
 for /f %%i in ('git rev-parse HEAD') do set CURRENT_COMMIT=%%i
+SET FOLDER_HASH=%LATEST_COMMIT:~0,7%
 
 if "%FORCE_FLAG%"=="1" (
     goto Force_Execute
@@ -37,13 +38,13 @@ echo git pull
 git pull origin main
 cd Server
 echo Build
-dotnet publish Server.fsproj -o "bin/Publish/%LATEST_COMMIT%"
+dotnet publish Server.fsproj -o "bin/Publish/%FOLDER_HASH%"
 
 IF ERRORLEVEL 1 (
     echo Publish failed.
     exit /b 1
 )
-echo Publish succeeded to folder %LATEST_COMMIT%.
+echo Publish succeeded to folder %FOLDER_HASH%.
 
 taskkill /f /im Server.exe
 IF ERRORLEVEL 1 (
@@ -53,10 +54,10 @@ IF ERRORLEVEL 1 (
 )
 
 
-cd bin/Publish/%LATEST_COMMIT%
-echo Change DIR to %LATEST_COMMIT%
+cd bin/Publish/%FOLDER_HASH%
+echo Change DIR to %FOLDER_HASH%
 
-start "Server%LATEST_COMMIT%" cmd /k "C:\Dev\GCHAIN2024\GChainVsOpen\Server\bin\Publish\%commitHash%\Server.exe"
+start "Server" cmd /k "cd /d %SLN_PATH%/Server/bin/Publish/%FOLDER_HASH% && Server.exe"
 echo restart Server.exe
 
 
