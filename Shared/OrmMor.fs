@@ -1254,6 +1254,12 @@ let pEU__bin (bb:BytesBuilder) (p:pEU) =
     binUsername.Length |> BitConverter.GetBytes |> bb.append
     binUsername |> bb.append
     
+    p.SocialAuthBiz |> BitConverter.GetBytes |> bb.append
+    
+    let binSocialAuthId = p.SocialAuthId |> Encoding.UTF8.GetBytes
+    binSocialAuthId.Length |> BitConverter.GetBytes |> bb.append
+    binSocialAuthId |> bb.append
+    
     let binEmail = p.Email |> Encoding.UTF8.GetBytes
     binEmail.Length |> BitConverter.GetBytes |> bb.append
     binEmail |> bb.append
@@ -1298,60 +1304,6 @@ let pEU__bin (bb:BytesBuilder) (p:pEU) =
     
     p.Referer |> BitConverter.GetBytes |> bb.append
     
-    let binDiscord = p.Discord |> Encoding.UTF8.GetBytes
-    binDiscord.Length |> BitConverter.GetBytes |> bb.append
-    binDiscord |> bb.append
-    
-    p.DiscordId |> BitConverter.GetBytes |> bb.append
-    
-    let binGoogle = p.Google |> Encoding.UTF8.GetBytes
-    binGoogle.Length |> BitConverter.GetBytes |> bb.append
-    binGoogle |> bb.append
-    
-    p.GoogleId |> BitConverter.GetBytes |> bb.append
-    
-    let binApple = p.Apple |> Encoding.UTF8.GetBytes
-    binApple.Length |> BitConverter.GetBytes |> bb.append
-    binApple |> bb.append
-    
-    p.AppleId |> BitConverter.GetBytes |> bb.append
-    
-    let binOAuthProvider = p.OAuthProvider |> Encoding.UTF8.GetBytes
-    binOAuthProvider.Length |> BitConverter.GetBytes |> bb.append
-    binOAuthProvider |> bb.append
-    
-    let binOAuthID = p.OAuthID |> Encoding.UTF8.GetBytes
-    binOAuthID.Length |> BitConverter.GetBytes |> bb.append
-    binOAuthID |> bb.append
-    
-    let binGTV = p.GTV |> Encoding.UTF8.GetBytes
-    binGTV.Length |> BitConverter.GetBytes |> bb.append
-    binGTV |> bb.append
-    
-    let binGettr = p.Gettr |> Encoding.UTF8.GetBytes
-    binGettr.Length |> BitConverter.GetBytes |> bb.append
-    binGettr |> bb.append
-    
-    p.Farm |> BitConverter.GetBytes |> bb.append
-    
-    p.CountFollows |> BitConverter.GetBytes |> bb.append
-    
-    p.CountFollowers |> BitConverter.GetBytes |> bb.append
-    
-    p.CountMoments |> BitConverter.GetBytes |> bb.append
-    
-    p.CountViews |> BitConverter.GetBytes |> bb.append
-    
-    p.CountComments |> BitConverter.GetBytes |> bb.append
-    
-    p.CountThumbUps |> BitConverter.GetBytes |> bb.append
-    
-    p.CountThumbDns |> BitConverter.GetBytes |> bb.append
-    
-    p.Lang |> BitConverter.GetBytes |> bb.append
-    
-    p.BizOperator |> BitConverter.GetBytes |> bb.append
-    
     let binUrl = p.Url |> Encoding.UTF8.GetBytes
     binUrl.Length |> BitConverter.GetBytes |> bb.append
     binUrl |> bb.append
@@ -1359,14 +1311,6 @@ let pEU__bin (bb:BytesBuilder) (p:pEU) =
     let binAbout = p.About |> Encoding.UTF8.GetBytes
     binAbout.Length |> BitConverter.GetBytes |> bb.append
     binAbout |> bb.append
-    
-    p.PublicPoints |> BitConverter.GetBytes |> bb.append
-    
-    let binJson = p.Json |> Encoding.UTF8.GetBytes
-    binJson.Length |> BitConverter.GetBytes |> bb.append
-    binJson |> bb.append
-    
-    p.Agentable |> EnumToValue |> BitConverter.GetBytes |> bb.append
 
 let EU__bin (bb:BytesBuilder) (v:EU) =
     v.ID |> BitConverter.GetBytes |> bb.append
@@ -1390,6 +1334,14 @@ let bin__pEU (bi:BinIndexed):pEU =
     index.Value <- index.Value + 4
     p.Username <- Encoding.UTF8.GetString(bin,index.Value,count_Username)
     index.Value <- index.Value + count_Username
+    
+    p.SocialAuthBiz <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let count_SocialAuthId = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.SocialAuthId <- Encoding.UTF8.GetString(bin,index.Value,count_SocialAuthId)
+    index.Value <- index.Value + count_SocialAuthId
     
     let count_Email = BitConverter.ToInt32(bin,index.Value)
     index.Value <- index.Value + 4
@@ -1451,80 +1403,6 @@ let bin__pEU (bi:BinIndexed):pEU =
     p.Referer <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
     
-    let count_Discord = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.Discord <- Encoding.UTF8.GetString(bin,index.Value,count_Discord)
-    index.Value <- index.Value + count_Discord
-    
-    p.DiscordId <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    let count_Google = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.Google <- Encoding.UTF8.GetString(bin,index.Value,count_Google)
-    index.Value <- index.Value + count_Google
-    
-    p.GoogleId <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    let count_Apple = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.Apple <- Encoding.UTF8.GetString(bin,index.Value,count_Apple)
-    index.Value <- index.Value + count_Apple
-    
-    p.AppleId <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    let count_OAuthProvider = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.OAuthProvider <- Encoding.UTF8.GetString(bin,index.Value,count_OAuthProvider)
-    index.Value <- index.Value + count_OAuthProvider
-    
-    let count_OAuthID = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.OAuthID <- Encoding.UTF8.GetString(bin,index.Value,count_OAuthID)
-    index.Value <- index.Value + count_OAuthID
-    
-    let count_GTV = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.GTV <- Encoding.UTF8.GetString(bin,index.Value,count_GTV)
-    index.Value <- index.Value + count_GTV
-    
-    let count_Gettr = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.Gettr <- Encoding.UTF8.GetString(bin,index.Value,count_Gettr)
-    index.Value <- index.Value + count_Gettr
-    
-    p.Farm <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.CountFollows <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.CountFollowers <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.CountMoments <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.CountViews <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.CountComments <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.CountThumbUps <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.CountThumbDns <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.Lang <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    p.BizOperator <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
     let count_Url = BitConverter.ToInt32(bin,index.Value)
     index.Value <- index.Value + 4
     p.Url <- Encoding.UTF8.GetString(bin,index.Value,count_Url)
@@ -1534,17 +1412,6 @@ let bin__pEU (bi:BinIndexed):pEU =
     index.Value <- index.Value + 4
     p.About <- Encoding.UTF8.GetString(bin,index.Value,count_About)
     index.Value <- index.Value + count_About
-    
-    p.PublicPoints <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
-    let count_Json = BitConverter.ToInt32(bin,index.Value)
-    index.Value <- index.Value + 4
-    p.Json <- Encoding.UTF8.GetString(bin,index.Value,count_Json)
-    index.Value <- index.Value + count_Json
-    
-    p.Agentable <- BitConverter.ToInt32(bin,index.Value) |> EnumOfValue
-    index.Value <- index.Value + 4
     
     p
 
@@ -1573,6 +1440,8 @@ let pEU__json (p:pEU) =
     [|
         ("Caption",p.Caption |> Json.Str)
         ("Username",p.Username |> Json.Str)
+        ("SocialAuthBiz",p.SocialAuthBiz.ToString() |> Json.Num)
+        ("SocialAuthId",p.SocialAuthId |> Json.Str)
         ("Email",p.Email |> Json.Str)
         ("Tel",p.Tel |> Json.Str)
         ("Gender",(p.Gender |> EnumToValue).ToString() |> Json.Num)
@@ -1589,31 +1458,8 @@ let pEU__json (p:pEU) =
         ("Citizen",p.Citizen.ToString() |> Json.Num)
         ("Refer",p.Refer |> Json.Str)
         ("Referer",p.Referer.ToString() |> Json.Num)
-        ("Discord",p.Discord |> Json.Str)
-        ("DiscordId",p.DiscordId.ToString() |> Json.Num)
-        ("Google",p.Google |> Json.Str)
-        ("GoogleId",p.GoogleId.ToString() |> Json.Num)
-        ("Apple",p.Apple |> Json.Str)
-        ("AppleId",p.AppleId.ToString() |> Json.Num)
-        ("OAuthProvider",p.OAuthProvider |> Json.Str)
-        ("OAuthID",p.OAuthID |> Json.Str)
-        ("GTV",p.GTV |> Json.Str)
-        ("Gettr",p.Gettr |> Json.Str)
-        ("Farm",p.Farm.ToString() |> Json.Num)
-        ("CountFollows",p.CountFollows.ToString() |> Json.Num)
-        ("CountFollowers",p.CountFollowers.ToString() |> Json.Num)
-        ("CountMoments",p.CountMoments.ToString() |> Json.Num)
-        ("CountViews",p.CountViews.ToString() |> Json.Num)
-        ("CountComments",p.CountComments.ToString() |> Json.Num)
-        ("CountThumbUps",p.CountThumbUps.ToString() |> Json.Num)
-        ("CountThumbDns",p.CountThumbDns.ToString() |> Json.Num)
-        ("Lang",p.Lang.ToString() |> Json.Num)
-        ("BizOperator",p.BizOperator.ToString() |> Json.Num)
         ("Url",p.Url |> Json.Str)
-        ("About",p.About |> Json.Str)
-        ("PublicPoints",p.PublicPoints.ToString() |> Json.Num)
-        ("Json",p.Json |> Json.Str)
-        ("Agentable",(p.Agentable |> EnumToValue).ToString() |> Json.Num) |]
+        ("About",p.About |> Json.Str) |]
     |> Json.Braket
 
 let EU__json (v:EU) =
@@ -1642,6 +1488,10 @@ let json__pEUo (json:Json):pEU option =
     p.Caption <- checkfieldz fields "Caption" 64
     
     p.Username <- checkfieldz fields "Username" 64
+    
+    p.SocialAuthBiz <- checkfield fields "SocialAuthBiz" |> parse_int64
+    
+    p.SocialAuthId <- checkfield fields "SocialAuthId"
     
     p.Email <- checkfieldz fields "Email" 256
     
@@ -1675,55 +1525,9 @@ let json__pEUo (json:Json):pEU option =
     
     p.Referer <- checkfield fields "Referer" |> parse_int64
     
-    p.Discord <- checkfieldz fields "Discord" 64
-    
-    p.DiscordId <- checkfield fields "DiscordId" |> parse_int64
-    
-    p.Google <- checkfieldz fields "Google" 64
-    
-    p.GoogleId <- checkfield fields "GoogleId" |> parse_int64
-    
-    p.Apple <- checkfieldz fields "Apple" 64
-    
-    p.AppleId <- checkfield fields "AppleId" |> parse_int64
-    
-    p.OAuthProvider <- checkfieldz fields "OAuthProvider" 64
-    
-    p.OAuthID <- checkfieldz fields "OAuthID" 256
-    
-    p.GTV <- checkfieldz fields "GTV" 64
-    
-    p.Gettr <- checkfieldz fields "Gettr" 64
-    
-    p.Farm <- checkfield fields "Farm" |> parse_int64
-    
-    p.CountFollows <- checkfield fields "CountFollows" |> parse_int64
-    
-    p.CountFollowers <- checkfield fields "CountFollowers" |> parse_int64
-    
-    p.CountMoments <- checkfield fields "CountMoments" |> parse_int64
-    
-    p.CountViews <- checkfield fields "CountViews" |> parse_int64
-    
-    p.CountComments <- checkfield fields "CountComments" |> parse_int64
-    
-    p.CountThumbUps <- checkfield fields "CountThumbUps" |> parse_int64
-    
-    p.CountThumbDns <- checkfield fields "CountThumbDns" |> parse_int64
-    
-    p.Lang <- checkfield fields "Lang" |> parse_int64
-    
-    p.BizOperator <- checkfield fields "BizOperator" |> parse_int64
-    
     p.Url <- checkfield fields "Url"
     
     p.About <- checkfield fields "About"
-    
-    p.PublicPoints <- checkfield fields "PublicPoints" |> parse_int64
-    
-    p.Json <- checkfield fields "Json"
-    
-    p.Agentable <- checkfield fields "Agentable" |> parse_int32 |> EnumOfValue
     
     p |> Some
     
@@ -1749,6 +1553,10 @@ let json__EUo (json:Json):EU option =
         p.Caption <- checkfieldz fields "Caption" 64
         
         p.Username <- checkfieldz fields "Username" 64
+        
+        p.SocialAuthBiz <- checkfield fields "SocialAuthBiz" |> parse_int64
+        
+        p.SocialAuthId <- checkfield fields "SocialAuthId"
         
         p.Email <- checkfieldz fields "Email" 256
         
@@ -1782,55 +1590,9 @@ let json__EUo (json:Json):EU option =
         
         p.Referer <- checkfield fields "Referer" |> parse_int64
         
-        p.Discord <- checkfieldz fields "Discord" 64
-        
-        p.DiscordId <- checkfield fields "DiscordId" |> parse_int64
-        
-        p.Google <- checkfieldz fields "Google" 64
-        
-        p.GoogleId <- checkfield fields "GoogleId" |> parse_int64
-        
-        p.Apple <- checkfieldz fields "Apple" 64
-        
-        p.AppleId <- checkfield fields "AppleId" |> parse_int64
-        
-        p.OAuthProvider <- checkfieldz fields "OAuthProvider" 64
-        
-        p.OAuthID <- checkfieldz fields "OAuthID" 256
-        
-        p.GTV <- checkfieldz fields "GTV" 64
-        
-        p.Gettr <- checkfieldz fields "Gettr" 64
-        
-        p.Farm <- checkfield fields "Farm" |> parse_int64
-        
-        p.CountFollows <- checkfield fields "CountFollows" |> parse_int64
-        
-        p.CountFollowers <- checkfield fields "CountFollowers" |> parse_int64
-        
-        p.CountMoments <- checkfield fields "CountMoments" |> parse_int64
-        
-        p.CountViews <- checkfield fields "CountViews" |> parse_int64
-        
-        p.CountComments <- checkfield fields "CountComments" |> parse_int64
-        
-        p.CountThumbUps <- checkfield fields "CountThumbUps" |> parse_int64
-        
-        p.CountThumbDns <- checkfield fields "CountThumbDns" |> parse_int64
-        
-        p.Lang <- checkfield fields "Lang" |> parse_int64
-        
-        p.BizOperator <- checkfield fields "BizOperator" |> parse_int64
-        
         p.Url <- checkfield fields "Url"
         
         p.About <- checkfield fields "About"
-        
-        p.PublicPoints <- checkfield fields "PublicPoints" |> parse_int64
-        
-        p.Json <- checkfield fields "Json"
-        
-        p.Agentable <- checkfield fields "Agentable" |> parse_int32 |> EnumOfValue
         
         {
             ID = ID
@@ -3846,53 +3608,34 @@ let db__pEU(line:Object[]): pEU =
 
     p.Caption <- string(line.[4]).TrimEnd()
     p.Username <- string(line.[5]).TrimEnd()
-    p.Email <- string(line.[6]).TrimEnd()
-    p.Tel <- string(line.[7]).TrimEnd()
-    p.Gender <- EnumOfValue(if Convert.IsDBNull(line.[8]) then 0 else line.[8] :?> int)
-    p.Status <- EnumOfValue(if Convert.IsDBNull(line.[9]) then 0 else line.[9] :?> int)
-    p.Admin <- EnumOfValue(if Convert.IsDBNull(line.[10]) then 0 else line.[10] :?> int)
-    p.BizPartner <- EnumOfValue(if Convert.IsDBNull(line.[11]) then 0 else line.[11] :?> int)
-    p.Privilege <- if Convert.IsDBNull(line.[12]) then 0L else line.[12] :?> int64
-    p.Verify <- EnumOfValue(if Convert.IsDBNull(line.[13]) then 0 else line.[13] :?> int)
-    p.Pwd <- string(line.[14]).TrimEnd()
-    p.Online <- if Convert.IsDBNull(line.[15]) then false else line.[15] :?> bool
-    p.Icon <- string(line.[16]).TrimEnd()
-    p.Background <- string(line.[17]).TrimEnd()
-    p.BasicAcct <- if Convert.IsDBNull(line.[18]) then 0L else line.[18] :?> int64
-    p.Citizen <- if Convert.IsDBNull(line.[19]) then 0L else line.[19] :?> int64
-    p.Refer <- string(line.[20]).TrimEnd()
-    p.Referer <- if Convert.IsDBNull(line.[21]) then 0L else line.[21] :?> int64
-    p.Discord <- string(line.[22]).TrimEnd()
-    p.DiscordId <- if Convert.IsDBNull(line.[23]) then 0L else line.[23] :?> int64
-    p.Google <- string(line.[24]).TrimEnd()
-    p.GoogleId <- if Convert.IsDBNull(line.[25]) then 0L else line.[25] :?> int64
-    p.Apple <- string(line.[26]).TrimEnd()
-    p.AppleId <- if Convert.IsDBNull(line.[27]) then 0L else line.[27] :?> int64
-    p.OAuthProvider <- string(line.[28]).TrimEnd()
-    p.OAuthID <- string(line.[29]).TrimEnd()
-    p.GTV <- string(line.[30]).TrimEnd()
-    p.Gettr <- string(line.[31]).TrimEnd()
-    p.Farm <- if Convert.IsDBNull(line.[32]) then 0L else line.[32] :?> int64
-    p.CountFollows <- if Convert.IsDBNull(line.[33]) then 0L else line.[33] :?> int64
-    p.CountFollowers <- if Convert.IsDBNull(line.[34]) then 0L else line.[34] :?> int64
-    p.CountMoments <- if Convert.IsDBNull(line.[35]) then 0L else line.[35] :?> int64
-    p.CountViews <- if Convert.IsDBNull(line.[36]) then 0L else line.[36] :?> int64
-    p.CountComments <- if Convert.IsDBNull(line.[37]) then 0L else line.[37] :?> int64
-    p.CountThumbUps <- if Convert.IsDBNull(line.[38]) then 0L else line.[38] :?> int64
-    p.CountThumbDns <- if Convert.IsDBNull(line.[39]) then 0L else line.[39] :?> int64
-    p.Lang <- if Convert.IsDBNull(line.[40]) then 0L else line.[40] :?> int64
-    p.BizOperator <- if Convert.IsDBNull(line.[41]) then 0L else line.[41] :?> int64
-    p.Url <- string(line.[42]).TrimEnd()
-    p.About <- string(line.[43]).TrimEnd()
-    p.PublicPoints <- if Convert.IsDBNull(line.[44]) then 0L else line.[44] :?> int64
-    p.Json <- string(line.[45]).TrimEnd()
-    p.Agentable <- EnumOfValue(if Convert.IsDBNull(line.[46]) then 0 else line.[46] :?> int)
+    p.SocialAuthBiz <- if Convert.IsDBNull(line.[6]) then 0L else line.[6] :?> int64
+    p.SocialAuthId <- string(line.[7]).TrimEnd()
+    p.Email <- string(line.[8]).TrimEnd()
+    p.Tel <- string(line.[9]).TrimEnd()
+    p.Gender <- EnumOfValue(if Convert.IsDBNull(line.[10]) then 0 else line.[10] :?> int)
+    p.Status <- EnumOfValue(if Convert.IsDBNull(line.[11]) then 0 else line.[11] :?> int)
+    p.Admin <- EnumOfValue(if Convert.IsDBNull(line.[12]) then 0 else line.[12] :?> int)
+    p.BizPartner <- EnumOfValue(if Convert.IsDBNull(line.[13]) then 0 else line.[13] :?> int)
+    p.Privilege <- if Convert.IsDBNull(line.[14]) then 0L else line.[14] :?> int64
+    p.Verify <- EnumOfValue(if Convert.IsDBNull(line.[15]) then 0 else line.[15] :?> int)
+    p.Pwd <- string(line.[16]).TrimEnd()
+    p.Online <- if Convert.IsDBNull(line.[17]) then false else line.[17] :?> bool
+    p.Icon <- string(line.[18]).TrimEnd()
+    p.Background <- string(line.[19]).TrimEnd()
+    p.BasicAcct <- if Convert.IsDBNull(line.[20]) then 0L else line.[20] :?> int64
+    p.Citizen <- if Convert.IsDBNull(line.[21]) then 0L else line.[21] :?> int64
+    p.Refer <- string(line.[22]).TrimEnd()
+    p.Referer <- if Convert.IsDBNull(line.[23]) then 0L else line.[23] :?> int64
+    p.Url <- string(line.[24]).TrimEnd()
+    p.About <- string(line.[25]).TrimEnd()
 
     p
 
 let pEU__sps (p:pEU) = [|
     new SqlParameter("Caption", p.Caption)
     new SqlParameter("Username", p.Username)
+    new SqlParameter("SocialAuthBiz", p.SocialAuthBiz)
+    new SqlParameter("SocialAuthId", p.SocialAuthId)
     new SqlParameter("Email", p.Email)
     new SqlParameter("Tel", p.Tel)
     new SqlParameter("Gender", p.Gender)
@@ -3909,31 +3652,8 @@ let pEU__sps (p:pEU) = [|
     new SqlParameter("Citizen", p.Citizen)
     new SqlParameter("Refer", p.Refer)
     new SqlParameter("Referer", p.Referer)
-    new SqlParameter("Discord", p.Discord)
-    new SqlParameter("DiscordId", p.DiscordId)
-    new SqlParameter("Google", p.Google)
-    new SqlParameter("GoogleId", p.GoogleId)
-    new SqlParameter("Apple", p.Apple)
-    new SqlParameter("AppleId", p.AppleId)
-    new SqlParameter("OAuthProvider", p.OAuthProvider)
-    new SqlParameter("OAuthID", p.OAuthID)
-    new SqlParameter("GTV", p.GTV)
-    new SqlParameter("Gettr", p.Gettr)
-    new SqlParameter("Farm", p.Farm)
-    new SqlParameter("CountFollows", p.CountFollows)
-    new SqlParameter("CountFollowers", p.CountFollowers)
-    new SqlParameter("CountMoments", p.CountMoments)
-    new SqlParameter("CountViews", p.CountViews)
-    new SqlParameter("CountComments", p.CountComments)
-    new SqlParameter("CountThumbUps", p.CountThumbUps)
-    new SqlParameter("CountThumbDns", p.CountThumbDns)
-    new SqlParameter("Lang", p.Lang)
-    new SqlParameter("BizOperator", p.BizOperator)
     new SqlParameter("Url", p.Url)
-    new SqlParameter("About", p.About)
-    new SqlParameter("PublicPoints", p.PublicPoints)
-    new SqlParameter("Json", p.Json)
-    new SqlParameter("Agentable", p.Agentable) |]
+    new SqlParameter("About", p.About) |]
 
 let db__EU = db__Rcd db__pEU
 
@@ -3944,6 +3664,8 @@ let EU_wrapper item: EU =
 let pEU_clone (p:pEU): pEU = {
     Caption = p.Caption
     Username = p.Username
+    SocialAuthBiz = p.SocialAuthBiz
+    SocialAuthId = p.SocialAuthId
     Email = p.Email
     Tel = p.Tel
     Gender = p.Gender
@@ -3960,31 +3682,8 @@ let pEU_clone (p:pEU): pEU = {
     Citizen = p.Citizen
     Refer = p.Refer
     Referer = p.Referer
-    Discord = p.Discord
-    DiscordId = p.DiscordId
-    Google = p.Google
-    GoogleId = p.GoogleId
-    Apple = p.Apple
-    AppleId = p.AppleId
-    OAuthProvider = p.OAuthProvider
-    OAuthID = p.OAuthID
-    GTV = p.GTV
-    Gettr = p.Gettr
-    Farm = p.Farm
-    CountFollows = p.CountFollows
-    CountFollowers = p.CountFollowers
-    CountMoments = p.CountMoments
-    CountViews = p.CountViews
-    CountComments = p.CountComments
-    CountThumbUps = p.CountThumbUps
-    CountThumbDns = p.CountThumbDns
-    Lang = p.Lang
-    BizOperator = p.BizOperator
     Url = p.Url
-    About = p.About
-    PublicPoints = p.PublicPoints
-    Json = p.Json
-    Agentable = p.Agentable }
+    About = p.About }
 
 let EU_update_transaction output (updater,suc,fail) (rcd:EU) =
     let rollback_p = rcd.p |> pEU_clone
@@ -4046,6 +3745,8 @@ let EUTxSqlServer =
     ,[Sort] BIGINT NOT NULL,
     ,[Caption]
     ,[Username]
+    ,[SocialAuthBiz]
+    ,[SocialAuthId]
     ,[Email]
     ,[Tel]
     ,[Gender]
@@ -4062,31 +3763,8 @@ let EUTxSqlServer =
     ,[Citizen]
     ,[Refer]
     ,[Referer]
-    ,[Discord]
-    ,[DiscordId]
-    ,[Google]
-    ,[GoogleId]
-    ,[Apple]
-    ,[AppleId]
-    ,[OAuthProvider]
-    ,[OAuthID]
-    ,[GTV]
-    ,[Gettr]
-    ,[Farm]
-    ,[CountFollows]
-    ,[CountFollowers]
-    ,[CountMoments]
-    ,[CountViews]
-    ,[CountComments]
-    ,[CountThumbUps]
-    ,[CountThumbDns]
-    ,[Lang]
-    ,[BizOperator]
     ,[Url]
-    ,[About]
-    ,[PublicPoints]
-    ,[Json]
-    ,[Agentable])
+    ,[About])
     END
     """
 

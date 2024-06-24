@@ -16,9 +16,11 @@ open UtilWebServer.Open
 open Shared.OrmTypes
 open Shared.OrmMor
 open Shared.Types
+open Shared.CustomMor
 
 open BizLogics.Common
 open BizLogics.TinyLink
+open BizLogics.Auth
 
 
 let api_Public_Ping json =
@@ -29,15 +31,26 @@ let api_Public_Auth json =
 
     match tryFindStrByAtt "biz" json with
     | "DISCORD" ->
-        let uid, usernameWithdiscriminator, avatar, json = 
+        match
             Discord.requestAccessToken
                 (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)
                 (tryFindStrByAtt "redirectUrl" json)
                 (tryFindStrByAtt "code" json)
-            |> Discord.requestUserInfo
+            |> Discord.requestUserInfo with
+        | Some (uid,usernameWithdiscriminator, avatar, json) -> 
 
-        [|  ok
-            ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
+            match 
+                uid.ToString()
+                |> checkoutEu "DISCORD" with
+            | Some ec -> 
+                [|  ok
+                    ("ec", ec |> EuComplex__json)
+                    ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
+
+            | None -> er Er.Internal
+
+        | None -> er Er.InvalideParameter
+
     | _ -> er Er.InvalideParameter
 
 let api_Public_ListBiz json =

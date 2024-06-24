@@ -353,6 +353,14 @@
         "name": "Username"
       },
       {
+        "enum": "FK",
+        "name": "SocialAuthBiz"
+      },
+      {
+        "enum": "Text",
+        "name": "SocialAuthId"
+      },
+      {
         "enum": "Chars",
         "length": 256,
         "name": "Email"
@@ -429,113 +437,12 @@
         "name": "Referer"
       },
       {
-        "enum": "Caption",
-        "length": 64,
-        "name": "Discord"
-      },
-      {
-        "enum": "Integer",
-        "name": "DiscordId"
-      },
-      {
-        "enum": "Caption",
-        "length": 64,
-        "name": "Google"
-      },
-      {
-        "enum": "Integer",
-        "name": "GoogleId"
-      },
-      {
-        "enum": "Caption",
-        "length": 64,
-        "name": "Apple"
-      },
-      {
-        "enum": "Integer",
-        "name": "AppleId"
-      },
-      {
-        "enum": "Caption",
-        "length": 64,
-        "name": "OAuthProvider"
-      },
-      {
-        "enum": "Caption",
-        "length": 256,
-        "name": "OAuthID"
-      },
-      {
-        "enum": "Caption",
-        "length": 64,
-        "name": "GTV"
-      },
-      {
-        "enum": "Caption",
-        "length": 64,
-        "name": "Gettr"
-      },
-      {
-        "enum": "FK",
-        "name": "Farm"
-      },
-      {
-        "enum": "Integer",
-        "name": "CountFollows"
-      },
-      {
-        "enum": "Integer",
-        "name": "CountFollowers"
-      },
-      {
-        "enum": "Integer",
-        "name": "CountMoments"
-      },
-      {
-        "enum": "Integer",
-        "name": "CountViews"
-      },
-      {
-        "enum": "Integer",
-        "name": "CountComments"
-      },
-      {
-        "enum": "Integer",
-        "name": "CountThumbUps"
-      },
-      {
-        "enum": "Integer",
-        "name": "CountThumbDns"
-      },
-      {
-        "enum": "FK",
-        "name": "Lang"
-      },
-      {
-        "enum": "FK",
-        "ref": "Ca_Biz",
-        "name": "BizOperator"
-      },
-      {
         "enum": "Text",
         "name": "Url"
       },
       {
         "enum": "Text",
         "name": "About"
-      },
-      {
-        "enum": "Integer",
-        "name": "PublicPoints"
-      },
-      {
-        "enum": "Text",
-        "name": "Json"
-      },
-      {
-        "enum": "SelectLines",
-        "lines": "No//否///Yes//可",
-        "name": "Agentable"
       }
     ]
   },

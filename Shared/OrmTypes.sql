@@ -829,6 +829,8 @@ BEGIN
         ,[Sort] BIGINT NOT NULL,
         [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
         ,[Username] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+        ,[SocialAuthBiz] BIGINT
+        ,[SocialAuthId] NVARCHAR(MAX)
         ,[Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Tel] NVARCHAR(32) COLLATE Chinese_PRC_CI_AS
         ,[Gender] INT
@@ -845,31 +847,8 @@ BEGIN
         ,[Citizen] BIGINT
         ,[Refer] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS
         ,[Referer] BIGINT
-        ,[Discord] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[DiscordId] BIGINT
-        ,[Google] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[GoogleId] BIGINT
-        ,[Apple] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[AppleId] BIGINT
-        ,[OAuthProvider] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[OAuthID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
-        ,[GTV] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[Gettr] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[Farm] BIGINT
-        ,[CountFollows] BIGINT
-        ,[CountFollowers] BIGINT
-        ,[CountMoments] BIGINT
-        ,[CountViews] BIGINT
-        ,[CountComments] BIGINT
-        ,[CountThumbUps] BIGINT
-        ,[CountThumbDns] BIGINT
-        ,[Lang] BIGINT
-        ,[BizOperator] BIGINT
         ,[Url] NVARCHAR(MAX)
         ,[About] NVARCHAR(MAX)
-        ,[PublicPoints] BIGINT
-        ,[Json] NVARCHAR(MAX)
-        ,[Agentable] INT
 , CONSTRAINT [PK_Ca_EndUser] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 
@@ -891,6 +870,26 @@ END
 ELSE
 BEGIN
  ALTER TABLE Ca_EndUser ADD [Username] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='SocialAuthBiz')
+BEGIN
+ ALTER TABLE Ca_EndUser ALTER COLUMN [SocialAuthBiz] BIGINT
+END
+ELSE
+BEGIN
+ ALTER TABLE Ca_EndUser ADD [SocialAuthBiz] BIGINT
+END
+
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='SocialAuthId')
+BEGIN
+ ALTER TABLE Ca_EndUser ALTER COLUMN [SocialAuthId] NVARCHAR(MAX)
+END
+ELSE
+BEGIN
+ ALTER TABLE Ca_EndUser ADD [SocialAuthId] NVARCHAR(MAX)
 END
 
 
@@ -1054,206 +1053,6 @@ BEGIN
 END
 
 
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Discord')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Discord] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Discord] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='DiscordId')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [DiscordId] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [DiscordId] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Google')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Google] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Google] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='GoogleId')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [GoogleId] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [GoogleId] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Apple')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Apple] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Apple] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='AppleId')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [AppleId] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [AppleId] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='OAuthProvider')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [OAuthProvider] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [OAuthProvider] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='OAuthID')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [OAuthID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [OAuthID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='GTV')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [GTV] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [GTV] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Gettr')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Gettr] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Gettr] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Farm')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Farm] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Farm] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='CountFollows')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [CountFollows] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [CountFollows] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='CountFollowers')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [CountFollowers] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [CountFollowers] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='CountMoments')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [CountMoments] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [CountMoments] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='CountViews')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [CountViews] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [CountViews] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='CountComments')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [CountComments] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [CountComments] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='CountThumbUps')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [CountThumbUps] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [CountThumbUps] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='CountThumbDns')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [CountThumbDns] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [CountThumbDns] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Lang')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Lang] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Lang] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='BizOperator')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [BizOperator] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [BizOperator] BIGINT
-END
-
-
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Url')
 BEGIN
  ALTER TABLE Ca_EndUser ALTER COLUMN [Url] NVARCHAR(MAX)
@@ -1271,36 +1070,6 @@ END
 ELSE
 BEGIN
  ALTER TABLE Ca_EndUser ADD [About] NVARCHAR(MAX)
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='PublicPoints')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [PublicPoints] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [PublicPoints] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Json')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Json] NVARCHAR(MAX)
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Json] NVARCHAR(MAX)
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Agentable')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Agentable] INT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Agentable] INT
 END
 
 -- [Ca_File] ----------------------

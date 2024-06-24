@@ -48,11 +48,6 @@ let defaultHost() = {
 
     fsDir = @"C:\Dev\GCHAIN2024\GChainVsOpen\Deploy" }
 
-type EuComplex = {
-eu: EU }
-
-type BizComplex = {
-biz: BIZ }
 
 type SessionRole =
 | EndUser of EuComplex

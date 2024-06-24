@@ -579,35 +579,11 @@ let euVerifyEnum__caption e =
     | euVerifyEnum.Verified -> "认证"
     | _ -> ""
 
-type euAgentableEnum = 
-| No = 0 // 否
-| Yes = 1 // 可
-
-let euAgentableEnums = [| euAgentableEnum.No; euAgentableEnum.Yes |]
-let euAgentableEnumstrs = [| "euAgentableEnum"; "euAgentableEnum" |]
-let euAgentableNum = 2
-
-let int__euAgentableEnum v =
-    match v with
-    | 0 -> Some euAgentableEnum.No
-    | 1 -> Some euAgentableEnum.Yes
-    | _ -> None
-
-let str__euAgentableEnum s =
-    match s with
-    | "No" -> Some euAgentableEnum.No
-    | "Yes" -> Some euAgentableEnum.Yes
-    | _ -> None
-
-let euAgentableEnum__caption e =
-    match e with
-    | euAgentableEnum.No -> "否"
-    | euAgentableEnum.Yes -> "可"
-    | _ -> ""
-
 type pEU = {
 mutable Caption: Caption
 mutable Username: Caption
+mutable SocialAuthBiz: FK
+mutable SocialAuthId: Text
 mutable Email: Chars
 mutable Tel: Chars
 mutable Gender: euGenderEnum
@@ -624,40 +600,19 @@ mutable BasicAcct: FK
 mutable Citizen: FK
 mutable Refer: Caption
 mutable Referer: FK
-mutable Discord: Caption
-mutable DiscordId: Integer
-mutable Google: Caption
-mutable GoogleId: Integer
-mutable Apple: Caption
-mutable AppleId: Integer
-mutable OAuthProvider: Caption
-mutable OAuthID: Caption
-mutable GTV: Caption
-mutable Gettr: Caption
-mutable Farm: FK
-mutable CountFollows: Integer
-mutable CountFollowers: Integer
-mutable CountMoments: Integer
-mutable CountViews: Integer
-mutable CountComments: Integer
-mutable CountThumbUps: Integer
-mutable CountThumbDns: Integer
-mutable Lang: FK
-mutable BizOperator: FK
 mutable Url: Text
-mutable About: Text
-mutable PublicPoints: Integer
-mutable Json: Text
-mutable Agentable: euAgentableEnum}
+mutable About: Text}
 
 
 type EU = Rcd<pEU>
 
-let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[Email],[Tel],[Gender],[Status],[Admin],[BizPartner],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Citizen],[Refer],[Referer],[Discord],[DiscordId],[Google],[GoogleId],[Apple],[AppleId],[OAuthProvider],[OAuthID],[GTV],[Gettr],[Farm],[CountFollows],[CountFollowers],[CountMoments],[CountViews],[CountComments],[CountThumbUps],[CountThumbDns],[Lang],[BizOperator],[Url],[About],[PublicPoints],[Json],[Agentable]"
+let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[SocialAuthBiz],[SocialAuthId],[Email],[Tel],[Gender],[Status],[Admin],[BizPartner],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Citizen],[Refer],[Referer],[Url],[About]"
 
 let pEU_fieldordersArray = [|
     "Caption"
     "Username"
+    "SocialAuthBiz"
+    "SocialAuthId"
     "Email"
     "Tel"
     "Gender"
@@ -674,37 +629,16 @@ let pEU_fieldordersArray = [|
     "Citizen"
     "Refer"
     "Referer"
-    "Discord"
-    "DiscordId"
-    "Google"
-    "GoogleId"
-    "Apple"
-    "AppleId"
-    "OAuthProvider"
-    "OAuthID"
-    "GTV"
-    "Gettr"
-    "Farm"
-    "CountFollows"
-    "CountFollowers"
-    "CountMoments"
-    "CountViews"
-    "CountComments"
-    "CountThumbUps"
-    "CountThumbDns"
-    "Lang"
-    "BizOperator"
     "Url"
-    "About"
-    "PublicPoints"
-    "Json"
-    "Agentable" |]
+    "About" |]
 
-let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[BizPartner]=@BizPartner,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Citizen]=@Citizen,[Refer]=@Refer,[Referer]=@Referer,[Discord]=@Discord,[DiscordId]=@DiscordId,[Google]=@Google,[GoogleId]=@GoogleId,[Apple]=@Apple,[AppleId]=@AppleId,[OAuthProvider]=@OAuthProvider,[OAuthID]=@OAuthID,[GTV]=@GTV,[Gettr]=@Gettr,[Farm]=@Farm,[CountFollows]=@CountFollows,[CountFollowers]=@CountFollowers,[CountMoments]=@CountMoments,[CountViews]=@CountViews,[CountComments]=@CountComments,[CountThumbUps]=@CountThumbUps,[CountThumbDns]=@CountThumbDns,[Lang]=@Lang,[BizOperator]=@BizOperator,[Url]=@Url,[About]=@About,[PublicPoints]=@PublicPoints,[Json]=@Json,[Agentable]=@Agentable"
+let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[SocialAuthBiz]=@SocialAuthBiz,[SocialAuthId]=@SocialAuthId,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[BizPartner]=@BizPartner,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Citizen]=@Citizen,[Refer]=@Refer,[Referer]=@Referer,[Url]=@Url,[About]=@About"
 
 let pEU_fields = [|
     Caption("Caption", 64)
     Caption("Username", 64)
+    FK("SocialAuthBiz")
+    Text("SocialAuthId")
     Chars("Email", 256)
     Chars("Tel", 32)
     SelectLines("Gender", [| ("Unknown","未知");("Male","男");("Female","女") |])
@@ -721,35 +655,14 @@ let pEU_fields = [|
     FK("Citizen")
     Caption("Refer", 7)
     FK("Referer")
-    Caption("Discord", 64)
-    Integer("DiscordId")
-    Caption("Google", 64)
-    Integer("GoogleId")
-    Caption("Apple", 64)
-    Integer("AppleId")
-    Caption("OAuthProvider", 64)
-    Caption("OAuthID", 256)
-    Caption("GTV", 64)
-    Caption("Gettr", 64)
-    FK("Farm")
-    Integer("CountFollows")
-    Integer("CountFollowers")
-    Integer("CountMoments")
-    Integer("CountViews")
-    Integer("CountComments")
-    Integer("CountThumbUps")
-    Integer("CountThumbDns")
-    FK("Lang")
-    FK("BizOperator")
     Text("Url")
-    Text("About")
-    Integer("PublicPoints")
-    Text("Json")
-    SelectLines("Agentable", [| ("No","否");("Yes","可") |]) |]
+    Text("About") |]
 
 let pEU_empty(): pEU = {
     Caption = ""
     Username = ""
+    SocialAuthBiz = 0L
+    SocialAuthId = ""
     Email = ""
     Tel = ""
     Gender = EnumOfValue 0
@@ -766,31 +679,8 @@ let pEU_empty(): pEU = {
     Citizen = 0L
     Refer = ""
     Referer = 0L
-    Discord = ""
-    DiscordId = 0L
-    Google = ""
-    GoogleId = 0L
-    Apple = ""
-    AppleId = 0L
-    OAuthProvider = ""
-    OAuthID = ""
-    GTV = ""
-    Gettr = ""
-    Farm = 0L
-    CountFollows = 0L
-    CountFollowers = 0L
-    CountMoments = 0L
-    CountViews = 0L
-    CountComments = 0L
-    CountThumbUps = 0L
-    CountThumbDns = 0L
-    Lang = 0L
-    BizOperator = 0L
     Url = ""
-    About = ""
-    PublicPoints = 0L
-    Json = ""
-    Agentable = EnumOfValue 0 }
+    About = "" }
 
 let EU_id = ref 54367576L
 let EU_count = ref 0

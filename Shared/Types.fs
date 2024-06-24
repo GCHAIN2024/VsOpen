@@ -16,6 +16,12 @@ type Er =
 | InvalideParameter
 | Internal
 
+type EuComplex = {
+eu: EU }
+
+type BizComplex = {
+biz: BIZ }
+
 type Fact =
 | Undefined
 
