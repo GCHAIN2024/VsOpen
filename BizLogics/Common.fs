@@ -18,6 +18,9 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
+let domain = "gcha.in"
+let site = "GCHA.IN"
+
 let defaultHost() = {
     zmq = true
     port = 80
