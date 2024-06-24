@@ -5,7 +5,7 @@ set FORCE_FLAG=0
 
 
 @echo on
-cd /d C:\Dev\GCHAIN2024\GChainVsOpen\Server
+cd /d C:\Dev\GCHAIN2024\GChainVsOpen
 @echo off
 
 
