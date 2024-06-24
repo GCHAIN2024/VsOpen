@@ -39,7 +39,8 @@ echo Force flag (--force) detected. Executing commands unconditionally.
 :Execute_Build_n_Deploy
 @echo on
 git pull origin main
-dotnet publish GCHAIN-All.sln -o "Server/bin/Publish/%LATEST_COMMIT%"
+cd Server
+dotnet publish Server.fsproj -o "bin/Publish/%LATEST_COMMIT%"
 @echo off
 IF ERRORLEVEL 1 (
     echo Publish failed.
