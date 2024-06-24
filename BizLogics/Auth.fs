@@ -30,16 +30,18 @@ open Shared.CustomMor
 open BizLogics.Common
 open BizLogics.Ca
 
+let ap = {
+    getSocialAuthBiz = fun p -> p.SocialAuthBiz
+    setSocialAuthBiz = fun p v -> p.SocialAuthBiz <- v
+    getSocialAuthId = fun p -> p.SocialAuthId
+    setSocialAuthId = fun p v -> p.SocialAuthId <- v
+    empty__p = pEU_empty
+    metadata = EU_metadata
+    loc = "BizLogics.Auth.tryCreateEu" 
+    conn = conn }
+
 let tryCreateEu bizId id = 
-    (fun _ -> 
-        let p = pEU_empty()
-        p.SocialAuthBiz <- bizId
-        p.SocialAuthId <- id
-        p)
-    |> tryCreateUser
-        "BizLogics.Auth.tryCreateEu" 
-        conn    
-        EU_metadata
+    tryCreateUser ap bizId id
     |> optionProcessSome
         (fun rcd -> 
             let ec = { eu = rcd }
