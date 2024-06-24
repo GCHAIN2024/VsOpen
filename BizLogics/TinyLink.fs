@@ -28,8 +28,8 @@ let expireGeneral = new TimeSpan(180,0,0)
 
 let clink__ssrPage (clink:CLINK) = 
     {
-        title = "GCHAIN Crypto Link " + clink.p.HashTiny
-        desc = clink.p.HashFull
+        title = clink.p.OgTitle
+        desc = clink.p.OgDesc
         image = clink.p.OgImg
         url = "https://gcha.in/t/" + clink.p.Src
         noscript = "" }
