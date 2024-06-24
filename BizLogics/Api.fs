@@ -24,6 +24,15 @@ let api_Public_Ping json =
     [|  ok
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
+let api_Public_Auth json =
+    
+    match tryFindStrByAtt "biz" json with
+    | "DISCORD" ->
+
+        [|  ok
+            ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
+    | _ -> er Er.InvalideParameter
+
 let api_Public_ListBiz json =
     runtime.bcs.Values
     |> Seq.toArray

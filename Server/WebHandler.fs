@@ -142,6 +142,7 @@ let branch service api json =
     | "public" -> 
         match api with
         | "ping" -> api_Public_Ping json
+        | "auth" -> api_Public_Auth json
         | "listBiz" -> api_Public_ListBiz json
         | "loadCryptoLink" -> api_Public_LoadCryptoLink json
         | "checkoutCryptoLink" -> api_Public_CheckoutCryptoLink json

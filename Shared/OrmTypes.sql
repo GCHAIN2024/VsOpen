@@ -21,10 +21,8 @@ BEGIN
         ,[Tel] NVARCHAR(20) COLLATE Chinese_PRC_CI_AS
         ,[Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Zip] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
-        ,[City] 
-        
-        ,[Country] 
-        
+        ,[City] BIGINT
+        ,[Country] BIGINT
         ,[Remarks] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_Address] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
@@ -152,25 +150,21 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='City')
 BEGIN
- ALTER TABLE Ca_Address ALTER COLUMN [City] 
-        
+ ALTER TABLE Ca_Address ALTER COLUMN [City] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Address ADD [City] 
-        
+ ALTER TABLE Ca_Address ADD [City] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Country')
 BEGIN
- ALTER TABLE Ca_Address ALTER COLUMN [Country] 
-        
+ ALTER TABLE Ca_Address ALTER COLUMN [Country] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Address ADD [Country] 
-        
+ ALTER TABLE Ca_Address ADD [Country] BIGINT
 END
 
 
@@ -194,24 +188,18 @@ BEGIN
         ,[Sort] BIGINT NOT NULL,
         [Code] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
-        ,[Parent] 
-        
-        ,[BasicAcct] 
-        
+        ,[Parent] BIGINT
+        ,[BasicAcct] BIGINT
         ,[Desc] NVARCHAR(MAX)
         ,[Website] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
-        ,[City] 
-        
-        ,[Country] 
-        
-        ,[Lang] 
-        
+        ,[City] BIGINT
+        ,[Country] BIGINT
+        ,[Lang] BIGINT
         ,[IsSocial] BIT
         ,[IsCmsSource] BIT
         ,[IsPay] BIT
-        ,[MomentLatest] 
-        
+        ,[MomentLatest] BIGINT
         ,[CountFollowers] BIGINT
         ,[CountFollows] BIGINT
         ,[CountMoments] BIGINT
@@ -222,8 +210,7 @@ BEGIN
         ,[IsCrawling] BIT
         ,[IsGSeries] BIT
         ,[RemarksCentral] NVARCHAR(MAX)
-        ,[Agent] 
-        
+        ,[Agent] BIGINT
         ,[SiteCats] NVARCHAR(MAX)
         ,[ConfiguredCats] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_Biz] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
@@ -252,25 +239,21 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Parent')
 BEGIN
- ALTER TABLE Ca_Biz ALTER COLUMN [Parent] 
-        
+ ALTER TABLE Ca_Biz ALTER COLUMN [Parent] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Biz ADD [Parent] 
-        
+ ALTER TABLE Ca_Biz ADD [Parent] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='BasicAcct')
 BEGIN
- ALTER TABLE Ca_Biz ALTER COLUMN [BasicAcct] 
-        
+ ALTER TABLE Ca_Biz ALTER COLUMN [BasicAcct] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Biz ADD [BasicAcct] 
-        
+ ALTER TABLE Ca_Biz ADD [BasicAcct] BIGINT
 END
 
 
@@ -306,37 +289,31 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='City')
 BEGIN
- ALTER TABLE Ca_Biz ALTER COLUMN [City] 
-        
+ ALTER TABLE Ca_Biz ALTER COLUMN [City] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Biz ADD [City] 
-        
+ ALTER TABLE Ca_Biz ADD [City] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Country')
 BEGIN
- ALTER TABLE Ca_Biz ALTER COLUMN [Country] 
-        
+ ALTER TABLE Ca_Biz ALTER COLUMN [Country] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Biz ADD [Country] 
-        
+ ALTER TABLE Ca_Biz ADD [Country] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Lang')
 BEGIN
- ALTER TABLE Ca_Biz ALTER COLUMN [Lang] 
-        
+ ALTER TABLE Ca_Biz ALTER COLUMN [Lang] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Biz ADD [Lang] 
-        
+ ALTER TABLE Ca_Biz ADD [Lang] BIGINT
 END
 
 
@@ -372,13 +349,11 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='MomentLatest')
 BEGIN
- ALTER TABLE Ca_Biz ALTER COLUMN [MomentLatest] 
-        
+ ALTER TABLE Ca_Biz ALTER COLUMN [MomentLatest] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Biz ADD [MomentLatest] 
-        
+ ALTER TABLE Ca_Biz ADD [MomentLatest] BIGINT
 END
 
 
@@ -484,13 +459,11 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Agent')
 BEGIN
- ALTER TABLE Ca_Biz ALTER COLUMN [Agent] 
-        
+ ALTER TABLE Ca_Biz ALTER COLUMN [Agent] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Biz ADD [Agent] 
-        
+ ALTER TABLE Ca_Biz ADD [Agent] BIGINT
 END
 
 
@@ -527,14 +500,10 @@ BEGIN
         ,[Fullname] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Tel] NVARCHAR(4) COLLATE Chinese_PRC_CI_AS
-        ,[Cur] 
-        
-        ,[Capital] 
-        
-        ,[Place] 
-        
-        ,[Lang] 
-        
+        ,[Cur] BIGINT
+        ,[Capital] BIGINT
+        ,[Place] BIGINT
+        ,[Lang] BIGINT
 , CONSTRAINT [PK_Ca_Country] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 
@@ -591,49 +560,41 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Cur')
 BEGIN
- ALTER TABLE Ca_Country ALTER COLUMN [Cur] 
-        
+ ALTER TABLE Ca_Country ALTER COLUMN [Cur] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Country ADD [Cur] 
-        
+ ALTER TABLE Ca_Country ADD [Cur] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Capital')
 BEGIN
- ALTER TABLE Ca_Country ALTER COLUMN [Capital] 
-        
+ ALTER TABLE Ca_Country ALTER COLUMN [Capital] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Country ADD [Capital] 
-        
+ ALTER TABLE Ca_Country ADD [Capital] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Place')
 BEGIN
- ALTER TABLE Ca_Country ALTER COLUMN [Place] 
-        
+ ALTER TABLE Ca_Country ALTER COLUMN [Place] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Country ADD [Place] 
-        
+ ALTER TABLE Ca_Country ADD [Place] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Lang')
 BEGIN
- ALTER TABLE Ca_Country ALTER COLUMN [Lang] 
-        
+ ALTER TABLE Ca_Country ALTER COLUMN [Lang] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Country ADD [Lang] 
-        
+ ALTER TABLE Ca_Country ADD [Lang] BIGINT
 END
 
 -- [Ca_Cur] ----------------------
@@ -880,13 +841,10 @@ BEGIN
         ,[Online] BIT
         ,[Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Background] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
-        ,[BasicAcct] 
-        
-        ,[Citizen] 
-        
+        ,[BasicAcct] BIGINT
+        ,[Citizen] BIGINT
         ,[Refer] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS
-        ,[Referer] 
-        
+        ,[Referer] BIGINT
         ,[Discord] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
         ,[DiscordId] BIGINT
         ,[Google] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
@@ -897,8 +855,7 @@ BEGIN
         ,[OAuthID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[GTV] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
         ,[Gettr] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[Farm] 
-        
+        ,[Farm] BIGINT
         ,[CountFollows] BIGINT
         ,[CountFollowers] BIGINT
         ,[CountMoments] BIGINT
@@ -906,10 +863,8 @@ BEGIN
         ,[CountComments] BIGINT
         ,[CountThumbUps] BIGINT
         ,[CountThumbDns] BIGINT
-        ,[Lang] 
-        
-        ,[BizOperator] 
-        
+        ,[Lang] BIGINT
+        ,[BizOperator] BIGINT
         ,[Url] NVARCHAR(MAX)
         ,[About] NVARCHAR(MAX)
         ,[PublicPoints] BIGINT
@@ -1061,25 +1016,21 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='BasicAcct')
 BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [BasicAcct] 
-        
+ ALTER TABLE Ca_EndUser ALTER COLUMN [BasicAcct] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_EndUser ADD [BasicAcct] 
-        
+ ALTER TABLE Ca_EndUser ADD [BasicAcct] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Citizen')
 BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Citizen] 
-        
+ ALTER TABLE Ca_EndUser ALTER COLUMN [Citizen] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_EndUser ADD [Citizen] 
-        
+ ALTER TABLE Ca_EndUser ADD [Citizen] BIGINT
 END
 
 
@@ -1095,13 +1046,11 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Referer')
 BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Referer] 
-        
+ ALTER TABLE Ca_EndUser ALTER COLUMN [Referer] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_EndUser ADD [Referer] 
-        
+ ALTER TABLE Ca_EndUser ADD [Referer] BIGINT
 END
 
 
@@ -1207,13 +1156,11 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Farm')
 BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Farm] 
-        
+ ALTER TABLE Ca_EndUser ALTER COLUMN [Farm] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_EndUser ADD [Farm] 
-        
+ ALTER TABLE Ca_EndUser ADD [Farm] BIGINT
 END
 
 
@@ -1289,25 +1236,21 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Lang')
 BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Lang] 
-        
+ ALTER TABLE Ca_EndUser ALTER COLUMN [Lang] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_EndUser ADD [Lang] 
-        
+ ALTER TABLE Ca_EndUser ADD [Lang] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='BizOperator')
 BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [BizOperator] 
-        
+ ALTER TABLE Ca_EndUser ALTER COLUMN [BizOperator] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_EndUser ADD [BizOperator] 
-        
+ ALTER TABLE Ca_EndUser ADD [BizOperator] BIGINT
 END
 
 
@@ -1376,8 +1319,7 @@ BEGIN
         ,[Bind] BIGINT
         ,[BindType] INT
         ,[State] INT
-        ,[Folder] 
-        
+        ,[Folder] BIGINT
         ,[FileType] INT
         ,[JSON] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_File] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
@@ -1456,13 +1398,11 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Folder')
 BEGIN
- ALTER TABLE Ca_File ALTER COLUMN [Folder] 
-        
+ ALTER TABLE Ca_File ALTER COLUMN [Folder] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_File ADD [Folder] 
-        
+ ALTER TABLE Ca_File ADD [Folder] BIGINT
 END
 
 
@@ -1498,8 +1438,7 @@ BEGIN
         ,[Encrypt] INT
         ,[Bind] BIGINT
         ,[BindType] INT
-        ,[Parent] 
-        
+        ,[Parent] BIGINT
 , CONSTRAINT [PK_Ca_Folder] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 
@@ -1546,13 +1485,11 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND name='Parent')
 BEGIN
- ALTER TABLE Ca_Folder ALTER COLUMN [Parent] 
-        
+ ALTER TABLE Ca_Folder ALTER COLUMN [Parent] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_Folder ADD [Parent] 
-        
+ ALTER TABLE Ca_Folder ADD [Parent] BIGINT
 END
 
 -- [Ca_Lang] ----------------------
@@ -1678,10 +1615,8 @@ BEGIN
         [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
         ,[ExternalId] BIGINT
         ,[Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
-        ,[EU] 
-        
-        ,[Biz] 
-        
+        ,[EU] BIGINT
+        ,[Biz] BIGINT
         ,[Json] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_WebCredential] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
@@ -1719,25 +1654,21 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND name='EU')
 BEGIN
- ALTER TABLE Ca_WebCredential ALTER COLUMN [EU] 
-        
+ ALTER TABLE Ca_WebCredential ALTER COLUMN [EU] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_WebCredential ADD [EU] 
-        
+ ALTER TABLE Ca_WebCredential ADD [EU] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND name='Biz')
 BEGIN
- ALTER TABLE Ca_WebCredential ALTER COLUMN [Biz] 
-        
+ ALTER TABLE Ca_WebCredential ALTER COLUMN [Biz] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Ca_WebCredential ADD [Biz] 
-        
+ ALTER TABLE Ca_WebCredential ADD [Biz] BIGINT
 END
 
 
@@ -1819,14 +1750,10 @@ BEGIN
         ,[HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
         ,[HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
         ,[Src] NVARCHAR(MAX)
-        ,[DomainName] 
-        
-        ,[Promoter] 
-        
-        ,[Dst] 
-        
-        ,[BizOwner] 
-        
+        ,[DomainName] BIGINT
+        ,[Promoter] BIGINT
+        ,[Dst] BIGINT
+        ,[BizOwner] BIGINT
         ,[Data] NVARCHAR(MAX)
         ,[OgTitle] NVARCHAR(MAX)
         ,[OgDesc] NVARCHAR(MAX)
@@ -1877,49 +1804,41 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='DomainName')
 BEGIN
- ALTER TABLE Core_CryptoLink ALTER COLUMN [DomainName] 
-        
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [DomainName] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_CryptoLink ADD [DomainName] 
-        
+ ALTER TABLE Core_CryptoLink ADD [DomainName] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Promoter')
 BEGIN
- ALTER TABLE Core_CryptoLink ALTER COLUMN [Promoter] 
-        
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Promoter] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_CryptoLink ADD [Promoter] 
-        
+ ALTER TABLE Core_CryptoLink ADD [Promoter] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Dst')
 BEGIN
- ALTER TABLE Core_CryptoLink ALTER COLUMN [Dst] 
-        
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [Dst] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_CryptoLink ADD [Dst] 
-        
+ ALTER TABLE Core_CryptoLink ADD [Dst] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='BizOwner')
 BEGIN
- ALTER TABLE Core_CryptoLink ALTER COLUMN [BizOwner] 
-        
+ ALTER TABLE Core_CryptoLink ALTER COLUMN [BizOwner] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_CryptoLink ADD [BizOwner] 
-        
+ ALTER TABLE Core_CryptoLink ADD [BizOwner] BIGINT
 END
 
 
@@ -1972,12 +1891,9 @@ BEGIN
         ,[Updatedat] BIGINT NOT NULL
         ,[Sort] BIGINT NOT NULL,
         [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
-        ,[Biz] 
-        
-        ,[EndUser] 
-        
-        ,[BizOwner] 
-        
+        ,[Biz] BIGINT
+        ,[EndUser] BIGINT
+        ,[BizOwner] BIGINT
 , CONSTRAINT [PK_Core_DomainName] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
 END
 
@@ -1994,37 +1910,31 @@ END
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='Biz')
 BEGIN
- ALTER TABLE Core_DomainName ALTER COLUMN [Biz] 
-        
+ ALTER TABLE Core_DomainName ALTER COLUMN [Biz] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_DomainName ADD [Biz] 
-        
+ ALTER TABLE Core_DomainName ADD [Biz] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='EndUser')
 BEGIN
- ALTER TABLE Core_DomainName ALTER COLUMN [EndUser] 
-        
+ ALTER TABLE Core_DomainName ALTER COLUMN [EndUser] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_DomainName ADD [EndUser] 
-        
+ ALTER TABLE Core_DomainName ADD [EndUser] BIGINT
 END
 
 
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='BizOwner')
 BEGIN
- ALTER TABLE Core_DomainName ALTER COLUMN [BizOwner] 
-        
+ ALTER TABLE Core_DomainName ALTER COLUMN [BizOwner] BIGINT
 END
 ELSE
 BEGIN
- ALTER TABLE Core_DomainName ADD [BizOwner] 
-        
+ ALTER TABLE Core_DomainName ADD [BizOwner] BIGINT
 END
 
 -- [Sys_Log] ----------------------
