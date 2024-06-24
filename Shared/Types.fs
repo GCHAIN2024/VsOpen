@@ -14,6 +14,7 @@ open Shared.OrmTypes
 type Er = 
 | ApiNotExists
 | InvalideParameter
+| Unauthorized
 | Internal
 
 type EuComplex = {

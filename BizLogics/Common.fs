@@ -67,6 +67,8 @@ bizowners: ConcurrentDictionary<int64,BIZOWNER>
 sessions: ConcurrentDictionary<string,Session>
 output: string -> unit }
 
+type X = UtilWebServer.Api.ApiCtx<Runtime,Session, Er>
+
 type HostEnum = 
 | Prod
 | ProdLinux

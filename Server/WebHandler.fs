@@ -22,6 +22,7 @@ open Shared.CustomMor
 open UtilWebServer.Common
 open UtilWebServer.Json
 open UtilWebServer.Api
+open UtilWebServer.Auth
 open UtilWebServer.SSR
 
 open BizLogics.Common
@@ -137,21 +138,78 @@ let hTinyLink req =
     else
         rep404
 
+let checkSession = UtilWebServer.Auth.checkSession Er.Unauthorized runtime.sessions
+
+let checkSessionEu x = 
+    match x.sessiono.Value.identity with
+    | SessionRole.EndUser eu -> Suc x
+    | _ -> Fail(Er.Unauthorized,x)
+
+let branching x = 
+
+    let bindx p = 
+        x.proco <- Some p
+        Suc x
+
+    match x.service with
+    | "public" -> 
+        match x.api with
+        | "ping" -> bindx api_Public_Ping
+        | "auth" -> bindx auth
+        | "listBiz" -> bindx api_Public_ListBiz
+        | "loadCryptoLink" -> bindx api_Public_LoadCryptoLink
+        | "checkoutCryptoLink" -> bindx api_Public_CheckoutCryptoLink
+        | _ -> Fail(Er.ApiNotExists,x)
+    | "eu" -> 
+        
+        match x.api with
+        | "myClinks" -> bindx api_Public_Ping
+        | _ -> Fail(Er.ApiNotExists,x)
+
+    | "admin" -> Fail(Er.ApiNotExists,x)
+    | "open" -> Fail(Er.ApiNotExists,x)
+    | _ -> Fail(Er.ApiNotExists,x)
+
+
 let branch service api json = 
 
+    use cw = new CodeWrapper("Server.WebHandler.branch")
+
+    let mutable x = incoming__x runtime service api "" json
+    
     match service with
-    | "public" -> 
-        match api with
-        | "ping" -> api_Public_Ping json
-        | "auth" -> auth json
-        | "listBiz" -> api_Public_ListBiz json
-        | "loadCryptoLink" -> api_Public_LoadCryptoLink json
-        | "checkoutCryptoLink" -> api_Public_CheckoutCryptoLink json
-        | _ -> er Er.ApiNotExists
-    | "eu" -> er Er.ApiNotExists
-    | "admin" -> er Er.ApiNotExists
-    | "open" -> er Er.ApiNotExists
-    | _ -> er Er.ApiNotExists
+    | "eu" ->
+        x <- 
+            x 
+            |> bind checkSession
+            |> bind checkSessionEu
+    | "admin" ->
+        x <- 
+            x 
+            |> bind checkSession
+            |> bind checkSessionEu
+    | "open" ->
+        x <- 
+            x 
+            |> bind checkSession
+            |> bind checkSessionEu
+
+    | _ -> ()
+
+    match
+        x
+        |> bind branching with
+    | Suc x -> 
+        use cw = new CodeWrapper("branch.exe")
+
+        match x.proco with
+        | Some p ->
+            use cw = new CodeWrapper("Api." + x.api)
+            p x
+        | None -> [| ok |]
+    | Fail(e,x) -> er e
+
+
 
 let echo req = 
 
@@ -163,6 +221,11 @@ let echo req =
         |> render (hash1,hash2)
         |> bin__StandardResponse "text/html"
         |> Some
+    else if req.pathline.StartsWith "/redirect/" then
+        let code = 
+            req.pathline.IndexOf "redirect?code=" + "redirect?code=".Length
+            |> req.pathline.Substring
+        None
     else if req.pathline = "/open.js" then
         openJavaScript
         |> str__StandardResponse "text/javascript"

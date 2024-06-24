@@ -5,6 +5,7 @@ open System.Text
 open System.Collections.Generic
 open System.Collections.Concurrent
 
+open Util.Cat
 open Util.ADT
 open Util.Text
 open Util.Json
@@ -59,7 +60,7 @@ let checkoutEu bizCode id =
     | _ -> None
 
 
-let auth =
+let auth: X -> ApiReturn =
     socialAuth
         (Er.Internal,Er.InvalideParameter)
         (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)        

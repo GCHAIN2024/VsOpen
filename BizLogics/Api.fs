@@ -23,19 +23,19 @@ open BizLogics.TinyLink
 open BizLogics.Auth
 
 
-let api_Public_Ping json =
+let api_Public_Ping x =
     [|  ok
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
-let api_Public_ListBiz json =
+let api_Public_ListBiz x =
     runtime.bcs.Values
     |> Seq.toArray
     |> Array.map(fun i -> i.biz)
     |> Array.map BIZ__json
     |> wrapOkAry
 
-let api_Public_LoadCryptoLink json =
-    let tiny = tryFindStrByAtt "tiny" json
+let api_Public_LoadCryptoLink x =
+    let tiny = tryFindStrByAtt "tiny" x.json
     if runtime.tiny__full.ContainsKey tiny then
         let full = runtime.tiny__full[tiny]
         runtime.hashFull__clinks[full]
@@ -44,10 +44,10 @@ let api_Public_LoadCryptoLink json =
     else
         er Er.InvalideParameter
 
-let api_Public_CheckoutCryptoLink json =
+let api_Public_CheckoutCryptoLink x =
 
     let url,urlLength = 
-        let url = (tryFindStrByAtt "url" json).Trim()
+        let url = (tryFindStrByAtt "url" x.json).Trim()
         if url.StartsWith "http" then
             url,url.Length
         else
@@ -74,11 +74,11 @@ let api_Public_CheckoutCryptoLink json =
                 runtime.bizowners[id] |> Some
             else
                 None)
-        |> tryLoadFromJsonId json "bizowner"
+        |> tryLoadFromJsonId x.json "bizowner"
 
-    let data = tryFindStrByAtt "data" json
+    let data = tryFindStrByAtt "data" x.json
     let dsto = 
-        let code = tryFindStrByAtt "dst" json
+        let code = tryFindStrByAtt "dst" x.json
         if runtime.bcs.ContainsKey code then
             runtime.bcs[code].biz
             |> Some
@@ -86,7 +86,7 @@ let api_Public_CheckoutCryptoLink json =
             None
            
     let promotero =            
-        let session = tryFindStrByAtt "session" json
+        let session = tryFindStrByAtt "session" x.json
         None
 
     if urlLength = 0 then
@@ -109,9 +109,3 @@ let api_Public_CheckoutCryptoLink json =
             |> wrapOk "clink"
         | None -> er Er.Internal
 
-let branch json api = 
-
-    match api with
-    | "ListBiz" -> api_Public_ListBiz json
-    | "CheckoutTinyLink" -> api_Public_CheckoutCryptoLink json
-    | _ -> er Er.ApiNotExists
