@@ -133,19 +133,15 @@ let hTinyLink req =
     else
         rep404
 
-type ReqRep = { req: HttpRequest; mutable rep: byte[] option }
-type CW = CtxWrapper<ReqRep,unit>
-
 let echo req = 
 
-
-    let h1 (x:ReqRep):CW = 
+    let h1 x = 
         let req = x.req
         if req.pathline.StartsWith "/gchain" then
             req.pathline <- req.pathline.Substring "/gchain".Length
         Suc x
 
-    let h2 (x:ReqRep):CW = 
+    let h2 x = 
         let req = x.req
         if req.pathline = "/open.js" then
             x.rep <-
