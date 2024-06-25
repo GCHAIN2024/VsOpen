@@ -5,6 +5,7 @@ open System.Text
 open System.Collections.Generic
 open System.Collections.Concurrent
 
+open Util.Cat
 open Util.Text
 open Util.Crypto
 open Util.DbTx
@@ -62,6 +63,8 @@ bizowners: ConcurrentDictionary<int64,BIZOWNER> }
 type Runtime = RuntimeTemplate<EuComplex,unit,RuntimeData>
 
 type X = UtilWebServer.Api.ApiCtx<Runtime,Session,Er>
+
+type CtxWrappedX = CtxWrapper<X,Er>
 
 type HostEnum = 
 | Prod

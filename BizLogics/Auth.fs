@@ -69,3 +69,9 @@ let auth: X -> ApiReturn =
         checkoutEu
         EuComplex__json
 
+let checkSession: X -> CtxWrappedX = checkRuntimeSession Er.Unauthorized runtime.sessions
+
+let checkSessionEu x = 
+    match x.sessiono.Value.identity with
+    | Some eu -> Suc x
+    | _ -> Fail(Er.Unauthorized,x)

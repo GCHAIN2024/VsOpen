@@ -13,6 +13,8 @@
     <Compile Include="Auth.fs" />
     <Compile Include="ApiPublic.fs" />
     <Compile Include="ApiEu.fs" />
+    <Compile Include="Branch.fs" />
+    <Compile Include="SSR.fs" />
   </ItemGroup>
 
   <ItemGroup>
