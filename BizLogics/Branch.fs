@@ -11,6 +11,7 @@ open Util.HttpClient
 
 open UtilWebServer.Json
 open UtilWebServer.Api
+open UtilWebServer.Auth
 open UtilWebServer.Open
 
 open Shared.OrmTypes
@@ -26,7 +27,7 @@ open BizLogics.ApiEu
 
 
 
-let branching x = 
+let branching (x:X) = 
 
     let bindx p = 
         x.proco <- Some p
@@ -36,7 +37,6 @@ let branching x =
     | "public" -> 
         match x.api with
         | "ping" -> bindx api_Public_Ping
-        | "auth" -> bindx auth
         | "listBiz" -> bindx api_Public_ListBiz
         | "loadCryptoLink" -> bindx api_Public_LoadCryptoLink
         | "checkoutCryptoLink" -> bindx api_Public_CheckoutCryptoLink

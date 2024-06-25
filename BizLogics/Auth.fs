@@ -21,6 +21,7 @@ open UtilWebServer.Common
 open UtilWebServer.Json
 open UtilWebServer.Api
 open UtilWebServer.Open
+open UtilWebServer.Session
 open UtilWebServer.Auth
 
 open Shared.OrmTypes
@@ -62,10 +63,11 @@ let checkoutEu bizCode id =
     | _ -> None
 
 
-let auth: X -> ApiReturn =
+let auth =
     socialAuth
         (Er.Internal,Er.InvalideParameter)
         (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)        
+        runtime
         checkoutEu
         EuComplex__json
 

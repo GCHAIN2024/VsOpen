@@ -34,37 +34,6 @@ open BizLogics.Branch
 open BizLogics.SSR
 
 
-let echo req = 
-
-    if req.pathline.StartsWith "/gchain" then
-        req.pathline <- req.pathline.Substring "/gchain".Length
-
-    if req.pathline = "/" then
-        ssrPageHome
-        |> render (hash1,hash2)
-        |> bin__StandardResponse "text/html"
-        |> Some
-    else if req.pathline.StartsWith "/redirect?" then
-        let code = 
-            req.pathline.IndexOf "redirect?code=" + "redirect?code=".Length
-            |> req.pathline.Substring
-        None
-    else if req.pathline = "/open.js" then
-        openJavaScript
-        |> str__StandardResponse "text/javascript"
-        |> Some
-    else if req.pathline.StartsWith "/t/" then
-        hTinyLink req
-        |> Some
-    else if req.path.Length = 3 then
-        if req.path[0] = "api" then
-            echoApiHandler branch req
-            |> Some
-        else
-            None
-    else
-        None
-
 
 let wsHandlerZweb zweb wsp =
 

@@ -20,6 +20,7 @@ open UtilWebServer.Common
 
 open BizLogics.Common
 open BizLogics.Init
+open BizLogics.SSR
 
 [<EntryPoint>]
 
