@@ -46,6 +46,7 @@ let branching (x:X) =
         
         let ec = x.sessiono.Value.identity.Value
         match x.api with
+        | "myProfile" -> bindx (api_Eu_MyProfile ec)
         | "myClinks" -> bindx (api_Eu_MyClinks ec)
         | _ -> Fail(Er.ApiNotExists,x)
 
