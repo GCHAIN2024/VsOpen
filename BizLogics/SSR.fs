@@ -144,11 +144,12 @@ let echo req =
         |> bin__StandardResponse "text/html"
         |> Some
     else if req.pathline.StartsWith "/redirect?" then
-        let code = 
-            req.pathline.IndexOf "redirect?code=" + "redirect?code=".Length
-            |> req.pathline.Substring
 
-        ("DISCORD",code,"redirectUrl")
+        let code = checkfield req.query "code"
+        let biz = checkfield req.query "biz"
+        let redirectUrl = checkfield req.query "redirectUrl"
+
+        (biz,code,redirectUrl)
         |> auth
         |> Json.Braket
         |> json__strFinal
