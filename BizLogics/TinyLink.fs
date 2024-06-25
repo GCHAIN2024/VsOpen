@@ -5,6 +5,7 @@ open System.Numerics
 open System.Text
 open System.Collections.Concurrent
 
+open Util.ADT
 open Util.Text
 open Util.Crypto
 open Util.DbTx
@@ -35,7 +36,7 @@ let clink__ssrPage (clink:CLINK) =
         noscript = "" }
 
 let checkcollition 
-    promoter 
+    owner 
     (url:string) 
     (dsto:BIZ option)
     (data:string) =
@@ -59,7 +60,7 @@ let checkcollition
                 |> Array.concat
 
             [|  repeater |> BitConverter.GetBytes
-                promoter
+                owner
                 url |> Encoding.UTF8.GetBytes
                 dstBin
                 dataBin |]
@@ -107,13 +108,8 @@ let url__clinko
         runtime.data.hashFull__clinks[hashFull]
         |> Some
     else
-    
-        let pretx = None |> opctx__pretx
-    
-        let rcd = 
-
+        create CLINK_metadata "BizLogics.TinyLink.url__clink" conn (fun _ -> 
             let p = pCLINK_empty()
-
             p.HashFull <- hashFull
             p.HashTiny <- checkcollition owner src dsto data
             p.Src <- src
@@ -136,17 +132,9 @@ let url__clinko
             p.OgTitle <- title
             p.OgDesc <- desc
             p.OgImg <- image
-
-            p
-            |> populateCreateTx pretx CLINK_metadata
-
-        if pretx |> loggedPipeline "BizLogics.TinyLink.url__clink" conn then
-            
+            p) ()
+        |> oPipelineSome (fun rcd -> 
             runtime.data.tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
             runtime.data.hashFull__clinks[rcd.p.HashFull] <- rcd
-
-            Some rcd
-        else
-            None
-
+            rcd)
 

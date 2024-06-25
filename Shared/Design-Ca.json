@@ -361,6 +361,10 @@
         "name": "SocialAuthId"
       },
       {
+        "enum": "Text",
+        "name": "SocialAuthAvatar"
+      },
+      {
         "enum": "Chars",
         "length": 256,
         "name": "Email"

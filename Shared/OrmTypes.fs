@@ -584,6 +584,7 @@ mutable Caption: Caption
 mutable Username: Caption
 mutable SocialAuthBiz: FK
 mutable SocialAuthId: Text
+mutable SocialAuthAvatar: Text
 mutable Email: Chars
 mutable Tel: Chars
 mutable Gender: euGenderEnum
@@ -605,13 +606,14 @@ mutable About: Text}
 
 type EU = Rcd<pEU>
 
-let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[SocialAuthBiz],[SocialAuthId],[Email],[Tel],[Gender],[Status],[Admin],[BizPartner],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Refer],[Referer],[Url],[About]"
+let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[SocialAuthBiz],[SocialAuthId],[SocialAuthAvatar],[Email],[Tel],[Gender],[Status],[Admin],[BizPartner],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Refer],[Referer],[Url],[About]"
 
 let pEU_fieldordersArray = [|
     "Caption"
     "Username"
     "SocialAuthBiz"
     "SocialAuthId"
+    "SocialAuthAvatar"
     "Email"
     "Tel"
     "Gender"
@@ -630,13 +632,14 @@ let pEU_fieldordersArray = [|
     "Url"
     "About" |]
 
-let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[SocialAuthBiz]=@SocialAuthBiz,[SocialAuthId]=@SocialAuthId,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[BizPartner]=@BizPartner,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Refer]=@Refer,[Referer]=@Referer,[Url]=@Url,[About]=@About"
+let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[SocialAuthBiz]=@SocialAuthBiz,[SocialAuthId]=@SocialAuthId,[SocialAuthAvatar]=@SocialAuthAvatar,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[BizPartner]=@BizPartner,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Refer]=@Refer,[Referer]=@Referer,[Url]=@Url,[About]=@About"
 
 let pEU_fields = [|
     Caption("Caption", 64)
     Caption("Username", 64)
     FK("SocialAuthBiz")
     Text("SocialAuthId")
+    Text("SocialAuthAvatar")
     Chars("Email", 256)
     Chars("Tel", 32)
     SelectLines("Gender", [| ("Unknown","未知");("Male","男");("Female","女") |])
@@ -660,6 +663,7 @@ let pEU_empty(): pEU = {
     Username = ""
     SocialAuthBiz = 0L
     SocialAuthId = ""
+    SocialAuthAvatar = ""
     Email = ""
     Tel = ""
     Gender = EnumOfValue 0
