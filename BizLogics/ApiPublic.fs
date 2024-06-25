@@ -13,6 +13,7 @@ open Util.HttpClient
 open UtilWebServer.Json
 open UtilWebServer.Api
 open UtilWebServer.Auth
+open UtilWebServer.Session
 open UtilWebServer.Open
 
 open Shared.OrmTypes
