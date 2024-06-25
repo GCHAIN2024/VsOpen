@@ -63,7 +63,7 @@ let checkoutEu bizCode id =
     | _ -> None
 
 
-let auth =
+let auth: X -> ApiReturn =
     socialAuth
         (Er.Internal,Er.InvalideParameter)
         (runtime.host.openDiscordAppId,runtime.host.openDiscordSecret)        
