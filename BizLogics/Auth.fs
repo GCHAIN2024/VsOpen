@@ -58,7 +58,7 @@ let checkoutEu bizCode id =
     match bizCode with
     | "DISCORD" -> 
         tryFindExistingx bizId id
-        |> optionProcessNone (fun _ -> tryCreateUserx bizId id)
+        |> optionProcessNoneOption (fun _ -> tryCreateUserx bizId id)
 
     | _ -> None
 
