@@ -44,7 +44,7 @@ let echo req =
         |> render (hash1,hash2)
         |> bin__StandardResponse "text/html"
         |> Some
-    else if req.pathline.StartsWith "/redirect/" then
+    else if req.pathline.StartsWith "/redirect?" then
         let code = 
             req.pathline.IndexOf "redirect?code=" + "redirect?code=".Length
             |> req.pathline.Substring

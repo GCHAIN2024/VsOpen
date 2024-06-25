@@ -3,6 +3,7 @@
 open System
 open System.Text
 
+open Util.Cat
 open Util.Text
 open Util.Json
 open Util.Http
@@ -134,31 +135,39 @@ let hTinyLink req =
 
 let echo req = 
 
+    let mutable o = None
+
     if req.pathline.StartsWith "/gchain" then
         req.pathline <- req.pathline.Substring "/gchain".Length
 
-    if req.pathline = "/" then
-        ssrPageHome
-        |> render (hash1,hash2)
-        |> bin__StandardResponse "text/html"
-        |> Some
-    else if req.pathline.StartsWith "/redirect/" then
-        let code = 
-            req.pathline.IndexOf "redirect?code=" + "redirect?code=".Length
-            |> req.pathline.Substring
-        None
-    else if req.pathline = "/open.js" then
-        openJavaScript
-        |> str__StandardResponse "text/javascript"
-        |> Some
-    else if req.pathline.StartsWith "/t/" then
-        hTinyLink req
-        |> Some
-    else if req.path.Length = 3 then
-        if req.path[0] = "api" then
-            echoApiHandler branch req
+    if o.IsNone then
+        if req.path.Length = 3 then
+            if req.path[0] = "api" then
+                o <- echoApiHandler branch req |> Some
+
+    if o.IsNone then
+        if req.pathline.Contains "/t/" then
+            o <- hTinyLink req |> Some
+
+    if o.IsNone then
+        if req.pathline.Contains "/redirect/" then
+            let code = 
+                req.pathline.IndexOf "redirect?code=" + "redirect?code=".Length
+                |> req.pathline.Substring
+            o <- None
+
+    if o.IsNone then
+        if req.pathline = "/open.js" then
+            o <-
+                openJavaScript
+                |> str__StandardResponse "text/javascript"
+                |> Some
+
+    if o.IsNone then
+        o <-
+            ssrPageHome
+            |> render (hash1,hash2)
+            |> bin__StandardResponse "text/html"
             |> Some
-        else
-            None
-    else
-        None
+
+    o.Value
