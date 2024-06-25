@@ -133,40 +133,63 @@ let hTinyLink req =
     else
         rep404
 
-type E = CtxWrapper<byte[] option,unit>
+type ReqRep = { req: HttpRequest; mutable rep: byte[] option }
+type CW = CtxWrapper<ReqRep,unit>
 
 let echo req = 
 
-    let mutable o = None
 
-    if req.pathline.StartsWith "/gchain" then
-        req.pathline <- req.pathline.Substring "/gchain".Length
+    let h1 (x:ReqRep):CW = 
+        let req = x.req
+        if req.pathline.StartsWith "/gchain" then
+            req.pathline <- req.pathline.Substring "/gchain".Length
+        Suc x
 
-    if o.IsNone then
+    let h2 (x:ReqRep):CW = 
+        let req = x.req
         if req.pathline = "/open.js" then
-            o <-
+            x.rep <-
                 openJavaScript
                 |> str__StandardResponse "text/javascript"
                 |> Some
+            Suc x
+        else
+            Fail((),x)
 
-    if o.IsNone then
+    let h3 x = 
+        let req = x.req
         if req.pathline.StartsWith "/t/" then
-            o <-
+            x.rep <-
                 hTinyLink req
                 |> Some
+            Suc x
+        else
+            Fail((),x)
 
-    if o.IsNone then
+    let h4 x = 
+        let req = x.req
         if req.path.Length = 3 then
             if req.path[0] = "api" then
-                o <-
+                x.rep <-
                     echoApiHandler branch req
                     |> Some
+                Suc x
+            else
+                Fail((),x)
+        else
+            Fail((),x)
 
-    if o.IsNone then
-        o <-
-            ssrPageHome
-            |> render (hash1,hash2)
-            |> bin__StandardResponse "text/html"
-            |> Some
+    match 
+        { req = req; rep = None}
+        |> Suc
+        |> bind h1
+        |> bind h2
+        |> bindFail h3
+        |> bindFail h4 with
+    | Suc x -> x.rep
+    | Fail(x,e) -> 
+        ssrPageHome
+        |> render (hash1,hash2)
+        |> bin__StandardResponse "text/html"
+        |> Some
 
-    o
