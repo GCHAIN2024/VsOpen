@@ -152,36 +152,13 @@ let echo req =
         else
             Fail((),x)
 
-    let h3 x = 
-        let req = x.req
-        if req.pathline.StartsWith "/t/" then
-            x.rep <-
-                hTinyLink req
-                |> Some
-            Suc x
-        else
-            Fail((),x)
-
-    let h4 x = 
-        let req = x.req
-        if req.path.Length = 3 then
-            if req.path[0] = "api" then
-                x.rep <-
-                    echoApiHandler branch req
-                    |> Some
-                Suc x
-            else
-                Fail((),x)
-        else
-            Fail((),x)
-
     match 
         { req = req; rep = None}
         |> Suc
         |> bind h1
         |> bind h2
-        |> bindFail h3
-        |> bindFail h4 with
+        |> bindFail (hpattern "/t/" hTinyLink)
+        |> bindFail (hapi echoApiHandler branch) with
     | Suc x -> x.rep
     | Fail(x,e) -> 
         ssrPageHome
