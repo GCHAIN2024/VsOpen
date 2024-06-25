@@ -844,7 +844,6 @@ BEGIN
         ,[Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[Background] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[BasicAcct] BIGINT
-        ,[Citizen] BIGINT
         ,[Refer] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS
         ,[Referer] BIGINT
         ,[Url] NVARCHAR(MAX)
@@ -1020,16 +1019,6 @@ END
 ELSE
 BEGIN
  ALTER TABLE Ca_EndUser ADD [BasicAcct] BIGINT
-END
-
-
-IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Citizen')
-BEGIN
- ALTER TABLE Ca_EndUser ALTER COLUMN [Citizen] BIGINT
-END
-ELSE
-BEGIN
- ALTER TABLE Ca_EndUser ADD [Citizen] BIGINT
 END
 
 

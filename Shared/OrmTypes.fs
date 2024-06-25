@@ -597,7 +597,6 @@ mutable Online: Boolean
 mutable Icon: Link
 mutable Background: Link
 mutable BasicAcct: FK
-mutable Citizen: FK
 mutable Refer: Caption
 mutable Referer: FK
 mutable Url: Text
@@ -606,7 +605,7 @@ mutable About: Text}
 
 type EU = Rcd<pEU>
 
-let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[SocialAuthBiz],[SocialAuthId],[Email],[Tel],[Gender],[Status],[Admin],[BizPartner],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Citizen],[Refer],[Referer],[Url],[About]"
+let EU_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[Caption],[Username],[SocialAuthBiz],[SocialAuthId],[Email],[Tel],[Gender],[Status],[Admin],[BizPartner],[Privilege],[Verify],[Pwd],[Online],[Icon],[Background],[BasicAcct],[Refer],[Referer],[Url],[About]"
 
 let pEU_fieldordersArray = [|
     "Caption"
@@ -626,13 +625,12 @@ let pEU_fieldordersArray = [|
     "Icon"
     "Background"
     "BasicAcct"
-    "Citizen"
     "Refer"
     "Referer"
     "Url"
     "About" |]
 
-let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[SocialAuthBiz]=@SocialAuthBiz,[SocialAuthId]=@SocialAuthId,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[BizPartner]=@BizPartner,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Citizen]=@Citizen,[Refer]=@Refer,[Referer]=@Referer,[Url]=@Url,[About]=@About"
+let EU_sql_update = "[Updatedat]=@Updatedat,[Caption]=@Caption,[Username]=@Username,[SocialAuthBiz]=@SocialAuthBiz,[SocialAuthId]=@SocialAuthId,[Email]=@Email,[Tel]=@Tel,[Gender]=@Gender,[Status]=@Status,[Admin]=@Admin,[BizPartner]=@BizPartner,[Privilege]=@Privilege,[Verify]=@Verify,[Pwd]=@Pwd,[Online]=@Online,[Icon]=@Icon,[Background]=@Background,[BasicAcct]=@BasicAcct,[Refer]=@Refer,[Referer]=@Referer,[Url]=@Url,[About]=@About"
 
 let pEU_fields = [|
     Caption("Caption", 64)
@@ -652,7 +650,6 @@ let pEU_fields = [|
     Link("Icon", 256)
     Link("Background", 256)
     FK("BasicAcct")
-    FK("Citizen")
     Caption("Refer", 7)
     FK("Referer")
     Text("Url")
@@ -676,7 +673,6 @@ let pEU_empty(): pEU = {
     Icon = ""
     Background = ""
     BasicAcct = 0L
-    Citizen = 0L
     Refer = ""
     Referer = 0L
     Url = ""

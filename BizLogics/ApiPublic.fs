@@ -55,61 +55,63 @@ let api_Public_CheckoutCryptoLink x =
         else
             "https://" + url,url.Length
 
-    let domainnameo = 
-        let domainame = (Util.Http.url__domainame url)
-
-        runtime.data.domainnames.Values
-        |> Seq.tryFind(fun v -> v.p.Caption = domainame)
-
-    let htmlo = 
-        try
-            url
-            |> httpGet None
-            |> snd
-            |> Some
-        with
-        | _ -> None
-
-    let bizownero =
-        (fun id -> 
-            if runtime.data.bizowners.ContainsKey id then
-                runtime.data.bizowners[id] |> Some
-            else
-                None)
-        |> tryLoadFromJsonId x.json "bizowner"
-
-    let data = tryFindStrByAtt "data" x.json
-    let dsto = 
-        let code = tryFindStrByAtt "dst" x.json
-        if runtime.data.bcs.ContainsKey code then
-            runtime.data.bcs[code].biz
-            |> Some
-        else
-            None
-           
-    let ownero = 
-        checkSessionUsero
-            Er.Unauthorized 
-            runtime.sessions
-            x
-
     if urlLength = 0 then
         er Er.InvalideParameter
-    else if htmlo.IsNone then
-        er Er.InvalideParameter
-    else
-        match 
-            url__clinko 
+    else 
+
+        let domainnameo = 
+            let domainame = (Util.Http.url__domainame url)
+
+            runtime.data.domainnames.Values
+            |> Seq.tryFind(fun v -> v.p.Caption = domainame)
+
+        let htmlo = 
+            try
                 url
-                domainnameo
-                htmlo.Value
-                dsto
-                data
-                ownero
-                bizownero with
-        | Some clink -> 
-            clink
-            |> CLINK__json
-            |> wrapOk "clink"
-        | None -> er Er.Internal
+                |> httpGet None
+                |> snd
+                |> Some
+            with
+            | _ -> None
+
+        let bizownero =
+            (fun id -> 
+                if runtime.data.bizowners.ContainsKey id then
+                    runtime.data.bizowners[id] |> Some
+                else
+                    None)
+            |> tryLoadFromJsonId x.json "bizowner"
+
+        let data = tryFindStrByAtt "data" x.json
+        let dsto = 
+            let code = tryFindStrByAtt "dst" x.json
+            if runtime.data.bcs.ContainsKey code then
+                runtime.data.bcs[code].biz
+                |> Some
+            else
+                None
+           
+        let ownero = 
+            checkSessionUsero
+                Er.Unauthorized 
+                runtime.sessions
+                x
+
+        if htmlo.IsNone then
+            er Er.InvalideParameter
+        else
+            match 
+                url__clinko 
+                    url
+                    domainnameo
+                    htmlo.Value
+                    dsto
+                    data
+                    ownero
+                    bizownero with
+            | Some clink -> 
+                clink
+                |> CLINK__json
+                |> wrapOk "clink"
+            | None -> er Er.Internal
 

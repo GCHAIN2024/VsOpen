@@ -1296,8 +1296,6 @@ let pEU__bin (bb:BytesBuilder) (p:pEU) =
     
     p.BasicAcct |> BitConverter.GetBytes |> bb.append
     
-    p.Citizen |> BitConverter.GetBytes |> bb.append
-    
     let binRefer = p.Refer |> Encoding.UTF8.GetBytes
     binRefer.Length |> BitConverter.GetBytes |> bb.append
     binRefer |> bb.append
@@ -1392,9 +1390,6 @@ let bin__pEU (bi:BinIndexed):pEU =
     p.BasicAcct <- BitConverter.ToInt64(bin,index.Value)
     index.Value <- index.Value + 8
     
-    p.Citizen <- BitConverter.ToInt64(bin,index.Value)
-    index.Value <- index.Value + 8
-    
     let count_Refer = BitConverter.ToInt32(bin,index.Value)
     index.Value <- index.Value + 4
     p.Refer <- Encoding.UTF8.GetString(bin,index.Value,count_Refer)
@@ -1455,7 +1450,6 @@ let pEU__json (p:pEU) =
         ("Icon",p.Icon |> Json.Str)
         ("Background",p.Background |> Json.Str)
         ("BasicAcct",p.BasicAcct.ToString() |> Json.Num)
-        ("Citizen",p.Citizen.ToString() |> Json.Num)
         ("Refer",p.Refer |> Json.Str)
         ("Referer",p.Referer.ToString() |> Json.Num)
         ("Url",p.Url |> Json.Str)
@@ -1519,8 +1513,6 @@ let json__pEUo (json:Json):pEU option =
     
     p.BasicAcct <- checkfield fields "BasicAcct" |> parse_int64
     
-    p.Citizen <- checkfield fields "Citizen" |> parse_int64
-    
     p.Refer <- checkfieldz fields "Refer" 7
     
     p.Referer <- checkfield fields "Referer" |> parse_int64
@@ -1583,8 +1575,6 @@ let json__EUo (json:Json):EU option =
         p.Background <- checkfieldz fields "Background" 256
         
         p.BasicAcct <- checkfield fields "BasicAcct" |> parse_int64
-        
-        p.Citizen <- checkfield fields "Citizen" |> parse_int64
         
         p.Refer <- checkfieldz fields "Refer" 7
         
@@ -3623,11 +3613,10 @@ let db__pEU(line:Object[]): pEU =
     p.Icon <- string(line.[18]).TrimEnd()
     p.Background <- string(line.[19]).TrimEnd()
     p.BasicAcct <- if Convert.IsDBNull(line.[20]) then 0L else line.[20] :?> int64
-    p.Citizen <- if Convert.IsDBNull(line.[21]) then 0L else line.[21] :?> int64
-    p.Refer <- string(line.[22]).TrimEnd()
-    p.Referer <- if Convert.IsDBNull(line.[23]) then 0L else line.[23] :?> int64
-    p.Url <- string(line.[24]).TrimEnd()
-    p.About <- string(line.[25]).TrimEnd()
+    p.Refer <- string(line.[21]).TrimEnd()
+    p.Referer <- if Convert.IsDBNull(line.[22]) then 0L else line.[22] :?> int64
+    p.Url <- string(line.[23]).TrimEnd()
+    p.About <- string(line.[24]).TrimEnd()
 
     p
 
@@ -3649,7 +3638,6 @@ let pEU__sps (p:pEU) = [|
     new SqlParameter("Icon", p.Icon)
     new SqlParameter("Background", p.Background)
     new SqlParameter("BasicAcct", p.BasicAcct)
-    new SqlParameter("Citizen", p.Citizen)
     new SqlParameter("Refer", p.Refer)
     new SqlParameter("Referer", p.Referer)
     new SqlParameter("Url", p.Url)
@@ -3679,7 +3667,6 @@ let pEU_clone (p:pEU): pEU = {
     Icon = p.Icon
     Background = p.Background
     BasicAcct = p.BasicAcct
-    Citizen = p.Citizen
     Refer = p.Refer
     Referer = p.Referer
     Url = p.Url
@@ -3760,7 +3747,6 @@ let EUTxSqlServer =
     ,[Icon]
     ,[Background]
     ,[BasicAcct]
-    ,[Citizen]
     ,[Refer]
     ,[Referer]
     ,[Url]

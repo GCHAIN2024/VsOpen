@@ -424,10 +424,6 @@
         "name": "BasicAcct"
       },
       {
-        "enum": "FK",
-        "name": "Citizen"
-      },
-      {
         "enum": "Caption",
         "length": 7,
         "name": "Refer"
