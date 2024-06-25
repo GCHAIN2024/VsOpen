@@ -136,5 +136,10 @@ let url__clinko
         |> oPipelineSome (fun rcd -> 
             runtime.data.tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
             runtime.data.hashFull__clinks[rcd.p.HashFull] <- rcd
+            
+            match ownero with
+            | Some owner -> owner.clinks[rcd.ID] <- rcd
+            | None -> ()
+
             rcd)
 
