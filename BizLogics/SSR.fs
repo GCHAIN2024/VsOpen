@@ -160,9 +160,5 @@ let echo req =
         |> bindFail (hpattern "/t/" hTinyLink)
         |> bindFail (hapi echoApiHandler branch) with
     | Suc x -> x.rep
-    | Fail(x,e) -> 
-        ssrPageHome
-        |> render (hash1,hash2)
-        |> bin__StandardResponse "text/html"
-        |> Some
+    | Fail(x,e) -> None
 
