@@ -80,16 +80,5 @@ let branch service api json =
 
     | _ -> ()
 
-    match
-        x
-        |> bind branching with
-    | Suc x -> 
-        use cw = new CodeWrapper("branch.exe")
-
-        match x.proco with
-        | Some p ->
-            use cw = new CodeWrapper("Api." + x.api)
-            p x
-        | None -> [| ok |]
-    | Fail(e,x) -> er e
+    runApi branching x
 

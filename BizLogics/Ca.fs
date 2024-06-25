@@ -18,19 +18,9 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
-let createBiz code = 
-
-    let pretx = None |> opctx__pretx
-
-    let rcd = 
+let createBiz = 
+    (fun code -> 
         let p = pBIZ_empty()
-
         p.Code <- code
-
-        p
-        |> populateCreateTx pretx BIZ_metadata
-
-    if pretx |> loggedPipeline "BizLogics.Ca.code__pBiz" conn then
-        Some rcd
-    else
-        None
+        p)
+    |> create BIZ_metadata  "BizLogics.Ca.code__pBiz" conn
