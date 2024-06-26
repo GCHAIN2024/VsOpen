@@ -29,17 +29,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_Address TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_Address (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Bind'),('Type'),('Line1'),('Line2'),('State'),('County'),('Town'),('Contact'),('Tel'),('Email'),('Zip'),('City'),('Country'),('Remarks');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_Address NVARCHAR(64)
+DECLARE cursor_Ca_Address CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Caption','Bind','Type','Line1','Line2','State','County','Town','Contact','Tel','Email','Zip','City','Country','Remarks'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Bind','Type','Line1','Line2','State','County','Town','Contact','Tel','Email','Zip','City','Country','Remarks'))
-DECLARE @CounterCa_Address INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Address'));
-WHILE @CounterCa_Address > 0
+OPEN cursor_Ca_Address
+FETCH NEXT FROM cursor_Ca_Address INTO @name_Ca_Address
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_Address = @CounterCa_Address - 1;
-    PRINT @CounterCa_Address
+    PRINT 'Dropping Ca_Address.' + @name_Ca_Address;
+    
+    DECLARE @sql_Ca_Address NVARCHAR(MAX);
+    SET @sql_Ca_Address = 'ALTER TABLE Ca_Address DROP COLUMN ' + QUOTENAME(@name_Ca_Address)
+    EXEC sp_executesql @sql_Ca_Address
+    
+    
+    FETCH NEXT FROM cursor_Ca_Address INTO @name_Ca_Address
 END
+
+CLOSE cursor_Ca_Address;
+DEALLOCATE cursor_Ca_Address;
 
 
 -- [Ca_Address.Caption] -------------
@@ -427,17 +438,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_Biz TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_Biz (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code'),('Caption'),('Parent'),('BasicAcct'),('Desc'),('Website'),('Icon'),('City'),('Country'),('Lang'),('IsSocial'),('IsCmsSource'),('IsPay'),('MomentLatest'),('CountFollowers'),('CountFollows'),('CountMoments'),('CountViews'),('CountComments'),('CountThumbUps'),('CountThumbDns'),('IsCrawling'),('IsGSeries'),('RemarksCentral'),('Agent'),('SiteCats'),('ConfiguredCats');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_Biz NVARCHAR(64)
+DECLARE cursor_Ca_Biz CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Code','Caption','Parent','BasicAcct','Desc','Website','Icon','City','Country','Lang','IsSocial','IsCmsSource','IsPay','MomentLatest','CountFollowers','CountFollows','CountMoments','CountViews','CountComments','CountThumbUps','CountThumbDns','IsCrawling','IsGSeries','RemarksCentral','Agent','SiteCats','ConfiguredCats'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Code','Caption','Parent','BasicAcct','Desc','Website','Icon','City','Country','Lang','IsSocial','IsCmsSource','IsPay','MomentLatest','CountFollowers','CountFollows','CountMoments','CountViews','CountComments','CountThumbUps','CountThumbDns','IsCrawling','IsGSeries','RemarksCentral','Agent','SiteCats','ConfiguredCats'))
-DECLARE @CounterCa_Biz INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz'));
-WHILE @CounterCa_Biz > 0
+OPEN cursor_Ca_Biz
+FETCH NEXT FROM cursor_Ca_Biz INTO @name_Ca_Biz
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_Biz = @CounterCa_Biz - 1;
-    PRINT @CounterCa_Biz
+    PRINT 'Dropping Ca_Biz.' + @name_Ca_Biz;
+    
+    DECLARE @sql_Ca_Biz NVARCHAR(MAX);
+    SET @sql_Ca_Biz = 'ALTER TABLE Ca_Biz DROP COLUMN ' + QUOTENAME(@name_Ca_Biz)
+    EXEC sp_executesql @sql_Ca_Biz
+    
+    
+    FETCH NEXT FROM cursor_Ca_Biz INTO @name_Ca_Biz
 END
+
+CLOSE cursor_Ca_Biz;
+DEALLOCATE cursor_Ca_Biz;
 
 
 -- [Ca_Biz.Code] -------------
@@ -1083,17 +1105,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_Country TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_Country (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code2'),('Caption'),('Fullname'),('Icon'),('Tel'),('Cur'),('Capital'),('Place'),('Lang');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_Country NVARCHAR(64)
+DECLARE cursor_Ca_Country CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Code2','Caption','Fullname','Icon','Tel','Cur','Capital','Place','Lang'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Code2','Caption','Fullname','Icon','Tel','Cur','Capital','Place','Lang'))
-DECLARE @CounterCa_Country INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Country'));
-WHILE @CounterCa_Country > 0
+OPEN cursor_Ca_Country
+FETCH NEXT FROM cursor_Ca_Country INTO @name_Ca_Country
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_Country = @CounterCa_Country - 1;
-    PRINT @CounterCa_Country
+    PRINT 'Dropping Ca_Country.' + @name_Ca_Country;
+    
+    DECLARE @sql_Ca_Country NVARCHAR(MAX);
+    SET @sql_Ca_Country = 'ALTER TABLE Ca_Country DROP COLUMN ' + QUOTENAME(@name_Ca_Country)
+    EXEC sp_executesql @sql_Ca_Country
+    
+    
+    FETCH NEXT FROM cursor_Ca_Country INTO @name_Ca_Country
 END
+
+CLOSE cursor_Ca_Country;
+DEALLOCATE cursor_Ca_Country;
 
 
 -- [Ca_Country.Code2] -------------
@@ -1335,17 +1368,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_Cur TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_Cur (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code'),('Caption'),('Hidden'),('IsSac'),('IsTransfer'),('IsCash'),('EnableReward'),('EnableOTC'),('Icon'),('CurType'),('Dec'),('AnchorRate'),('Freezable'),('Authorizable'),('ChaninID'),('ChaninName'),('ContractAddress'),('WalletAddress'),('BaseRate');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_Cur NVARCHAR(64)
+DECLARE cursor_Ca_Cur CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Code','Caption','Hidden','IsSac','IsTransfer','IsCash','EnableReward','EnableOTC','Icon','CurType','Dec','AnchorRate','Freezable','Authorizable','ChaninID','ChaninName','ContractAddress','WalletAddress','BaseRate'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Code','Caption','Hidden','IsSac','IsTransfer','IsCash','EnableReward','EnableOTC','Icon','CurType','Dec','AnchorRate','Freezable','Authorizable','ChaninID','ChaninName','ContractAddress','WalletAddress','BaseRate'))
-DECLARE @CounterCa_Cur INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur'));
-WHILE @CounterCa_Cur > 0
+OPEN cursor_Ca_Cur
+FETCH NEXT FROM cursor_Ca_Cur INTO @name_Ca_Cur
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_Cur = @CounterCa_Cur - 1;
-    PRINT @CounterCa_Cur
+    PRINT 'Dropping Ca_Cur.' + @name_Ca_Cur;
+    
+    DECLARE @sql_Ca_Cur NVARCHAR(MAX);
+    SET @sql_Ca_Cur = 'ALTER TABLE Ca_Cur DROP COLUMN ' + QUOTENAME(@name_Ca_Cur)
+    EXEC sp_executesql @sql_Ca_Cur
+    
+    
+    FETCH NEXT FROM cursor_Ca_Cur INTO @name_Ca_Cur
 END
+
+CLOSE cursor_Ca_Cur;
+DEALLOCATE cursor_Ca_Cur;
 
 
 -- [Ca_Cur.Code] -------------
@@ -1820,17 +1864,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_EndUser TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_EndUser (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Username'),('SocialAuthBiz'),('SocialAuthId'),('SocialAuthAvatar'),('Email'),('Tel'),('Gender'),('Status'),('Admin'),('BizPartner'),('Privilege'),('Verify'),('Pwd'),('Online'),('Icon'),('Background'),('BasicAcct'),('Refer'),('Referer'),('Url'),('About');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_EndUser NVARCHAR(64)
+DECLARE cursor_Ca_EndUser CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Caption','Username','SocialAuthBiz','SocialAuthId','SocialAuthAvatar','Email','Tel','Gender','Status','Admin','BizPartner','Privilege','Verify','Pwd','Online','Icon','Background','BasicAcct','Refer','Referer','Url','About'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Username','SocialAuthBiz','SocialAuthId','SocialAuthAvatar','Email','Tel','Gender','Status','Admin','BizPartner','Privilege','Verify','Pwd','Online','Icon','Background','BasicAcct','Refer','Referer','Url','About'))
-DECLARE @CounterCa_EndUser INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser'));
-WHILE @CounterCa_EndUser > 0
+OPEN cursor_Ca_EndUser
+FETCH NEXT FROM cursor_Ca_EndUser INTO @name_Ca_EndUser
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_EndUser = @CounterCa_EndUser - 1;
-    PRINT @CounterCa_EndUser
+    PRINT 'Dropping Ca_EndUser.' + @name_Ca_EndUser;
+    
+    DECLARE @sql_Ca_EndUser NVARCHAR(MAX);
+    SET @sql_Ca_EndUser = 'ALTER TABLE Ca_EndUser DROP COLUMN ' + QUOTENAME(@name_Ca_EndUser)
+    EXEC sp_executesql @sql_Ca_EndUser
+    
+    
+    FETCH NEXT FROM cursor_Ca_EndUser INTO @name_Ca_EndUser
 END
+
+CLOSE cursor_Ca_EndUser;
+DEALLOCATE cursor_Ca_EndUser;
 
 
 -- [Ca_EndUser.Caption] -------------
@@ -2362,17 +2417,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_File TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_File (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Encrypt'),('SHA256'),('Size'),('Bind'),('BindType'),('State'),('Folder'),('FileType'),('JSON');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_File NVARCHAR(64)
+DECLARE cursor_Ca_File CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Caption','Encrypt','SHA256','Size','Bind','BindType','State','Folder','FileType','JSON'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_File') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Encrypt','SHA256','Size','Bind','BindType','State','Folder','FileType','JSON'))
-DECLARE @CounterCa_File INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_File'));
-WHILE @CounterCa_File > 0
+OPEN cursor_Ca_File
+FETCH NEXT FROM cursor_Ca_File INTO @name_Ca_File
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_File = @CounterCa_File - 1;
-    PRINT @CounterCa_File
+    PRINT 'Dropping Ca_File.' + @name_Ca_File;
+    
+    DECLARE @sql_Ca_File NVARCHAR(MAX);
+    SET @sql_Ca_File = 'ALTER TABLE Ca_File DROP COLUMN ' + QUOTENAME(@name_Ca_File)
+    EXEC sp_executesql @sql_Ca_File
+    
+    
+    FETCH NEXT FROM cursor_Ca_File INTO @name_Ca_File
 END
+
+CLOSE cursor_Ca_File;
+DEALLOCATE cursor_Ca_File;
 
 
 -- [Ca_File.Caption] -------------
@@ -2623,17 +2689,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_Folder TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_Folder (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Encrypt'),('Bind'),('BindType'),('Parent');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_Folder NVARCHAR(64)
+DECLARE cursor_Ca_Folder CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Caption','Encrypt','Bind','BindType','Parent'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Encrypt','Bind','BindType','Parent'))
-DECLARE @CounterCa_Folder INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder'));
-WHILE @CounterCa_Folder > 0
+OPEN cursor_Ca_Folder
+FETCH NEXT FROM cursor_Ca_Folder INTO @name_Ca_Folder
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_Folder = @CounterCa_Folder - 1;
-    PRINT @CounterCa_Folder
+    PRINT 'Dropping Ca_Folder.' + @name_Ca_Folder;
+    
+    DECLARE @sql_Ca_Folder NVARCHAR(MAX);
+    SET @sql_Ca_Folder = 'ALTER TABLE Ca_Folder DROP COLUMN ' + QUOTENAME(@name_Ca_Folder)
+    EXEC sp_executesql @sql_Ca_Folder
+    
+    
+    FETCH NEXT FROM cursor_Ca_Folder INTO @name_Ca_Folder
 END
+
+CLOSE cursor_Ca_Folder;
+DEALLOCATE cursor_Ca_Folder;
 
 
 -- [Ca_Folder.Caption] -------------
@@ -2773,17 +2850,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_Lang TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_Lang (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code2'),('Caption'),('Native'),('Icon'),('IsBlank'),('IsLocale'),('IsContent'),('IsAutoTranslate'),('TextDirection');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_Lang NVARCHAR(64)
+DECLARE cursor_Ca_Lang CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Code2','Caption','Native','Icon','IsBlank','IsLocale','IsContent','IsAutoTranslate','TextDirection'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Code2','Caption','Native','Icon','IsBlank','IsLocale','IsContent','IsAutoTranslate','TextDirection'))
-DECLARE @CounterCa_Lang INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang'));
-WHILE @CounterCa_Lang > 0
+OPEN cursor_Ca_Lang
+FETCH NEXT FROM cursor_Ca_Lang INTO @name_Ca_Lang
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_Lang = @CounterCa_Lang - 1;
-    PRINT @CounterCa_Lang
+    PRINT 'Dropping Ca_Lang.' + @name_Ca_Lang;
+    
+    DECLARE @sql_Ca_Lang NVARCHAR(MAX);
+    SET @sql_Ca_Lang = 'ALTER TABLE Ca_Lang DROP COLUMN ' + QUOTENAME(@name_Ca_Lang)
+    EXEC sp_executesql @sql_Ca_Lang
+    
+    
+    FETCH NEXT FROM cursor_Ca_Lang INTO @name_Ca_Lang
 END
+
+CLOSE cursor_Ca_Lang;
+DEALLOCATE cursor_Ca_Lang;
 
 
 -- [Ca_Lang.Code2] -------------
@@ -3012,17 +3100,28 @@ BEGIN
 END
 
 
-DECLARE @Ca_WebCredential TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Ca_WebCredential (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('ExternalId'),('Icon'),('EU'),('Biz'),('Json');
+-- Dropping obsolete fields -----------
+DECLARE @name_Ca_WebCredential NVARCHAR(64)
+DECLARE cursor_Ca_WebCredential CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Caption','ExternalId','Icon','EU','Biz','Json'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Caption','ExternalId','Icon','EU','Biz','Json'))
-DECLARE @CounterCa_WebCredential INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential'));
-WHILE @CounterCa_WebCredential > 0
+OPEN cursor_Ca_WebCredential
+FETCH NEXT FROM cursor_Ca_WebCredential INTO @name_Ca_WebCredential
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCa_WebCredential = @CounterCa_WebCredential - 1;
-    PRINT @CounterCa_WebCredential
+    PRINT 'Dropping Ca_WebCredential.' + @name_Ca_WebCredential;
+    
+    DECLARE @sql_Ca_WebCredential NVARCHAR(MAX);
+    SET @sql_Ca_WebCredential = 'ALTER TABLE Ca_WebCredential DROP COLUMN ' + QUOTENAME(@name_Ca_WebCredential)
+    EXEC sp_executesql @sql_Ca_WebCredential
+    
+    
+    FETCH NEXT FROM cursor_Ca_WebCredential INTO @name_Ca_WebCredential
 END
+
+CLOSE cursor_Ca_WebCredential;
+DEALLOCATE cursor_Ca_WebCredential;
 
 
 -- [Ca_WebCredential.Caption] -------------
@@ -3180,17 +3279,28 @@ BEGIN
 END
 
 
-DECLARE @Core_BizOwner TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Core_BizOwner (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Bind'),('BindType'),('State');
+-- Dropping obsolete fields -----------
+DECLARE @name_Core_BizOwner NVARCHAR(64)
+DECLARE cursor_Core_BizOwner CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Caption','Bind','BindType','State'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Bind','BindType','State'))
-DECLARE @CounterCore_BizOwner INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner'));
-WHILE @CounterCore_BizOwner > 0
+OPEN cursor_Core_BizOwner
+FETCH NEXT FROM cursor_Core_BizOwner INTO @name_Core_BizOwner
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCore_BizOwner = @CounterCore_BizOwner - 1;
-    PRINT @CounterCore_BizOwner
+    PRINT 'Dropping Core_BizOwner.' + @name_Core_BizOwner;
+    
+    DECLARE @sql_Core_BizOwner NVARCHAR(MAX);
+    SET @sql_Core_BizOwner = 'ALTER TABLE Core_BizOwner DROP COLUMN ' + QUOTENAME(@name_Core_BizOwner)
+    EXEC sp_executesql @sql_Core_BizOwner
+    
+    
+    FETCH NEXT FROM cursor_Core_BizOwner INTO @name_Core_BizOwner
 END
+
+CLOSE cursor_Core_BizOwner;
+DEALLOCATE cursor_Core_BizOwner;
 
 
 -- [Core_BizOwner.Caption] -------------
@@ -3310,17 +3420,28 @@ BEGIN
 END
 
 
-DECLARE @Core_CryptoLink TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Core_CryptoLink (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Expiry'),('HashFull'),('HashTiny'),('Src'),('DomainName'),('Owner'),('Dst'),('BizOwner'),('Data'),('OgTitle'),('OgDesc'),('OgImg');
+-- Dropping obsolete fields -----------
+DECLARE @name_Core_CryptoLink NVARCHAR(64)
+DECLARE cursor_Core_CryptoLink CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Expiry','HashFull','HashTiny','Src','DomainName','Owner','Dst','BizOwner','Data','OgTitle','OgDesc','OgImg'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Expiry','HashFull','HashTiny','Src','DomainName','Owner','Dst','BizOwner','Data','OgTitle','OgDesc','OgImg'))
-DECLARE @CounterCore_CryptoLink INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink'));
-WHILE @CounterCore_CryptoLink > 0
+OPEN cursor_Core_CryptoLink
+FETCH NEXT FROM cursor_Core_CryptoLink INTO @name_Core_CryptoLink
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCore_CryptoLink = @CounterCore_CryptoLink - 1;
-    PRINT @CounterCore_CryptoLink
+    PRINT 'Dropping Core_CryptoLink.' + @name_Core_CryptoLink;
+    
+    DECLARE @sql_Core_CryptoLink NVARCHAR(MAX);
+    SET @sql_Core_CryptoLink = 'ALTER TABLE Core_CryptoLink DROP COLUMN ' + QUOTENAME(@name_Core_CryptoLink)
+    EXEC sp_executesql @sql_Core_CryptoLink
+    
+    
+    FETCH NEXT FROM cursor_Core_CryptoLink INTO @name_Core_CryptoLink
 END
+
+CLOSE cursor_Core_CryptoLink;
+DEALLOCATE cursor_Core_CryptoLink;
 
 
 -- [Core_CryptoLink.Expiry] -------------
@@ -3616,17 +3737,28 @@ BEGIN
 END
 
 
-DECLARE @Core_DomainName TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Core_DomainName (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Biz'),('EndUser'),('BizOwner');
+-- Dropping obsolete fields -----------
+DECLARE @name_Core_DomainName NVARCHAR(64)
+DECLARE cursor_Core_DomainName CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Caption','Biz','EndUser','BizOwner'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Biz','EndUser','BizOwner'))
-DECLARE @CounterCore_DomainName INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName'));
-WHILE @CounterCore_DomainName > 0
+OPEN cursor_Core_DomainName
+FETCH NEXT FROM cursor_Core_DomainName INTO @name_Core_DomainName
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterCore_DomainName = @CounterCore_DomainName - 1;
-    PRINT @CounterCore_DomainName
+    PRINT 'Dropping Core_DomainName.' + @name_Core_DomainName;
+    
+    DECLARE @sql_Core_DomainName NVARCHAR(MAX);
+    SET @sql_Core_DomainName = 'ALTER TABLE Core_DomainName DROP COLUMN ' + QUOTENAME(@name_Core_DomainName)
+    EXEC sp_executesql @sql_Core_DomainName
+    
+    
+    FETCH NEXT FROM cursor_Core_DomainName INTO @name_Core_DomainName
 END
+
+CLOSE cursor_Core_DomainName;
+DEALLOCATE cursor_Core_DomainName;
 
 
 -- [Core_DomainName.Caption] -------------
@@ -3737,17 +3869,28 @@ BEGIN
 END
 
 
-DECLARE @Sys_Log TABLE (FieldName NVARCHAR(64));
-INSERT INTO @Sys_Log (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Location'),('Content'),('Sql');
+-- Dropping obsolete fields -----------
+DECLARE @name_Sys_Log NVARCHAR(64)
+DECLARE cursor_Sys_Log CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Sys_Log') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','Location','Content','Sql'))
 
-SELECT name FROM SYSCOLUMNS WHERE id=object_id('Sys_Log') 
-AND (name in ('ID','Createdat','Updatedat','Sort','Location','Content','Sql'))
-DECLARE @CounterSys_Log INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Sys_Log'));
-WHILE @CounterSys_Log > 0
+OPEN cursor_Sys_Log
+FETCH NEXT FROM cursor_Sys_Log INTO @name_Sys_Log
+
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    SET @CounterSys_Log = @CounterSys_Log - 1;
-    PRINT @CounterSys_Log
+    PRINT 'Dropping Sys_Log.' + @name_Sys_Log;
+    
+    DECLARE @sql_Sys_Log NVARCHAR(MAX);
+    SET @sql_Sys_Log = 'ALTER TABLE Sys_Log DROP COLUMN ' + QUOTENAME(@name_Sys_Log)
+    EXEC sp_executesql @sql_Sys_Log
+    
+    
+    FETCH NEXT FROM cursor_Sys_Log INTO @name_Sys_Log
 END
+
+CLOSE cursor_Sys_Log;
+DEALLOCATE cursor_Sys_Log;
 
 
 -- [Sys_Log.Location] -------------
