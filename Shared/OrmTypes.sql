@@ -1,6 +1,7 @@
 USE [GCHAIN]
 
 -- [Ca_Address] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_Address' AND xtype='U')
 
 BEGIN
@@ -25,6 +26,19 @@ BEGIN
         ,[Country] BIGINT
         ,[Remarks] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_Address] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_Address TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_Address (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Bind'),('Type'),('Line1'),('Line2'),('State'),('County'),('Town'),('Contact'),('Tel'),('Email'),('Zip'),('City'),('Country'),('Remarks');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Bind','Type','Line1','Line2','State','County','Town','Contact','Tel','Email','Zip','City','Country','Remarks'))
+DECLARE @CounterCa_Address INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Address'));
+WHILE @CounterCa_Address > 0
+BEGIN
+    SET @CounterCa_Address = @CounterCa_Address - 1;
+    PRINT @CounterCa_Address
 END
 
 
@@ -373,6 +387,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressRema
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressRemarks]
     END
 -- [Ca_Biz] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_Biz' AND xtype='U')
 
 BEGIN
@@ -409,6 +424,19 @@ BEGIN
         ,[SiteCats] NVARCHAR(MAX)
         ,[ConfiguredCats] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_Biz] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_Biz TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_Biz (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code'),('Caption'),('Parent'),('BasicAcct'),('Desc'),('Website'),('Icon'),('City'),('Country'),('Lang'),('IsSocial'),('IsCmsSource'),('IsPay'),('MomentLatest'),('CountFollowers'),('CountFollows'),('CountMoments'),('CountViews'),('CountComments'),('CountThumbUps'),('CountThumbDns'),('IsCrawling'),('IsGSeries'),('RemarksCentral'),('Agent'),('SiteCats'),('ConfiguredCats');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Code','Caption','Parent','BasicAcct','Desc','Website','Icon','City','Country','Lang','IsSocial','IsCmsSource','IsPay','MomentLatest','CountFollowers','CountFollows','CountMoments','CountViews','CountComments','CountThumbUps','CountThumbDns','IsCrawling','IsGSeries','RemarksCentral','Agent','SiteCats','ConfiguredCats'))
+DECLARE @CounterCa_Biz INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz'));
+WHILE @CounterCa_Biz > 0
+BEGIN
+    SET @CounterCa_Biz = @CounterCa_Biz - 1;
+    PRINT @CounterCa_Biz
 END
 
 
@@ -1033,6 +1061,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizConfigur
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizConfiguredCats]
     END
 -- [Ca_Country] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_Country' AND xtype='U')
 
 BEGIN
@@ -1051,6 +1080,19 @@ BEGIN
         ,[Place] BIGINT
         ,[Lang] BIGINT
 , CONSTRAINT [PK_Ca_Country] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_Country TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_Country (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code2'),('Caption'),('Fullname'),('Icon'),('Tel'),('Cur'),('Capital'),('Place'),('Lang');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Code2','Caption','Fullname','Icon','Tel','Cur','Capital','Place','Lang'))
+DECLARE @CounterCa_Country INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Country'));
+WHILE @CounterCa_Country > 0
+BEGIN
+    SET @CounterCa_Country = @CounterCa_Country - 1;
+    PRINT @CounterCa_Country
 END
 
 
@@ -1261,6 +1303,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryLang
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryLang]
     END
 -- [Ca_Cur] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_Cur' AND xtype='U')
 
 BEGIN
@@ -1289,6 +1332,19 @@ BEGIN
         ,[WalletAddress] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
         ,[BaseRate] FLOAT
 , CONSTRAINT [PK_Ca_Cur] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_Cur TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_Cur (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code'),('Caption'),('Hidden'),('IsSac'),('IsTransfer'),('IsCash'),('EnableReward'),('EnableOTC'),('Icon'),('CurType'),('Dec'),('AnchorRate'),('Freezable'),('Authorizable'),('ChaninID'),('ChaninName'),('ContractAddress'),('WalletAddress'),('BaseRate');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Code','Caption','Hidden','IsSac','IsTransfer','IsCash','EnableReward','EnableOTC','Icon','CurType','Dec','AnchorRate','Freezable','Authorizable','ChaninID','ChaninName','ContractAddress','WalletAddress','BaseRate'))
+DECLARE @CounterCa_Cur INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur'));
+WHILE @CounterCa_Cur > 0
+BEGIN
+    SET @CounterCa_Cur = @CounterCa_Cur - 1;
+    PRINT @CounterCa_Cur
 END
 
 
@@ -1729,6 +1785,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurBaseRate
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurBaseRate]
     END
 -- [Ca_EndUser] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_EndUser' AND xtype='U')
 
 BEGIN
@@ -1760,6 +1817,19 @@ BEGIN
         ,[Url] NVARCHAR(MAX)
         ,[About] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_EndUser] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_EndUser TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_EndUser (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Username'),('SocialAuthBiz'),('SocialAuthId'),('SocialAuthAvatar'),('Email'),('Tel'),('Gender'),('Status'),('Admin'),('BizPartner'),('Privilege'),('Verify'),('Pwd'),('Online'),('Icon'),('Background'),('BasicAcct'),('Refer'),('Referer'),('Url'),('About');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Username','SocialAuthBiz','SocialAuthId','SocialAuthAvatar','Email','Tel','Gender','Status','Admin','BizPartner','Privilege','Verify','Pwd','Online','Icon','Background','BasicAcct','Refer','Referer','Url','About'))
+DECLARE @CounterCa_EndUser INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser'));
+WHILE @CounterCa_EndUser > 0
+BEGIN
+    SET @CounterCa_EndUser = @CounterCa_EndUser - 1;
+    PRINT @CounterCa_EndUser
 END
 
 
@@ -2269,6 +2339,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserAbou
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserAbout]
     END
 -- [Ca_File] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_File' AND xtype='U')
 
 BEGIN
@@ -2288,6 +2359,19 @@ BEGIN
         ,[FileType] INT
         ,[JSON] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_File] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_File TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_File (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Encrypt'),('SHA256'),('Size'),('Bind'),('BindType'),('State'),('Folder'),('FileType'),('JSON');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_File') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Encrypt','SHA256','Size','Bind','BindType','State','Folder','FileType','JSON'))
+DECLARE @CounterCa_File INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_File'));
+WHILE @CounterCa_File > 0
+BEGIN
+    SET @CounterCa_File = @CounterCa_File - 1;
+    PRINT @CounterCa_File
 END
 
 
@@ -2521,6 +2605,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileJSON')
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileJSON]
     END
 -- [Ca_Folder] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_Folder' AND xtype='U')
 
 BEGIN
@@ -2535,6 +2620,19 @@ BEGIN
         ,[BindType] INT
         ,[Parent] BIGINT
 , CONSTRAINT [PK_Ca_Folder] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_Folder TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_Folder (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Encrypt'),('Bind'),('BindType'),('Parent');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Encrypt','Bind','BindType','Parent'))
+DECLARE @CounterCa_Folder INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder'));
+WHILE @CounterCa_Folder > 0
+BEGIN
+    SET @CounterCa_Folder = @CounterCa_Folder - 1;
+    PRINT @CounterCa_Folder
 END
 
 
@@ -2653,6 +2751,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FolderParen
     ALTER TABLE Ca_Folder DROP  CONSTRAINT [UniqueNonclustered_Ca_FolderParent]
     END
 -- [Ca_Lang] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_Lang' AND xtype='U')
 
 BEGIN
@@ -2671,6 +2770,19 @@ BEGIN
         ,[IsAutoTranslate] BIT
         ,[TextDirection] INT
 , CONSTRAINT [PK_Ca_Lang] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_Lang TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_Lang (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Code2'),('Caption'),('Native'),('Icon'),('IsBlank'),('IsLocale'),('IsContent'),('IsAutoTranslate'),('TextDirection');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Code2','Caption','Native','Icon','IsBlank','IsLocale','IsContent','IsAutoTranslate','TextDirection'))
+DECLARE @CounterCa_Lang INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang'));
+WHILE @CounterCa_Lang > 0
+BEGIN
+    SET @CounterCa_Lang = @CounterCa_Lang - 1;
+    PRINT @CounterCa_Lang
 END
 
 
@@ -2881,6 +2993,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangTextDir
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangTextDirection]
     END
 -- [Ca_WebCredential] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Ca_WebCredential' AND xtype='U')
 
 BEGIN
@@ -2896,6 +3009,19 @@ BEGIN
         ,[Biz] BIGINT
         ,[Json] NVARCHAR(MAX)
 , CONSTRAINT [PK_Ca_WebCredential] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Ca_WebCredential TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Ca_WebCredential (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('ExternalId'),('Icon'),('EU'),('Biz'),('Json');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Caption','ExternalId','Icon','EU','Biz','Json'))
+DECLARE @CounterCa_WebCredential INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential'));
+WHILE @CounterCa_WebCredential > 0
+BEGIN
+    SET @CounterCa_WebCredential = @CounterCa_WebCredential - 1;
+    PRINT @CounterCa_WebCredential
 END
 
 
@@ -3037,6 +3163,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_WebCredenti
     ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [UniqueNonclustered_Ca_WebCredentialJson]
     END
 -- [Core_BizOwner] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_BizOwner' AND xtype='U')
 
 BEGIN
@@ -3050,6 +3177,19 @@ BEGIN
         ,[BindType] INT
         ,[State] INT
 , CONSTRAINT [PK_Core_BizOwner] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Core_BizOwner TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Core_BizOwner (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Bind'),('BindType'),('State');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Bind','BindType','State'))
+DECLARE @CounterCore_BizOwner INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner'));
+WHILE @CounterCore_BizOwner > 0
+BEGIN
+    SET @CounterCore_BizOwner = @CounterCore_BizOwner - 1;
+    PRINT @CounterCore_BizOwner
 END
 
 
@@ -3145,6 +3285,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_BizOwnerS
     ALTER TABLE Core_BizOwner DROP  CONSTRAINT [UniqueNonclustered_Core_BizOwnerState]
     END
 -- [Core_CryptoLink] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_CryptoLink' AND xtype='U')
 
 BEGIN
@@ -3166,6 +3307,19 @@ BEGIN
         ,[OgDesc] NVARCHAR(MAX)
         ,[OgImg] NVARCHAR(MAX)
 , CONSTRAINT [PK_Core_CryptoLink] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Core_CryptoLink TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Core_CryptoLink (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Expiry'),('HashFull'),('HashTiny'),('Src'),('DomainName'),('Owner'),('Dst'),('BizOwner'),('Data'),('OgTitle'),('OgDesc'),('OgImg');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Expiry','HashFull','HashTiny','Src','DomainName','Owner','Dst','BizOwner','Data','OgTitle','OgDesc','OgImg'))
+DECLARE @CounterCore_CryptoLink INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink'));
+WHILE @CounterCore_CryptoLink > 0
+BEGIN
+    SET @CounterCore_CryptoLink = @CounterCore_CryptoLink - 1;
+    PRINT @CounterCore_CryptoLink
 END
 
 
@@ -3445,6 +3599,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLin
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkOgImg]
     END
 -- [Core_DomainName] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_DomainName' AND xtype='U')
 
 BEGIN
@@ -3458,6 +3613,19 @@ BEGIN
         ,[EndUser] BIGINT
         ,[BizOwner] BIGINT
 , CONSTRAINT [PK_Core_DomainName] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Core_DomainName TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Core_DomainName (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Caption'),('Biz'),('EndUser'),('BizOwner');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Caption','Biz','EndUser','BizOwner'))
+DECLARE @CounterCore_DomainName INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName'));
+WHILE @CounterCore_DomainName > 0
+BEGIN
+    SET @CounterCore_DomainName = @CounterCore_DomainName - 1;
+    PRINT @CounterCore_DomainName
 END
 
 
@@ -3553,6 +3721,7 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_DomainNam
     ALTER TABLE Core_DomainName DROP  CONSTRAINT [UniqueNonclustered_Core_DomainNameBizOwner]
     END
 -- [Sys_Log] ----------------------
+
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Sys_Log' AND xtype='U')
 
 BEGIN
@@ -3565,6 +3734,19 @@ BEGIN
         ,[Content] NVARCHAR(MAX)
         ,[Sql] NVARCHAR(MAX)
 , CONSTRAINT [PK_Sys_Log] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+DECLARE @Sys_Log TABLE (FieldName NVARCHAR(64));
+INSERT INTO @Sys_Log (FieldName) VALUES ('ID'),('Createdat'),('Updatedat'),('Sort'),('Location'),('Content'),('Sql');
+
+SELECT name FROM SYSCOLUMNS WHERE id=object_id('Sys_Log') 
+AND (name in ('ID','Createdat','Updatedat','Sort','Location','Content','Sql'))
+DECLARE @CounterSys_Log INT = (SELECT COUNT(*) FROM SYSCOLUMNS WHERE id=object_id('Sys_Log'));
+WHILE @CounterSys_Log > 0
+BEGIN
+    SET @CounterSys_Log = @CounterSys_Log - 1;
+    PRINT @CounterSys_Log
 END
 
 
