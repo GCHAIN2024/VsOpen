@@ -1,10 +1,12 @@
 ﻿module BizLogics.Init
 
 open System
+open System.IO
 open System.Collections.Generic
 open System.Collections.Concurrent
 open System.Threading
 
+open Util.Cat
 open Util.Runtime
 open Util.Db
 open Util.DbTx
@@ -38,6 +40,8 @@ let init (runtime:Runtime) =
             p)
         |> createDbLogger LOG_metadata conn
         |> Some
+
+    updateDbStructure runtime conn
 
     Shared.OrmMor.init()
 

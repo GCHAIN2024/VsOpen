@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="OrmTypes.sql" />
+    <None Include="OrmTypes.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
