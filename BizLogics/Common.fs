@@ -28,6 +28,8 @@ let defaultHost() = {
     conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
     defaultHtml = "index.html"
 
+    updateDatabase = false
+
     openDiscordAppId = 
         [|  "1254790111"
             "913181274" |]
