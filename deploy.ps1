@@ -22,30 +22,6 @@ function Fetch_Compare_Pull {
     } 
 }
 
-Write-Output "====Common===="
-Set-Location "C:\Dev\Common"
-Fetch_Compare_Pull
-
-Write-Output "====JCS===="
-Set-Location "C:\Dev\JCS"
-Fetch_Compare_Pull
-
-Write-Output "====$global:SLN_NAME===="
-Set-Location $global:SLN_PATH
-Fetch_Compare_Pull
-
-$global:FOLDER_HASH = $global:BD_Date + "_" + $global:LATEST_COMMIT.Substring(0, 7)
-
-Write-Output "====REBUILD===="
-if ($global:REBUILD_FLAG) {
-    Write-Output "Commit: $global:LATEST_COMMIT Build..."
-    Execute_Build_n_Deploy
-} else {
-    Write-Output "Commit: $global:LATEST_COMMIT Same. Exit."
-}
-
-
-
 function Execute_Build_n_Deploy {
     dotnet publish "Server/Server.fsproj" -o "Server/bin/Publish/$global:FOLDER_HASH"
 
@@ -72,5 +48,31 @@ function Execute_Build_n_Deploy {
     Start-Process -FilePath "$global:SLN_PATH/Server/bin/Publish/$global:FOLDER_HASH/Server.exe" -ArgumentList ""
     Write-Output "restart Server.exe"
 }
+
+Write-Output "====Common===="
+Set-Location "C:\Dev\Common"
+Fetch_Compare_Pull
+
+Write-Output "====JCS===="
+Set-Location "C:\Dev\JCS"
+Fetch_Compare_Pull
+
+Write-Output "====$global:SLN_NAME===="
+Set-Location $global:SLN_PATH
+Fetch_Compare_Pull
+
+$global:FOLDER_HASH = $global:BD_Date + "_" + $global:LATEST_COMMIT.Substring(0, 7)
+
+Write-Output "====REBUILD===="
+if ($global:REBUILD_FLAG) {
+    Write-Output "Commit: $global:LATEST_COMMIT Build..."
+    Execute_Build_n_Deploy
+} else {
+    Write-Output "Commit: $global:LATEST_COMMIT Same. Exit."
+}
+
+
+
+
 
 Write-Output "=======DEPLOY FIN======="
