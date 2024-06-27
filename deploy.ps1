@@ -44,8 +44,7 @@ function Execute_Build_n_Deploy {
     } else {
         Write-Output "killed Server.exe Successfully."
     }
-
-    Start-Process -FilePath "$global:SLN_PATH/Server/bin/Publish/$global:FOLDER_HASH/Server.exe" -ArgumentList ""
+    Start-Process cmd -ArgumentList "/k cd `"$global:SLN_PATH\Server\bin\Publish\$global:FOLDER_HASH`" && server.exe"
     Write-Output "restart Server.exe"
 }
 
