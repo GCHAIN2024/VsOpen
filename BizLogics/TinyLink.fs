@@ -86,7 +86,7 @@ let checkcollition
 
 let url__clinko 
     (src:string)
-    domainnameo
+    (domainnameo:DOMAINNAME option)
     html
     (dsto:BIZ option)
     data
@@ -103,6 +103,11 @@ let url__clinko
             src |> Encoding.UTF8.GetBytes |]
         |> Array.concat
         |> bin__sha256
+
+    let host = 
+        match domainnameo with
+        | Some domain -> domain.p.Caption
+        | None -> ""
 
     if runtime.data.hashFull__clinks.ContainsKey hashFull then
         runtime.data.hashFull__clinks[hashFull]
@@ -128,7 +133,7 @@ let url__clinko
             p.Data <- data
             p.Expiry <- DateTime.UtcNow.Add expireGeneral
 
-            let title,desc,image = parse html
+            let title,desc,image = parse host html
             p.OgTitle <- title
             p.OgDesc <- desc
             p.OgImg <- image
