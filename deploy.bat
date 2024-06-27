@@ -57,7 +57,10 @@ IF ERRORLEVEL 1 (
 )
 echo Publish succeeded to folder %FOLDER_HASH%.
 
-taskkill /f /im Server.exe
+set "ROOT_PATH=C:\Dev\GCHAIN2024"
+for /f "tokens=2 delims=," %%a in ('wmic process where "commandline like '%%%ROOT_PATH%%%\\%GChainVsOpen%\\Server\\bin\\Publish\\%\\%\\%\\server.exe%'" get ProcessId /format:csv ^| findstr [0-9]') do (
+    taskkill /pid %%a /f
+)
 IF ERRORLEVEL 1 (
     echo Failed to kill Server.exe process or process not found.
 ) else (
