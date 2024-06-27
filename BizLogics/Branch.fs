@@ -38,6 +38,7 @@ let branching (x:X) =
         match x.api with
         | "ping" -> bindx api_Public_Ping
         | "auth" -> bindx auth
+        | "homepage" -> bindx api_Public_Homepage
         | "listBiz" -> bindx api_Public_ListBiz
         | "loadCryptoLink" -> bindx api_Public_LoadCryptoLink
         | "checkoutCryptoLink" -> bindx api_Public_CheckoutCryptoLink

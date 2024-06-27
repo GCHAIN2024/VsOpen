@@ -30,6 +30,15 @@ let api_Public_Ping x =
     [|  ok
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
+let api_Public_Homepage x =
+
+    runtime.data.hashFull__clinks.Values
+    |> Seq.toArray
+    |> Array.sortByDescending(fun i -> i.Createdat)
+    |> Array.map CLINK__json
+    |> Json.Ary
+    |> wrapOk "clinks"
+
 let api_Public_ListBiz x =
     runtime.data.bcs.Values
     |> Seq.toArray
