@@ -1,6 +1,5 @@
-$FORCE_FLAG = $false
-if ($args[0] -eq "--fc") { $FORCE_FLAG = $true}
 $global:REBUILD_FLAG = $false
+if ($args[0] -eq "--fc") { $global:REBUILD_FLAG = $true}
 $SLN_PATH = "C:\Dev\GCHAIN2024\GChainVsOpen"
 
 function Fetch_Compare_Pull {
@@ -30,18 +29,14 @@ Fetch_Compare_Pull
 
 $FOLDER_HASH = $LATEST_COMMIT.Substring(0, 7)
 
-# 检查是否需要强制执行
-if ($FORCE_FLAG) {
-    Write-Output "Force flag (--fc) detected. Executing commands unconditionally."
+
+if ($global:REBUILD_FLAG) {
+    Write-Output "New Commits"
     # Execute_Build_n_Deploy
 } else {
-    if ($global:REBUILD_FLAG) {
-        Write-Output "New Commits"
-        # Execute_Build_n_Deploy
-    } else {
-        Write-Output "Commits: $CURRENT_COMMIT same."
-    }
+    Write-Output "Commits: $CURRENT_COMMIT same."
 }
+
 
 
 
