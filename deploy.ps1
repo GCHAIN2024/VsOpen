@@ -5,7 +5,7 @@ $global:BASE_PATH = "C:\Dev\GCHAIN2024"
 $global:REBUILD_FLAG = $false
 if ($args[0] -eq "--fc") { $global:REBUILD_FLAG = $true}
 
-$global:BD_Date = Get-Date -Format "MMddHHmm"
+$global:BD_Date = Get-Date -Format "YYMMddHHmm"
 $global:SLN_PATH = $global:BASE_PATH + "\" + $global:SLN_NAME
 $global:LATEST_COMMIT=""
 $global:CURRENT_COMMIT=""
