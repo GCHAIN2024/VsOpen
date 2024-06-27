@@ -104,16 +104,11 @@ let url__clinko
         |> Array.concat
         |> bin__sha256
 
-    let host = 
-        match domainnameo with
-        | Some domain -> domain.p.Caption
-        | None -> ""
-
     if runtime.data.hashFull__clinks.ContainsKey hashFull then
         runtime.data.hashFull__clinks[hashFull]
         |> Some
     else
-        create CLINK_metadata "BizLogics.TinyLink.url__clink" conn (fun _ -> 
+        let p = 
             let p = pCLINK_empty()
             p.HashFull <- hashFull
             p.HashTiny <- checkcollition owner src dsto data
@@ -133,11 +128,13 @@ let url__clinko
             p.Data <- data
             p.Expiry <- DateTime.UtcNow.Add expireGeneral
 
-            let title,desc,image = parse host html
+            let title,desc,image = parse html
             p.OgTitle <- title
             p.OgDesc <- desc
             p.OgImg <- image
-            p) ()
+            p
+
+        p__createRcd p CLINK_metadata "BizLogics.TinyLink.url__clink" conn
         |> oPipelineSome (fun rcd -> 
             runtime.data.tiny__full[rcd.p.HashTiny] <- rcd.p.HashFull
             runtime.data.hashFull__clinks[rcd.p.HashFull] <- rcd

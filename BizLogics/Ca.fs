@@ -18,9 +18,7 @@ open Shared.OrmTypes
 open Shared.Types
 open Shared.OrmMor
 
-let createBiz = 
-    (fun code -> 
-        let p = pBIZ_empty()
-        p.Code <- code
-        p)
-    |> create BIZ_metadata  "BizLogics.Ca.code__pBiz" conn
+let createBiz code = 
+    let p = pBIZ_empty()
+    p.Code <- code
+    p__createRcd p BIZ_metadata "BizLogics.Ca.createBiz" conn
