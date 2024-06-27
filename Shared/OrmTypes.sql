@@ -61,10 +61,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Ca
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Caption = 'ALTER TABLE Ca_Address ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Caption
     END
 
-UPDATE Ca_Address SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCaption')
     BEGIN
@@ -84,10 +85,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Bi
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Bind] BIGINT
+    DECLARE @sql_add_Ca_Address_Bind NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Bind = 'ALTER TABLE Ca_Address ADD [Bind] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Address_Bind
     END
 
-UPDATE Ca_Address SET [Bind]='' WHERE ([Bind] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressBind')
     BEGIN
@@ -107,10 +109,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Ty
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Type] INT
+    DECLARE @sql_add_Ca_Address_Type NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Type = 'ALTER TABLE Ca_Address ADD [Type] INT'
+    EXEC sp_executesql @sql_add_Ca_Address_Type
     END
 
-UPDATE Ca_Address SET [Type]='' WHERE ([Type] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressType')
     BEGIN
@@ -130,10 +133,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Li
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Line1] NVARCHAR(300) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Line1 NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Line1 = 'ALTER TABLE Ca_Address ADD [Line1] NVARCHAR(300) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Line1
     END
 
-UPDATE Ca_Address SET [Line1]='' WHERE ([Line1] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressLine1')
     BEGIN
@@ -153,10 +157,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Li
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Line2] NVARCHAR(300) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Line2 NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Line2 = 'ALTER TABLE Ca_Address ADD [Line2] NVARCHAR(300) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Line2
     END
 
-UPDATE Ca_Address SET [Line2]='' WHERE ([Line2] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressLine2')
     BEGIN
@@ -176,10 +181,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='St
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [State] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_State NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_State = 'ALTER TABLE Ca_Address ADD [State] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_State
     END
 
-UPDATE Ca_Address SET [State]='' WHERE ([State] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressState')
     BEGIN
@@ -199,10 +205,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Co
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [County] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_County NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_County = 'ALTER TABLE Ca_Address ADD [County] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_County
     END
 
-UPDATE Ca_Address SET [County]='' WHERE ([County] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCounty')
     BEGIN
@@ -222,10 +229,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='To
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Town] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Town NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Town = 'ALTER TABLE Ca_Address ADD [Town] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Town
     END
 
-UPDATE Ca_Address SET [Town]='' WHERE ([Town] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressTown')
     BEGIN
@@ -245,10 +253,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Co
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Contact] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Contact NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Contact = 'ALTER TABLE Ca_Address ADD [Contact] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Contact
     END
 
-UPDATE Ca_Address SET [Contact]='' WHERE ([Contact] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressContact')
     BEGIN
@@ -268,10 +277,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Te
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Tel] NVARCHAR(20) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Tel NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Tel = 'ALTER TABLE Ca_Address ADD [Tel] NVARCHAR(20) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Tel
     END
 
-UPDATE Ca_Address SET [Tel]='' WHERE ([Tel] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressTel')
     BEGIN
@@ -291,10 +301,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Em
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Email NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Email = 'ALTER TABLE Ca_Address ADD [Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Email
     END
 
-UPDATE Ca_Address SET [Email]='' WHERE ([Email] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressEmail')
     BEGIN
@@ -314,10 +325,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Zi
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Zip] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Address_Zip NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Zip = 'ALTER TABLE Ca_Address ADD [Zip] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Address_Zip
     END
 
-UPDATE Ca_Address SET [Zip]='' WHERE ([Zip] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressZip')
     BEGIN
@@ -337,10 +349,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Ci
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [City] BIGINT
+    DECLARE @sql_add_Ca_Address_City NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_City = 'ALTER TABLE Ca_Address ADD [City] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Address_City
     END
 
-UPDATE Ca_Address SET [City]='' WHERE ([City] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCity')
     BEGIN
@@ -360,10 +373,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Co
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Country] BIGINT
+    DECLARE @sql_add_Ca_Address_Country NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Country = 'ALTER TABLE Ca_Address ADD [Country] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Address_Country
     END
 
-UPDATE Ca_Address SET [Country]='' WHERE ([Country] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCountry')
     BEGIN
@@ -383,10 +397,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Re
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Address ADD [Remarks] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_Address_Remarks NVARCHAR(MAX);
+    SET @sql_add_Ca_Address_Remarks = 'ALTER TABLE Ca_Address ADD [Remarks] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_Address_Remarks
     END
 
-UPDATE Ca_Address SET [Remarks]='' WHERE ([Remarks] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressRemarks')
     BEGIN
@@ -470,10 +485,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Code')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Code] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Biz_Code NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Code = 'ALTER TABLE Ca_Biz ADD [Code] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Biz_Code
     END
 
-UPDATE Ca_Biz SET [Code]='' WHERE ([Code] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCode')
     BEGIN
@@ -493,10 +509,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Captio
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Biz_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Caption = 'ALTER TABLE Ca_Biz ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Biz_Caption
     END
 
-UPDATE Ca_Biz SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCaption')
     BEGIN
@@ -516,10 +533,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Parent
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Parent] BIGINT
+    DECLARE @sql_add_Ca_Biz_Parent NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Parent = 'ALTER TABLE Ca_Biz ADD [Parent] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_Parent
     END
 
-UPDATE Ca_Biz SET [Parent]='' WHERE ([Parent] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizParent')
     BEGIN
@@ -539,10 +557,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='BasicA
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [BasicAcct] BIGINT
+    DECLARE @sql_add_Ca_Biz_BasicAcct NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_BasicAcct = 'ALTER TABLE Ca_Biz ADD [BasicAcct] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_BasicAcct
     END
 
-UPDATE Ca_Biz SET [BasicAcct]='' WHERE ([BasicAcct] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizBasicAcct')
     BEGIN
@@ -562,10 +581,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Desc')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Desc] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_Biz_Desc NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Desc = 'ALTER TABLE Ca_Biz ADD [Desc] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_Biz_Desc
     END
 
-UPDATE Ca_Biz SET [Desc]='' WHERE ([Desc] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizDesc')
     BEGIN
@@ -585,10 +605,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Websit
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Website] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Biz_Website NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Website = 'ALTER TABLE Ca_Biz ADD [Website] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Biz_Website
     END
 
-UPDATE Ca_Biz SET [Website]='' WHERE ([Website] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizWebsite')
     BEGIN
@@ -608,10 +629,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Icon')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Biz_Icon NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Icon = 'ALTER TABLE Ca_Biz ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Biz_Icon
     END
 
-UPDATE Ca_Biz SET [Icon]='' WHERE ([Icon] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIcon')
     BEGIN
@@ -631,10 +653,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='City')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [City] BIGINT
+    DECLARE @sql_add_Ca_Biz_City NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_City = 'ALTER TABLE Ca_Biz ADD [City] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_City
     END
 
-UPDATE Ca_Biz SET [City]='' WHERE ([City] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCity')
     BEGIN
@@ -654,10 +677,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Countr
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Country] BIGINT
+    DECLARE @sql_add_Ca_Biz_Country NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Country = 'ALTER TABLE Ca_Biz ADD [Country] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_Country
     END
 
-UPDATE Ca_Biz SET [Country]='' WHERE ([Country] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountry')
     BEGIN
@@ -677,10 +701,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Lang')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Lang] BIGINT
+    DECLARE @sql_add_Ca_Biz_Lang NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Lang = 'ALTER TABLE Ca_Biz ADD [Lang] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_Lang
     END
 
-UPDATE Ca_Biz SET [Lang]='' WHERE ([Lang] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizLang')
     BEGIN
@@ -700,10 +725,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='IsSoci
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [IsSocial] BIT
+    DECLARE @sql_add_Ca_Biz_IsSocial NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_IsSocial = 'ALTER TABLE Ca_Biz ADD [IsSocial] BIT'
+    EXEC sp_executesql @sql_add_Ca_Biz_IsSocial
     END
 
-UPDATE Ca_Biz SET [IsSocial]='' WHERE ([IsSocial] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsSocial')
     BEGIN
@@ -723,10 +749,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='IsCmsS
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [IsCmsSource] BIT
+    DECLARE @sql_add_Ca_Biz_IsCmsSource NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_IsCmsSource = 'ALTER TABLE Ca_Biz ADD [IsCmsSource] BIT'
+    EXEC sp_executesql @sql_add_Ca_Biz_IsCmsSource
     END
 
-UPDATE Ca_Biz SET [IsCmsSource]='' WHERE ([IsCmsSource] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsCmsSource')
     BEGIN
@@ -746,10 +773,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='IsPay'
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [IsPay] BIT
+    DECLARE @sql_add_Ca_Biz_IsPay NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_IsPay = 'ALTER TABLE Ca_Biz ADD [IsPay] BIT'
+    EXEC sp_executesql @sql_add_Ca_Biz_IsPay
     END
 
-UPDATE Ca_Biz SET [IsPay]='' WHERE ([IsPay] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsPay')
     BEGIN
@@ -769,10 +797,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Moment
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [MomentLatest] BIGINT
+    DECLARE @sql_add_Ca_Biz_MomentLatest NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_MomentLatest = 'ALTER TABLE Ca_Biz ADD [MomentLatest] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_MomentLatest
     END
 
-UPDATE Ca_Biz SET [MomentLatest]='' WHERE ([MomentLatest] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizMomentLatest')
     BEGIN
@@ -792,10 +821,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='CountF
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [CountFollowers] BIGINT
+    DECLARE @sql_add_Ca_Biz_CountFollowers NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_CountFollowers = 'ALTER TABLE Ca_Biz ADD [CountFollowers] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_CountFollowers
     END
 
-UPDATE Ca_Biz SET [CountFollowers]='' WHERE ([CountFollowers] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountFollowers')
     BEGIN
@@ -815,10 +845,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='CountF
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [CountFollows] BIGINT
+    DECLARE @sql_add_Ca_Biz_CountFollows NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_CountFollows = 'ALTER TABLE Ca_Biz ADD [CountFollows] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_CountFollows
     END
 
-UPDATE Ca_Biz SET [CountFollows]='' WHERE ([CountFollows] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountFollows')
     BEGIN
@@ -838,10 +869,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='CountM
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [CountMoments] BIGINT
+    DECLARE @sql_add_Ca_Biz_CountMoments NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_CountMoments = 'ALTER TABLE Ca_Biz ADD [CountMoments] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_CountMoments
     END
 
-UPDATE Ca_Biz SET [CountMoments]='' WHERE ([CountMoments] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountMoments')
     BEGIN
@@ -861,10 +893,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='CountV
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [CountViews] BIGINT
+    DECLARE @sql_add_Ca_Biz_CountViews NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_CountViews = 'ALTER TABLE Ca_Biz ADD [CountViews] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_CountViews
     END
 
-UPDATE Ca_Biz SET [CountViews]='' WHERE ([CountViews] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountViews')
     BEGIN
@@ -884,10 +917,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='CountC
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [CountComments] BIGINT
+    DECLARE @sql_add_Ca_Biz_CountComments NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_CountComments = 'ALTER TABLE Ca_Biz ADD [CountComments] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_CountComments
     END
 
-UPDATE Ca_Biz SET [CountComments]='' WHERE ([CountComments] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountComments')
     BEGIN
@@ -907,10 +941,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='CountT
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [CountThumbUps] BIGINT
+    DECLARE @sql_add_Ca_Biz_CountThumbUps NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_CountThumbUps = 'ALTER TABLE Ca_Biz ADD [CountThumbUps] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_CountThumbUps
     END
 
-UPDATE Ca_Biz SET [CountThumbUps]='' WHERE ([CountThumbUps] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountThumbUps')
     BEGIN
@@ -930,10 +965,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='CountT
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [CountThumbDns] BIGINT
+    DECLARE @sql_add_Ca_Biz_CountThumbDns NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_CountThumbDns = 'ALTER TABLE Ca_Biz ADD [CountThumbDns] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_CountThumbDns
     END
 
-UPDATE Ca_Biz SET [CountThumbDns]='' WHERE ([CountThumbDns] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountThumbDns')
     BEGIN
@@ -953,10 +989,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='IsCraw
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [IsCrawling] BIT
+    DECLARE @sql_add_Ca_Biz_IsCrawling NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_IsCrawling = 'ALTER TABLE Ca_Biz ADD [IsCrawling] BIT'
+    EXEC sp_executesql @sql_add_Ca_Biz_IsCrawling
     END
 
-UPDATE Ca_Biz SET [IsCrawling]='' WHERE ([IsCrawling] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsCrawling')
     BEGIN
@@ -976,10 +1013,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='IsGSer
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [IsGSeries] BIT
+    DECLARE @sql_add_Ca_Biz_IsGSeries NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_IsGSeries = 'ALTER TABLE Ca_Biz ADD [IsGSeries] BIT'
+    EXEC sp_executesql @sql_add_Ca_Biz_IsGSeries
     END
 
-UPDATE Ca_Biz SET [IsGSeries]='' WHERE ([IsGSeries] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsGSeries')
     BEGIN
@@ -999,10 +1037,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Remark
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [RemarksCentral] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_Biz_RemarksCentral NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_RemarksCentral = 'ALTER TABLE Ca_Biz ADD [RemarksCentral] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_Biz_RemarksCentral
     END
 
-UPDATE Ca_Biz SET [RemarksCentral]='' WHERE ([RemarksCentral] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizRemarksCentral')
     BEGIN
@@ -1022,10 +1061,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Agent'
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [Agent] BIGINT
+    DECLARE @sql_add_Ca_Biz_Agent NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_Agent = 'ALTER TABLE Ca_Biz ADD [Agent] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Biz_Agent
     END
 
-UPDATE Ca_Biz SET [Agent]='' WHERE ([Agent] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizAgent')
     BEGIN
@@ -1045,10 +1085,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='SiteCa
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [SiteCats] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_Biz_SiteCats NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_SiteCats = 'ALTER TABLE Ca_Biz ADD [SiteCats] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_Biz_SiteCats
     END
 
-UPDATE Ca_Biz SET [SiteCats]='' WHERE ([SiteCats] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizSiteCats')
     BEGIN
@@ -1068,10 +1109,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Config
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Biz ADD [ConfiguredCats] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_Biz_ConfiguredCats NVARCHAR(MAX);
+    SET @sql_add_Ca_Biz_ConfiguredCats = 'ALTER TABLE Ca_Biz ADD [ConfiguredCats] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_Biz_ConfiguredCats
     END
 
-UPDATE Ca_Biz SET [ConfiguredCats]='' WHERE ([ConfiguredCats] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizConfiguredCats')
     BEGIN
@@ -1137,10 +1179,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Co
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Code2] NVARCHAR(2) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Country_Code2 NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Code2 = 'ALTER TABLE Ca_Country ADD [Code2] NVARCHAR(2) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Country_Code2
     END
 
-UPDATE Ca_Country SET [Code2]='' WHERE ([Code2] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCode2')
     BEGIN
@@ -1160,10 +1203,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Ca
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Country_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Caption = 'ALTER TABLE Ca_Country ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Country_Caption
     END
 
-UPDATE Ca_Country SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCaption')
     BEGIN
@@ -1183,10 +1227,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Fu
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Fullname] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Country_Fullname NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Fullname = 'ALTER TABLE Ca_Country ADD [Fullname] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Country_Fullname
     END
 
-UPDATE Ca_Country SET [Fullname]='' WHERE ([Fullname] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryFullname')
     BEGIN
@@ -1206,10 +1251,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Ic
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Country_Icon NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Icon = 'ALTER TABLE Ca_Country ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Country_Icon
     END
 
-UPDATE Ca_Country SET [Icon]='' WHERE ([Icon] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryIcon')
     BEGIN
@@ -1229,10 +1275,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Te
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Tel] NVARCHAR(4) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Country_Tel NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Tel = 'ALTER TABLE Ca_Country ADD [Tel] NVARCHAR(4) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Country_Tel
     END
 
-UPDATE Ca_Country SET [Tel]='' WHERE ([Tel] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryTel')
     BEGIN
@@ -1252,10 +1299,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Cu
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Cur] BIGINT
+    DECLARE @sql_add_Ca_Country_Cur NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Cur = 'ALTER TABLE Ca_Country ADD [Cur] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Country_Cur
     END
 
-UPDATE Ca_Country SET [Cur]='' WHERE ([Cur] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCur')
     BEGIN
@@ -1275,10 +1323,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Ca
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Capital] BIGINT
+    DECLARE @sql_add_Ca_Country_Capital NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Capital = 'ALTER TABLE Ca_Country ADD [Capital] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Country_Capital
     END
 
-UPDATE Ca_Country SET [Capital]='' WHERE ([Capital] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCapital')
     BEGIN
@@ -1298,10 +1347,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Pl
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Place] BIGINT
+    DECLARE @sql_add_Ca_Country_Place NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Place = 'ALTER TABLE Ca_Country ADD [Place] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Country_Place
     END
 
-UPDATE Ca_Country SET [Place]='' WHERE ([Place] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryPlace')
     BEGIN
@@ -1321,10 +1371,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='La
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Country ADD [Lang] BIGINT
+    DECLARE @sql_add_Ca_Country_Lang NVARCHAR(MAX);
+    SET @sql_add_Ca_Country_Lang = 'ALTER TABLE Ca_Country ADD [Lang] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Country_Lang
     END
 
-UPDATE Ca_Country SET [Lang]='' WHERE ([Lang] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryLang')
     BEGIN
@@ -1400,10 +1451,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Code')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [Code] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Cur_Code NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_Code = 'ALTER TABLE Ca_Cur ADD [Code] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Cur_Code
     END
 
-UPDATE Ca_Cur SET [Code]='' WHERE ([Code] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurCode')
     BEGIN
@@ -1423,10 +1475,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Captio
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Cur_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_Caption = 'ALTER TABLE Ca_Cur ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Cur_Caption
     END
 
-UPDATE Ca_Cur SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurCaption')
     BEGIN
@@ -1446,10 +1499,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Hidden
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [Hidden] BIT
+    DECLARE @sql_add_Ca_Cur_Hidden NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_Hidden = 'ALTER TABLE Ca_Cur ADD [Hidden] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_Hidden
     END
 
-UPDATE Ca_Cur SET [Hidden]='' WHERE ([Hidden] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurHidden')
     BEGIN
@@ -1469,10 +1523,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='IsSac'
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [IsSac] BIT
+    DECLARE @sql_add_Ca_Cur_IsSac NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_IsSac = 'ALTER TABLE Ca_Cur ADD [IsSac] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_IsSac
     END
 
-UPDATE Ca_Cur SET [IsSac]='' WHERE ([IsSac] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIsSac')
     BEGIN
@@ -1492,10 +1547,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='IsTran
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [IsTransfer] BIT
+    DECLARE @sql_add_Ca_Cur_IsTransfer NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_IsTransfer = 'ALTER TABLE Ca_Cur ADD [IsTransfer] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_IsTransfer
     END
 
-UPDATE Ca_Cur SET [IsTransfer]='' WHERE ([IsTransfer] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIsTransfer')
     BEGIN
@@ -1515,10 +1571,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='IsCash
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [IsCash] BIT
+    DECLARE @sql_add_Ca_Cur_IsCash NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_IsCash = 'ALTER TABLE Ca_Cur ADD [IsCash] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_IsCash
     END
 
-UPDATE Ca_Cur SET [IsCash]='' WHERE ([IsCash] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIsCash')
     BEGIN
@@ -1538,10 +1595,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Enable
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [EnableReward] BIT
+    DECLARE @sql_add_Ca_Cur_EnableReward NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_EnableReward = 'ALTER TABLE Ca_Cur ADD [EnableReward] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_EnableReward
     END
 
-UPDATE Ca_Cur SET [EnableReward]='' WHERE ([EnableReward] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurEnableReward')
     BEGIN
@@ -1561,10 +1619,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Enable
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [EnableOTC] BIT
+    DECLARE @sql_add_Ca_Cur_EnableOTC NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_EnableOTC = 'ALTER TABLE Ca_Cur ADD [EnableOTC] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_EnableOTC
     END
 
-UPDATE Ca_Cur SET [EnableOTC]='' WHERE ([EnableOTC] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurEnableOTC')
     BEGIN
@@ -1584,10 +1643,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Icon')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [Icon] NVARCHAR(512) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Cur_Icon NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_Icon = 'ALTER TABLE Ca_Cur ADD [Icon] NVARCHAR(512) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Cur_Icon
     END
 
-UPDATE Ca_Cur SET [Icon]='' WHERE ([Icon] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIcon')
     BEGIN
@@ -1607,10 +1667,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='CurTyp
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [CurType] INT
+    DECLARE @sql_add_Ca_Cur_CurType NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_CurType = 'ALTER TABLE Ca_Cur ADD [CurType] INT'
+    EXEC sp_executesql @sql_add_Ca_Cur_CurType
     END
 
-UPDATE Ca_Cur SET [CurType]='' WHERE ([CurType] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurCurType')
     BEGIN
@@ -1630,10 +1691,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Dec')
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [Dec] BIGINT
+    DECLARE @sql_add_Ca_Cur_Dec NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_Dec = 'ALTER TABLE Ca_Cur ADD [Dec] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Cur_Dec
     END
 
-UPDATE Ca_Cur SET [Dec]='' WHERE ([Dec] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurDec')
     BEGIN
@@ -1653,10 +1715,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Anchor
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [AnchorRate] FLOAT
+    DECLARE @sql_add_Ca_Cur_AnchorRate NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_AnchorRate = 'ALTER TABLE Ca_Cur ADD [AnchorRate] FLOAT'
+    EXEC sp_executesql @sql_add_Ca_Cur_AnchorRate
     END
 
-UPDATE Ca_Cur SET [AnchorRate]='' WHERE ([AnchorRate] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurAnchorRate')
     BEGIN
@@ -1676,10 +1739,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Freeza
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [Freezable] BIT
+    DECLARE @sql_add_Ca_Cur_Freezable NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_Freezable = 'ALTER TABLE Ca_Cur ADD [Freezable] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_Freezable
     END
 
-UPDATE Ca_Cur SET [Freezable]='' WHERE ([Freezable] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurFreezable')
     BEGIN
@@ -1699,10 +1763,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Author
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [Authorizable] BIT
+    DECLARE @sql_add_Ca_Cur_Authorizable NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_Authorizable = 'ALTER TABLE Ca_Cur ADD [Authorizable] BIT'
+    EXEC sp_executesql @sql_add_Ca_Cur_Authorizable
     END
 
-UPDATE Ca_Cur SET [Authorizable]='' WHERE ([Authorizable] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurAuthorizable')
     BEGIN
@@ -1722,10 +1787,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Chanin
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [ChaninID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Cur_ChaninID NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_ChaninID = 'ALTER TABLE Ca_Cur ADD [ChaninID] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Cur_ChaninID
     END
 
-UPDATE Ca_Cur SET [ChaninID]='' WHERE ([ChaninID] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurChaninID')
     BEGIN
@@ -1745,10 +1811,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Chanin
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [ChaninName] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Cur_ChaninName NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_ChaninName = 'ALTER TABLE Ca_Cur ADD [ChaninName] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Cur_ChaninName
     END
 
-UPDATE Ca_Cur SET [ChaninName]='' WHERE ([ChaninName] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurChaninName')
     BEGIN
@@ -1768,10 +1835,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Contra
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [ContractAddress] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Cur_ContractAddress NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_ContractAddress = 'ALTER TABLE Ca_Cur ADD [ContractAddress] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Cur_ContractAddress
     END
 
-UPDATE Ca_Cur SET [ContractAddress]='' WHERE ([ContractAddress] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurContractAddress')
     BEGIN
@@ -1791,10 +1859,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Wallet
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [WalletAddress] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Cur_WalletAddress NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_WalletAddress = 'ALTER TABLE Ca_Cur ADD [WalletAddress] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Cur_WalletAddress
     END
 
-UPDATE Ca_Cur SET [WalletAddress]='' WHERE ([WalletAddress] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurWalletAddress')
     BEGIN
@@ -1814,10 +1883,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='BaseRa
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Cur ADD [BaseRate] FLOAT
+    DECLARE @sql_add_Ca_Cur_BaseRate NVARCHAR(MAX);
+    SET @sql_add_Ca_Cur_BaseRate = 'ALTER TABLE Ca_Cur ADD [BaseRate] FLOAT'
+    EXEC sp_executesql @sql_add_Ca_Cur_BaseRate
     END
 
-UPDATE Ca_Cur SET [BaseRate]='' WHERE ([BaseRate] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurBaseRate')
     BEGIN
@@ -1896,10 +1966,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ca
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Caption = 'ALTER TABLE Ca_EndUser ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Caption
     END
 
-UPDATE Ca_EndUser SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserCaption')
     BEGIN
@@ -1919,10 +1990,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Us
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Username] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Username NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Username = 'ALTER TABLE Ca_EndUser ADD [Username] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Username
     END
 
-UPDATE Ca_EndUser SET [Username]='' WHERE ([Username] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserUsername')
     BEGIN
@@ -1942,10 +2014,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='So
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [SocialAuthBiz] BIGINT
+    DECLARE @sql_add_Ca_EndUser_SocialAuthBiz NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_SocialAuthBiz = 'ALTER TABLE Ca_EndUser ADD [SocialAuthBiz] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_SocialAuthBiz
     END
 
-UPDATE Ca_EndUser SET [SocialAuthBiz]='' WHERE ([SocialAuthBiz] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserSocialAuthBiz')
     BEGIN
@@ -1965,10 +2038,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='So
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [SocialAuthId] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_EndUser_SocialAuthId NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_SocialAuthId = 'ALTER TABLE Ca_EndUser ADD [SocialAuthId] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_EndUser_SocialAuthId
     END
 
-UPDATE Ca_EndUser SET [SocialAuthId]='' WHERE ([SocialAuthId] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserSocialAuthId')
     BEGIN
@@ -1988,10 +2062,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='So
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [SocialAuthAvatar] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_EndUser_SocialAuthAvatar NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_SocialAuthAvatar = 'ALTER TABLE Ca_EndUser ADD [SocialAuthAvatar] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_EndUser_SocialAuthAvatar
     END
 
-UPDATE Ca_EndUser SET [SocialAuthAvatar]='' WHERE ([SocialAuthAvatar] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserSocialAuthAvatar')
     BEGIN
@@ -2011,10 +2086,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Em
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Email NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Email = 'ALTER TABLE Ca_EndUser ADD [Email] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Email
     END
 
-UPDATE Ca_EndUser SET [Email]='' WHERE ([Email] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserEmail')
     BEGIN
@@ -2034,10 +2110,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Te
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Tel] NVARCHAR(32) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Tel NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Tel = 'ALTER TABLE Ca_EndUser ADD [Tel] NVARCHAR(32) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Tel
     END
 
-UPDATE Ca_EndUser SET [Tel]='' WHERE ([Tel] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserTel')
     BEGIN
@@ -2057,10 +2134,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ge
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Gender] INT
+    DECLARE @sql_add_Ca_EndUser_Gender NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Gender = 'ALTER TABLE Ca_EndUser ADD [Gender] INT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Gender
     END
 
-UPDATE Ca_EndUser SET [Gender]='' WHERE ([Gender] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserGender')
     BEGIN
@@ -2080,10 +2158,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='St
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Status] INT
+    DECLARE @sql_add_Ca_EndUser_Status NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Status = 'ALTER TABLE Ca_EndUser ADD [Status] INT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Status
     END
 
-UPDATE Ca_EndUser SET [Status]='' WHERE ([Status] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserStatus')
     BEGIN
@@ -2103,10 +2182,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ad
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Admin] INT
+    DECLARE @sql_add_Ca_EndUser_Admin NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Admin = 'ALTER TABLE Ca_EndUser ADD [Admin] INT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Admin
     END
 
-UPDATE Ca_EndUser SET [Admin]='' WHERE ([Admin] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserAdmin')
     BEGIN
@@ -2126,10 +2206,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Bi
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [BizPartner] INT
+    DECLARE @sql_add_Ca_EndUser_BizPartner NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_BizPartner = 'ALTER TABLE Ca_EndUser ADD [BizPartner] INT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_BizPartner
     END
 
-UPDATE Ca_EndUser SET [BizPartner]='' WHERE ([BizPartner] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserBizPartner')
     BEGIN
@@ -2149,10 +2230,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Pr
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Privilege] BIGINT
+    DECLARE @sql_add_Ca_EndUser_Privilege NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Privilege = 'ALTER TABLE Ca_EndUser ADD [Privilege] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Privilege
     END
 
-UPDATE Ca_EndUser SET [Privilege]='' WHERE ([Privilege] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserPrivilege')
     BEGIN
@@ -2172,10 +2254,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ve
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Verify] INT
+    DECLARE @sql_add_Ca_EndUser_Verify NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Verify = 'ALTER TABLE Ca_EndUser ADD [Verify] INT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Verify
     END
 
-UPDATE Ca_EndUser SET [Verify]='' WHERE ([Verify] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserVerify')
     BEGIN
@@ -2195,10 +2278,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Pw
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Pwd] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Pwd NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Pwd = 'ALTER TABLE Ca_EndUser ADD [Pwd] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Pwd
     END
 
-UPDATE Ca_EndUser SET [Pwd]='' WHERE ([Pwd] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserPwd')
     BEGIN
@@ -2218,10 +2302,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='On
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Online] BIT
+    DECLARE @sql_add_Ca_EndUser_Online NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Online = 'ALTER TABLE Ca_EndUser ADD [Online] BIT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Online
     END
 
-UPDATE Ca_EndUser SET [Online]='' WHERE ([Online] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserOnline')
     BEGIN
@@ -2241,10 +2326,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ic
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Icon NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Icon = 'ALTER TABLE Ca_EndUser ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Icon
     END
 
-UPDATE Ca_EndUser SET [Icon]='' WHERE ([Icon] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserIcon')
     BEGIN
@@ -2264,10 +2350,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ba
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Background] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Background NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Background = 'ALTER TABLE Ca_EndUser ADD [Background] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Background
     END
 
-UPDATE Ca_EndUser SET [Background]='' WHERE ([Background] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserBackground')
     BEGIN
@@ -2287,10 +2374,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ba
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [BasicAcct] BIGINT
+    DECLARE @sql_add_Ca_EndUser_BasicAcct NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_BasicAcct = 'ALTER TABLE Ca_EndUser ADD [BasicAcct] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_BasicAcct
     END
 
-UPDATE Ca_EndUser SET [BasicAcct]='' WHERE ([BasicAcct] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserBasicAcct')
     BEGIN
@@ -2310,10 +2398,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Re
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Refer] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_EndUser_Refer NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Refer = 'ALTER TABLE Ca_EndUser ADD [Refer] NVARCHAR(7) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Refer
     END
 
-UPDATE Ca_EndUser SET [Refer]='' WHERE ([Refer] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserRefer')
     BEGIN
@@ -2333,10 +2422,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Re
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Referer] BIGINT
+    DECLARE @sql_add_Ca_EndUser_Referer NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Referer = 'ALTER TABLE Ca_EndUser ADD [Referer] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Referer
     END
 
-UPDATE Ca_EndUser SET [Referer]='' WHERE ([Referer] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserReferer')
     BEGIN
@@ -2356,10 +2446,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ur
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [Url] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_EndUser_Url NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_Url = 'ALTER TABLE Ca_EndUser ADD [Url] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_EndUser_Url
     END
 
-UPDATE Ca_EndUser SET [Url]='' WHERE ([Url] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserUrl')
     BEGIN
@@ -2379,10 +2470,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Ab
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_EndUser ADD [About] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_EndUser_About NVARCHAR(MAX);
+    SET @sql_add_Ca_EndUser_About = 'ALTER TABLE Ca_EndUser ADD [About] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_EndUser_About
     END
 
-UPDATE Ca_EndUser SET [About]='' WHERE ([About] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserAbout')
     BEGIN
@@ -2449,10 +2541,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Capti
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_File_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_File_Caption = 'ALTER TABLE Ca_File ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_File_Caption
     END
 
-UPDATE Ca_File SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileCaption')
     BEGIN
@@ -2472,10 +2565,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Encry
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [Encrypt] INT
+    DECLARE @sql_add_Ca_File_Encrypt NVARCHAR(MAX);
+    SET @sql_add_Ca_File_Encrypt = 'ALTER TABLE Ca_File ADD [Encrypt] INT'
+    EXEC sp_executesql @sql_add_Ca_File_Encrypt
     END
 
-UPDATE Ca_File SET [Encrypt]='' WHERE ([Encrypt] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileEncrypt')
     BEGIN
@@ -2495,10 +2589,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='SHA25
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [SHA256] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_File_SHA256 NVARCHAR(MAX);
+    SET @sql_add_Ca_File_SHA256 = 'ALTER TABLE Ca_File ADD [SHA256] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_File_SHA256
     END
 
-UPDATE Ca_File SET [SHA256]='' WHERE ([SHA256] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileSHA256')
     BEGIN
@@ -2518,10 +2613,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Size'
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [Size] BIGINT
+    DECLARE @sql_add_Ca_File_Size NVARCHAR(MAX);
+    SET @sql_add_Ca_File_Size = 'ALTER TABLE Ca_File ADD [Size] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_File_Size
     END
 
-UPDATE Ca_File SET [Size]='' WHERE ([Size] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileSize')
     BEGIN
@@ -2541,10 +2637,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Bind'
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [Bind] BIGINT
+    DECLARE @sql_add_Ca_File_Bind NVARCHAR(MAX);
+    SET @sql_add_Ca_File_Bind = 'ALTER TABLE Ca_File ADD [Bind] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_File_Bind
     END
 
-UPDATE Ca_File SET [Bind]='' WHERE ([Bind] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileBind')
     BEGIN
@@ -2564,10 +2661,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='BindT
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [BindType] INT
+    DECLARE @sql_add_Ca_File_BindType NVARCHAR(MAX);
+    SET @sql_add_Ca_File_BindType = 'ALTER TABLE Ca_File ADD [BindType] INT'
+    EXEC sp_executesql @sql_add_Ca_File_BindType
     END
 
-UPDATE Ca_File SET [BindType]='' WHERE ([BindType] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileBindType')
     BEGIN
@@ -2587,10 +2685,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='State
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [State] INT
+    DECLARE @sql_add_Ca_File_State NVARCHAR(MAX);
+    SET @sql_add_Ca_File_State = 'ALTER TABLE Ca_File ADD [State] INT'
+    EXEC sp_executesql @sql_add_Ca_File_State
     END
 
-UPDATE Ca_File SET [State]='' WHERE ([State] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileState')
     BEGIN
@@ -2610,10 +2709,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Folde
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [Folder] BIGINT
+    DECLARE @sql_add_Ca_File_Folder NVARCHAR(MAX);
+    SET @sql_add_Ca_File_Folder = 'ALTER TABLE Ca_File ADD [Folder] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_File_Folder
     END
 
-UPDATE Ca_File SET [Folder]='' WHERE ([Folder] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileFolder')
     BEGIN
@@ -2633,10 +2733,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='FileT
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [FileType] INT
+    DECLARE @sql_add_Ca_File_FileType NVARCHAR(MAX);
+    SET @sql_add_Ca_File_FileType = 'ALTER TABLE Ca_File ADD [FileType] INT'
+    EXEC sp_executesql @sql_add_Ca_File_FileType
     END
 
-UPDATE Ca_File SET [FileType]='' WHERE ([FileType] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileFileType')
     BEGIN
@@ -2656,10 +2757,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='JSON'
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_File ADD [JSON] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_File_JSON NVARCHAR(MAX);
+    SET @sql_add_Ca_File_JSON = 'ALTER TABLE Ca_File ADD [JSON] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_File_JSON
     END
 
-UPDATE Ca_File SET [JSON]='' WHERE ([JSON] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileJSON')
     BEGIN
@@ -2721,10 +2823,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND name='Cap
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Folder ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Folder_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_Folder_Caption = 'ALTER TABLE Ca_Folder ADD [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Folder_Caption
     END
 
-UPDATE Ca_Folder SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderCaption')
     BEGIN
@@ -2744,10 +2847,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND name='Enc
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Folder ADD [Encrypt] INT
+    DECLARE @sql_add_Ca_Folder_Encrypt NVARCHAR(MAX);
+    SET @sql_add_Ca_Folder_Encrypt = 'ALTER TABLE Ca_Folder ADD [Encrypt] INT'
+    EXEC sp_executesql @sql_add_Ca_Folder_Encrypt
     END
 
-UPDATE Ca_Folder SET [Encrypt]='' WHERE ([Encrypt] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderEncrypt')
     BEGIN
@@ -2767,10 +2871,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND name='Bin
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Folder ADD [Bind] BIGINT
+    DECLARE @sql_add_Ca_Folder_Bind NVARCHAR(MAX);
+    SET @sql_add_Ca_Folder_Bind = 'ALTER TABLE Ca_Folder ADD [Bind] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Folder_Bind
     END
 
-UPDATE Ca_Folder SET [Bind]='' WHERE ([Bind] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderBind')
     BEGIN
@@ -2790,10 +2895,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND name='Bin
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Folder ADD [BindType] INT
+    DECLARE @sql_add_Ca_Folder_BindType NVARCHAR(MAX);
+    SET @sql_add_Ca_Folder_BindType = 'ALTER TABLE Ca_Folder ADD [BindType] INT'
+    EXEC sp_executesql @sql_add_Ca_Folder_BindType
     END
 
-UPDATE Ca_Folder SET [BindType]='' WHERE ([BindType] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderBindType')
     BEGIN
@@ -2813,10 +2919,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND name='Par
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Folder ADD [Parent] BIGINT
+    DECLARE @sql_add_Ca_Folder_Parent NVARCHAR(MAX);
+    SET @sql_add_Ca_Folder_Parent = 'ALTER TABLE Ca_Folder ADD [Parent] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_Folder_Parent
     END
 
-UPDATE Ca_Folder SET [Parent]='' WHERE ([Parent] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderParent')
     BEGIN
@@ -2882,10 +2989,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='Code2
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [Code2] NVARCHAR(2) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Lang_Code2 NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_Code2 = 'ALTER TABLE Ca_Lang ADD [Code2] NVARCHAR(2) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Lang_Code2
     END
 
-UPDATE Ca_Lang SET [Code2]='' WHERE ([Code2] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangCode2')
     BEGIN
@@ -2905,10 +3013,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='Capti
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Lang_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_Caption = 'ALTER TABLE Ca_Lang ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Lang_Caption
     END
 
-UPDATE Ca_Lang SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangCaption')
     BEGIN
@@ -2928,10 +3037,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='Nativ
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [Native] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Lang_Native NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_Native = 'ALTER TABLE Ca_Lang ADD [Native] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Lang_Native
     END
 
-UPDATE Ca_Lang SET [Native]='' WHERE ([Native] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangNative')
     BEGIN
@@ -2951,10 +3061,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='Icon'
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_Lang_Icon NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_Icon = 'ALTER TABLE Ca_Lang ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_Lang_Icon
     END
 
-UPDATE Ca_Lang SET [Icon]='' WHERE ([Icon] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIcon')
     BEGIN
@@ -2974,10 +3085,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='IsBla
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [IsBlank] BIT
+    DECLARE @sql_add_Ca_Lang_IsBlank NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_IsBlank = 'ALTER TABLE Ca_Lang ADD [IsBlank] BIT'
+    EXEC sp_executesql @sql_add_Ca_Lang_IsBlank
     END
 
-UPDATE Ca_Lang SET [IsBlank]='' WHERE ([IsBlank] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsBlank')
     BEGIN
@@ -2997,10 +3109,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='IsLoc
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [IsLocale] BIT
+    DECLARE @sql_add_Ca_Lang_IsLocale NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_IsLocale = 'ALTER TABLE Ca_Lang ADD [IsLocale] BIT'
+    EXEC sp_executesql @sql_add_Ca_Lang_IsLocale
     END
 
-UPDATE Ca_Lang SET [IsLocale]='' WHERE ([IsLocale] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsLocale')
     BEGIN
@@ -3020,10 +3133,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='IsCon
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [IsContent] BIT
+    DECLARE @sql_add_Ca_Lang_IsContent NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_IsContent = 'ALTER TABLE Ca_Lang ADD [IsContent] BIT'
+    EXEC sp_executesql @sql_add_Ca_Lang_IsContent
     END
 
-UPDATE Ca_Lang SET [IsContent]='' WHERE ([IsContent] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsContent')
     BEGIN
@@ -3043,10 +3157,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='IsAut
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [IsAutoTranslate] BIT
+    DECLARE @sql_add_Ca_Lang_IsAutoTranslate NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_IsAutoTranslate = 'ALTER TABLE Ca_Lang ADD [IsAutoTranslate] BIT'
+    EXEC sp_executesql @sql_add_Ca_Lang_IsAutoTranslate
     END
 
-UPDATE Ca_Lang SET [IsAutoTranslate]='' WHERE ([IsAutoTranslate] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsAutoTranslate')
     BEGIN
@@ -3066,10 +3181,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='TextD
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_Lang ADD [TextDirection] INT
+    DECLARE @sql_add_Ca_Lang_TextDirection NVARCHAR(MAX);
+    SET @sql_add_Ca_Lang_TextDirection = 'ALTER TABLE Ca_Lang ADD [TextDirection] INT'
+    EXEC sp_executesql @sql_add_Ca_Lang_TextDirection
     END
 
-UPDATE Ca_Lang SET [TextDirection]='' WHERE ([TextDirection] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangTextDirection')
     BEGIN
@@ -3132,10 +3248,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND na
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_WebCredential ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_WebCredential_Caption NVARCHAR(MAX);
+    SET @sql_add_Ca_WebCredential_Caption = 'ALTER TABLE Ca_WebCredential ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_WebCredential_Caption
     END
 
-UPDATE Ca_WebCredential SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialCaption')
     BEGIN
@@ -3155,10 +3272,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND na
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_WebCredential ADD [ExternalId] BIGINT
+    DECLARE @sql_add_Ca_WebCredential_ExternalId NVARCHAR(MAX);
+    SET @sql_add_Ca_WebCredential_ExternalId = 'ALTER TABLE Ca_WebCredential ADD [ExternalId] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_WebCredential_ExternalId
     END
 
-UPDATE Ca_WebCredential SET [ExternalId]='' WHERE ([ExternalId] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialExternalId')
     BEGIN
@@ -3178,10 +3296,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND na
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_WebCredential ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Ca_WebCredential_Icon NVARCHAR(MAX);
+    SET @sql_add_Ca_WebCredential_Icon = 'ALTER TABLE Ca_WebCredential ADD [Icon] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Ca_WebCredential_Icon
     END
 
-UPDATE Ca_WebCredential SET [Icon]='' WHERE ([Icon] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialIcon')
     BEGIN
@@ -3201,10 +3320,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND na
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_WebCredential ADD [EU] BIGINT
+    DECLARE @sql_add_Ca_WebCredential_EU NVARCHAR(MAX);
+    SET @sql_add_Ca_WebCredential_EU = 'ALTER TABLE Ca_WebCredential ADD [EU] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_WebCredential_EU
     END
 
-UPDATE Ca_WebCredential SET [EU]='' WHERE ([EU] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialEU')
     BEGIN
@@ -3224,10 +3344,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND na
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_WebCredential ADD [Biz] BIGINT
+    DECLARE @sql_add_Ca_WebCredential_Biz NVARCHAR(MAX);
+    SET @sql_add_Ca_WebCredential_Biz = 'ALTER TABLE Ca_WebCredential ADD [Biz] BIGINT'
+    EXEC sp_executesql @sql_add_Ca_WebCredential_Biz
     END
 
-UPDATE Ca_WebCredential SET [Biz]='' WHERE ([Biz] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialBiz')
     BEGIN
@@ -3247,10 +3368,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND na
     END
 ELSE
     BEGIN
-    ALTER TABLE Ca_WebCredential ADD [Json] NVARCHAR(MAX)
+    DECLARE @sql_add_Ca_WebCredential_Json NVARCHAR(MAX);
+    SET @sql_add_Ca_WebCredential_Json = 'ALTER TABLE Ca_WebCredential ADD [Json] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Ca_WebCredential_Json
     END
 
-UPDATE Ca_WebCredential SET [Json]='' WHERE ([Json] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialJson')
     BEGIN
@@ -3311,10 +3433,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name=
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_BizOwner ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Core_BizOwner_Caption NVARCHAR(MAX);
+    SET @sql_add_Core_BizOwner_Caption = 'ALTER TABLE Core_BizOwner ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Core_BizOwner_Caption
     END
 
-UPDATE Core_BizOwner SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerCaption')
     BEGIN
@@ -3334,10 +3457,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name=
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_BizOwner ADD [Bind] BIGINT
+    DECLARE @sql_add_Core_BizOwner_Bind NVARCHAR(MAX);
+    SET @sql_add_Core_BizOwner_Bind = 'ALTER TABLE Core_BizOwner ADD [Bind] BIGINT'
+    EXEC sp_executesql @sql_add_Core_BizOwner_Bind
     END
 
-UPDATE Core_BizOwner SET [Bind]='' WHERE ([Bind] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerBind')
     BEGIN
@@ -3357,10 +3481,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name=
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_BizOwner ADD [BindType] INT
+    DECLARE @sql_add_Core_BizOwner_BindType NVARCHAR(MAX);
+    SET @sql_add_Core_BizOwner_BindType = 'ALTER TABLE Core_BizOwner ADD [BindType] INT'
+    EXEC sp_executesql @sql_add_Core_BizOwner_BindType
     END
 
-UPDATE Core_BizOwner SET [BindType]='' WHERE ([BindType] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerBindType')
     BEGIN
@@ -3380,10 +3505,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name=
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_BizOwner ADD [State] INT
+    DECLARE @sql_add_Core_BizOwner_State NVARCHAR(MAX);
+    SET @sql_add_Core_BizOwner_State = 'ALTER TABLE Core_BizOwner ADD [State] INT'
+    EXEC sp_executesql @sql_add_Core_BizOwner_State
     END
 
-UPDATE Core_BizOwner SET [State]='' WHERE ([State] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerState')
     BEGIN
@@ -3452,10 +3578,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [Expiry] BIGINT
+    DECLARE @sql_add_Core_CryptoLink_Expiry NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_Expiry = 'ALTER TABLE Core_CryptoLink ADD [Expiry] BIGINT'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_Expiry
     END
 
-UPDATE Core_CryptoLink SET [Expiry]='' WHERE ([Expiry] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkExpiry')
     BEGIN
@@ -3475,10 +3602,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Core_CryptoLink_HashFull NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_HashFull = 'ALTER TABLE Core_CryptoLink ADD [HashFull] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_HashFull
     END
 
-UPDATE Core_CryptoLink SET [HashFull]='' WHERE ([HashFull] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkHashFull')
     BEGIN
@@ -3498,10 +3626,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Core_CryptoLink_HashTiny NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_HashTiny = 'ALTER TABLE Core_CryptoLink ADD [HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_HashTiny
     END
 
-UPDATE Core_CryptoLink SET [HashTiny]='' WHERE ([HashTiny] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkHashTiny')
     BEGIN
@@ -3521,10 +3650,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [Src] NVARCHAR(MAX)
+    DECLARE @sql_add_Core_CryptoLink_Src NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_Src = 'ALTER TABLE Core_CryptoLink ADD [Src] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_Src
     END
 
-UPDATE Core_CryptoLink SET [Src]='' WHERE ([Src] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkSrc')
     BEGIN
@@ -3544,10 +3674,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [DomainName] BIGINT
+    DECLARE @sql_add_Core_CryptoLink_DomainName NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_DomainName = 'ALTER TABLE Core_CryptoLink ADD [DomainName] BIGINT'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_DomainName
     END
 
-UPDATE Core_CryptoLink SET [DomainName]='' WHERE ([DomainName] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkDomainName')
     BEGIN
@@ -3567,10 +3698,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [Owner] BIGINT
+    DECLARE @sql_add_Core_CryptoLink_Owner NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_Owner = 'ALTER TABLE Core_CryptoLink ADD [Owner] BIGINT'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_Owner
     END
 
-UPDATE Core_CryptoLink SET [Owner]='' WHERE ([Owner] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOwner')
     BEGIN
@@ -3590,10 +3722,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [Dst] BIGINT
+    DECLARE @sql_add_Core_CryptoLink_Dst NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_Dst = 'ALTER TABLE Core_CryptoLink ADD [Dst] BIGINT'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_Dst
     END
 
-UPDATE Core_CryptoLink SET [Dst]='' WHERE ([Dst] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkDst')
     BEGIN
@@ -3613,10 +3746,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [BizOwner] BIGINT
+    DECLARE @sql_add_Core_CryptoLink_BizOwner NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_BizOwner = 'ALTER TABLE Core_CryptoLink ADD [BizOwner] BIGINT'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_BizOwner
     END
 
-UPDATE Core_CryptoLink SET [BizOwner]='' WHERE ([BizOwner] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkBizOwner')
     BEGIN
@@ -3636,10 +3770,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [Data] NVARCHAR(MAX)
+    DECLARE @sql_add_Core_CryptoLink_Data NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_Data = 'ALTER TABLE Core_CryptoLink ADD [Data] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_Data
     END
 
-UPDATE Core_CryptoLink SET [Data]='' WHERE ([Data] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkData')
     BEGIN
@@ -3659,10 +3794,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [OgTitle] NVARCHAR(MAX)
+    DECLARE @sql_add_Core_CryptoLink_OgTitle NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_OgTitle = 'ALTER TABLE Core_CryptoLink ADD [OgTitle] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_OgTitle
     END
 
-UPDATE Core_CryptoLink SET [OgTitle]='' WHERE ([OgTitle] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOgTitle')
     BEGIN
@@ -3682,10 +3818,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [OgDesc] NVARCHAR(MAX)
+    DECLARE @sql_add_Core_CryptoLink_OgDesc NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_OgDesc = 'ALTER TABLE Core_CryptoLink ADD [OgDesc] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_OgDesc
     END
 
-UPDATE Core_CryptoLink SET [OgDesc]='' WHERE ([OgDesc] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOgDesc')
     BEGIN
@@ -3705,10 +3842,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_CryptoLink ADD [OgImg] NVARCHAR(MAX)
+    DECLARE @sql_add_Core_CryptoLink_OgImg NVARCHAR(MAX);
+    SET @sql_add_Core_CryptoLink_OgImg = 'ALTER TABLE Core_CryptoLink ADD [OgImg] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Core_CryptoLink_OgImg
     END
 
-UPDATE Core_CryptoLink SET [OgImg]='' WHERE ([OgImg] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOgImg')
     BEGIN
@@ -3769,10 +3907,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_DomainName ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
+    DECLARE @sql_add_Core_DomainName_Caption NVARCHAR(MAX);
+    SET @sql_add_Core_DomainName_Caption = 'ALTER TABLE Core_DomainName ADD [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Core_DomainName_Caption
     END
 
-UPDATE Core_DomainName SET [Caption]='' WHERE ([Caption] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameCaption')
     BEGIN
@@ -3792,10 +3931,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_DomainName ADD [Biz] BIGINT
+    DECLARE @sql_add_Core_DomainName_Biz NVARCHAR(MAX);
+    SET @sql_add_Core_DomainName_Biz = 'ALTER TABLE Core_DomainName ADD [Biz] BIGINT'
+    EXEC sp_executesql @sql_add_Core_DomainName_Biz
     END
 
-UPDATE Core_DomainName SET [Biz]='' WHERE ([Biz] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameBiz')
     BEGIN
@@ -3815,10 +3955,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_DomainName ADD [EndUser] BIGINT
+    DECLARE @sql_add_Core_DomainName_EndUser NVARCHAR(MAX);
+    SET @sql_add_Core_DomainName_EndUser = 'ALTER TABLE Core_DomainName ADD [EndUser] BIGINT'
+    EXEC sp_executesql @sql_add_Core_DomainName_EndUser
     END
 
-UPDATE Core_DomainName SET [EndUser]='' WHERE ([EndUser] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameEndUser')
     BEGIN
@@ -3838,10 +3979,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND nam
     END
 ELSE
     BEGIN
-    ALTER TABLE Core_DomainName ADD [BizOwner] BIGINT
+    DECLARE @sql_add_Core_DomainName_BizOwner NVARCHAR(MAX);
+    SET @sql_add_Core_DomainName_BizOwner = 'ALTER TABLE Core_DomainName ADD [BizOwner] BIGINT'
+    EXEC sp_executesql @sql_add_Core_DomainName_BizOwner
     END
 
-UPDATE Core_DomainName SET [BizOwner]='' WHERE ([BizOwner] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameBizOwner')
     BEGIN
@@ -3901,10 +4043,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_Log') AND name='Locat
     END
 ELSE
     BEGIN
-    ALTER TABLE Sys_Log ADD [Location] NVARCHAR(MAX)
+    DECLARE @sql_add_Sys_Log_Location NVARCHAR(MAX);
+    SET @sql_add_Sys_Log_Location = 'ALTER TABLE Sys_Log ADD [Location] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Sys_Log_Location
     END
 
-UPDATE Sys_Log SET [Location]='' WHERE ([Location] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Sys_LogLocation')
     BEGIN
@@ -3924,10 +4067,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_Log') AND name='Conte
     END
 ELSE
     BEGIN
-    ALTER TABLE Sys_Log ADD [Content] NVARCHAR(MAX)
+    DECLARE @sql_add_Sys_Log_Content NVARCHAR(MAX);
+    SET @sql_add_Sys_Log_Content = 'ALTER TABLE Sys_Log ADD [Content] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Sys_Log_Content
     END
 
-UPDATE Sys_Log SET [Content]='' WHERE ([Content] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Sys_LogContent')
     BEGIN
@@ -3947,10 +4091,11 @@ IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_Log') AND name='Sql')
     END
 ELSE
     BEGIN
-    ALTER TABLE Sys_Log ADD [Sql] NVARCHAR(MAX)
+    DECLARE @sql_add_Sys_Log_Sql NVARCHAR(MAX);
+    SET @sql_add_Sys_Log_Sql = 'ALTER TABLE Sys_Log ADD [Sql] NVARCHAR(MAX)'
+    EXEC sp_executesql @sql_add_Sys_Log_Sql
     END
 
-UPDATE Sys_Log SET [Sql]='' WHERE ([Sql] IS NULL)
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Sys_LogSql')
     BEGIN
