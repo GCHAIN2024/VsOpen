@@ -15,6 +15,7 @@ open UtilWebServer.Api
 open UtilWebServer.Auth
 open UtilWebServer.Session
 open UtilWebServer.Open
+open UtilWebServer.Cache
 
 open Shared.OrmTypes
 open Shared.OrmMor
@@ -30,13 +31,16 @@ let api_Public_Ping x =
     [|  ok
         ("timestamp",Json.Num (DateTime.UtcNow.Ticks.ToString()))   |]
 
+let homepageCache = empty__CachedWithExpiry()
+
 let api_Public_Homepage x =
 
-    runtime.data.hashFull__clinks.Values
-    |> Seq.toArray
-    |> Array.sortByDescending(fun i -> i.Createdat)
-    |> Array.map CLINK__json
-    |> Json.Ary
+    checkCache (fun _ -> 
+        runtime.data.hashFull__clinks.Values
+        |> Seq.toArray
+        |> Array.sortByDescending(fun i -> i.Createdat)) CLINK__json 20 homepageCache
+    
+    homepageCache.json
     |> wrapOk "clinks"
 
 let api_Public_ListBiz x =
