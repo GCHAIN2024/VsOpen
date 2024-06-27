@@ -32,7 +32,7 @@ Write-Output "====$global:SLN_NAME===="
 Set-Location $global:SLN_PATH
 Fetch_Compare_Pull
 
-$global:FOLDER_HASH = $global:BD_Date+$global:LATEST_COMMIT.Substring(0, 7)
+$global:FOLDER_HASH = $global:BD_Date + "_" + $global:LATEST_COMMIT.Substring(0, 7)
 
 
 if ($global:REBUILD_FLAG) {
