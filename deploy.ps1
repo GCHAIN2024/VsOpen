@@ -36,7 +36,7 @@ $global:FOLDER_HASH = $global:BD_Date + "_" + $global:LATEST_COMMIT.Substring(0,
 
 
 if ($global:REBUILD_FLAG) {
-    Write-Output "Commit: $global:LATEST_COMMIT New."
+    Write-Output "Commit: $global:LATEST_COMMIT Build."
     # Execute_Build_n_Deploy
 } else {
     Write-Output "Commit: $global:LATEST_COMMIT Same."
