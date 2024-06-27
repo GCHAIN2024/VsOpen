@@ -1,43 +1,48 @@
 $global:REBUILD_FLAG = $false
 if ($args[0] -eq "--fc") { $global:REBUILD_FLAG = $true}
-$SLN_PATH = "C:\Dev\GCHAIN2024\GChainVsOpen"
+
+$global:BD_Date = Get-Date -Format "MMddHHmm"
+$global:BASE_PATH = "C:\Dev\GCHAIN2024"
+$global:SLN_NAME = "GChainVsOpen"
+$global:SLN_PATH = $global:BASE_PATH + "\" + $global:SLN_NAME
+$global:LATEST_COMMIT=""
+$global:CURRENT_COMMIT=""
 
 function Fetch_Compare_Pull {
-    Write-Output "git reset fetch"
     git reset --hard HEAD
     git fetch origin
 
-    $LATEST_COMMIT = git rev-parse origin/main
-    $CURRENT_COMMIT = git rev-parse HEAD
-    if ($LATEST_COMMIT -ne $CURRENT_COMMIT) {
+    $global:LATEST_COMMIT = git rev-parse origin/main
+    $global:CURRENT_COMMIT = git rev-parse HEAD
+    if ($global:LATEST_COMMIT -ne $global:CURRENT_COMMIT) {
         $global:REBUILD_FLAG = $true
-    }
-    git pull origin main
+        git pull origin main
+    } 
 }
 
-Write-Output "git fetches"
+Write-Output "====Common===="
 Set-Location "C:\Dev\Common"
 Fetch_Compare_Pull
 
-Write-Output "git pull JCS"
+Write-Output "====JCS===="
 Set-Location "C:\Dev\JCS"
 Fetch_Compare_Pull
 
-Write-Output "Change DIR to $SLN_PATH"
-Set-Location $SLN_PATH
+Write-Output "====$global:SLN_NAME===="
+Set-Location $global:SLN_PATH
 Fetch_Compare_Pull
 
-$FOLDER_HASH = $LATEST_COMMIT.Substring(0, 7)
+$global:FOLDER_HASH = $global:BD_Date+$global:LATEST_COMMIT.Substring(0, 7)
 
 
 if ($global:REBUILD_FLAG) {
-    Write-Output "New Commits"
+    Write-Output "Commit: $global:LATEST_COMMIT New."
     # Execute_Build_n_Deploy
 } else {
-    Write-Output "Commits: $CURRENT_COMMIT same."
+    Write-Output "Commit: $global:LATEST_COMMIT Same."
 }
 
-
+Write-Output $global:FOLDER_HASH
 
 
 function Execute_Build_n_Deploy {
