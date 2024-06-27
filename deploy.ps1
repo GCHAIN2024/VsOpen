@@ -1,9 +1,11 @@
+$global:SLN_NAME = "GChainVsOpen"
+$global:BASE_PATH = "C:\Dev\GCHAIN2024"
+
+
 $global:REBUILD_FLAG = $false
 if ($args[0] -eq "--fc") { $global:REBUILD_FLAG = $true}
 
 $global:BD_Date = Get-Date -Format "MMddHHmm"
-$global:BASE_PATH = "C:\Dev\GCHAIN2024"
-$global:SLN_NAME = "GChainVsOpen"
 $global:SLN_PATH = $global:BASE_PATH + "\" + $global:SLN_NAME
 $global:LATEST_COMMIT=""
 $global:CURRENT_COMMIT=""
@@ -34,32 +36,32 @@ Fetch_Compare_Pull
 
 $global:FOLDER_HASH = $global:BD_Date + "_" + $global:LATEST_COMMIT.Substring(0, 7)
 
-
+Write-Output "====REBUILD===="
 if ($global:REBUILD_FLAG) {
-    Write-Output "Commit: $global:LATEST_COMMIT Build."
-    # Execute_Build_n_Deploy
+    Write-Output "Commit: $global:LATEST_COMMIT Build..."
+    Execute_Build_n_Deploy
 } else {
-    Write-Output "Commit: $global:LATEST_COMMIT Same."
+    Write-Output "Commit: $global:LATEST_COMMIT Same. Exit."
 }
 
-Write-Output $global:FOLDER_HASH
 
 
 function Execute_Build_n_Deploy {
-    Write-Output "git pull"
-    git pull origin main
-    Set-Location "Server"
-    Write-Output "Build"
-    dotnet publish Server.fsproj -o "bin/Publish/$FOLDER_HASH"
+    dotnet publish "Server/Server.fsproj" -o "Server/bin/Publish/$global:FOLDER_HASH"
 
     if ($LASTEXITCODE -ne 0) {
         Write-Output "Publish failed."
         exit 1
     }
+
+
     Write-Output "Publish succeeded to folder $FOLDER_HASH."
 
-    # 结束 Server.exe 进程
-    taskkill /f /im Server.exe
+    $pathPattern = "$global:SLN_PATH\Server\bin\Publish\*\server.exe"
+    $processes = Get-Process | Where-Object { $_.MainModule.FileName -like $pathPattern }
+    foreach ($process in $processes) {
+        Stop-Process -Id $process.Id -Force
+    }
 
     if ($LASTEXITCODE -ne 0) {
         Write-Output "Failed to kill Server.exe process or process not found."
@@ -67,9 +69,7 @@ function Execute_Build_n_Deploy {
         Write-Output "killed Server.exe Successfully."
     }
 
-    Set-Location "bin/Publish/$FOLDER_HASH"
-    Write-Output "Change DIR to $FOLDER_HASH"
-    Start-Process -FilePath "Server.exe" -ArgumentList ""
+    Start-Process -FilePath "$global:SLN_PATH/Server/bin/Publish/$global:FOLDER_HASH/Server.exe" -ArgumentList ""
     Write-Output "restart Server.exe"
 }
 
