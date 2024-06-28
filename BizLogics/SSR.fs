@@ -76,7 +76,7 @@ let ssrPageHome = {
     title = "GCHA.IN"
     desc = "GCHAIN is a revolutionary way to promote websites through a hierarchical referral program."
     image = "https://i.imgur.com/N3MaARt.jpg"
-    url = "https://gcha.in/"
+    url = runtime.host.url
     noscript = homePageNoscript }
 
 let openJavaScript = 

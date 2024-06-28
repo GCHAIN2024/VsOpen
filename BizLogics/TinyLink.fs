@@ -32,7 +32,7 @@ let clink__ssrPage (clink:CLINK) =
         title = "Powered by " + site + ": " + clink.p.OgTitle
         desc = clink.p.OgDesc
         image = clink.p.OgImg
-        url = "https://" + domain + "/t/" + clink.p.Src
+        url = runtime.host.url +  "/t/" + clink.p.Src
         noscript = "" }
 
 let checkcollition 

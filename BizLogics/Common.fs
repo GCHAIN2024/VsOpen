@@ -27,6 +27,7 @@ let defaultHost() = {
     port = 80
     conn = "server=.; database=GCHAIN; Trusted_Connection=True;"
     defaultHtml = "index.html"
+    url = "https://gcha.in"
 
     updateDatabase = false
 
