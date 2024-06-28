@@ -40,7 +40,7 @@ let api_Public_Homepage x =
         |> Seq.toArray
         |> Array.sortByDescending(fun i -> i.Createdat)) CLINK__json 20 homepageCache
     
-    homepageCache.json
+    homepageCache.cachedJson
     |> wrapOk "clinks"
 
 let api_Public_ListBiz x =
