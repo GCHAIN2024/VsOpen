@@ -45,10 +45,8 @@ let api_Public_Homepage x =
 
 let api_Public_ListBiz x =
     runtime.data.bcs.Values
-    |> Seq.toArray
-    |> Array.map(fun i -> i.biz)
-    |> Array.map BIZ__json
-    |> wrapOkAry
+    |> Seq.map(fun i -> i.biz)
+    |> apiList BIZ__json
 
 let api_Public_LoadCryptoLink x =
     let tiny = tryFindStrByAtt "tiny" x.json

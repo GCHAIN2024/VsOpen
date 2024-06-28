@@ -24,14 +24,10 @@ open BizLogics.Auth
 
 
 let api_Eu_MyProfile ec x =
-
     ec
     |> EuComplex__json
     |> wrapOk "ec"
 
 let api_Eu_MyClinks ec x =
-
     ec.clinks.Values
-    |> Seq.toArray
-    |> Array.map CLINK__json
-    |> wrapOkAry
+    |> apiList CLINK__json
