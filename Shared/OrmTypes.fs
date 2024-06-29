@@ -1213,6 +1213,39 @@ let BIZOWNER_id = ref 0L
 let BIZOWNER_count = ref 0
 let BIZOWNER_table = "Core_BizOwner"
 
+// [Core_ClinkLog] (CLOG)
+
+type pCLOG = {
+mutable EndUser: FK
+mutable HashTiny: Chars
+mutable Clink: FK}
+
+
+type CLOG = Rcd<pCLOG>
+
+let CLOG_fieldorders = "[ID],[Createdat],[Updatedat],[Sort],[EndUser],[HashTiny],[Clink]"
+
+let pCLOG_fieldordersArray = [|
+    "EndUser"
+    "HashTiny"
+    "Clink" |]
+
+let CLOG_sql_update = "[Updatedat]=@Updatedat,[EndUser]=@EndUser,[HashTiny]=@HashTiny,[Clink]=@Clink"
+
+let pCLOG_fields = [|
+    FK("EndUser")
+    Chars("HashTiny", 9)
+    FK("Clink") |]
+
+let pCLOG_empty(): pCLOG = {
+    EndUser = 0L
+    HashTiny = ""
+    Clink = 0L }
+
+let CLOG_id = ref 0L
+let CLOG_count = ref 0
+let CLOG_table = "Core_ClinkLog"
+
 // [Core_CryptoLink] (CLINK)
 
 type pCLINK = {

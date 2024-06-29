@@ -61,6 +61,28 @@
     ]
   },
 
+  {
+    "name": "Core_ClinkLog",
+    "shorthand": "clog",
+    "fields": [
+      {
+        "enum": "FK",
+        "ref": "Ca_EndUser",
+        "name": "EndUser"
+      },
+      {
+        "enum": "Chars",
+        "length": 9,
+        "name": "HashTiny"
+      },
+      {
+        "enum": "FK",
+        "ref": "Core_CryptoLink",
+        "name": "Clink"
+      }
+    ]
+  },
+
 
   {
     "name": "Core_DomainName",

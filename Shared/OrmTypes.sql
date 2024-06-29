@@ -3520,6 +3520,118 @@ IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_BizOwnerS
     BEGIN
     ALTER TABLE Core_BizOwner DROP  CONSTRAINT [UniqueNonclustered_Core_BizOwnerState]
     END
+-- [Core_ClinkLog] ----------------------
+
+IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_ClinkLog' AND xtype='U')
+
+BEGIN
+
+    CREATE TABLE Core_ClinkLog ([ID] BIGINT NOT NULL
+        ,[Createdat] BIGINT NOT NULL
+        ,[Updatedat] BIGINT NOT NULL
+        ,[Sort] BIGINT NOT NULL,
+        [EndUser] BIGINT
+        ,[HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
+        ,[Clink] BIGINT
+, CONSTRAINT [PK_Core_ClinkLog] PRIMARY KEY CLUSTERED ([ID] ASC)) ON [PRIMARY]
+END
+
+
+-- Dropping obsolete fields -----------
+DECLARE @name_Core_ClinkLog NVARCHAR(64)
+DECLARE cursor_Core_ClinkLog CURSOR FOR 
+    SELECT name FROM SYSCOLUMNS WHERE id=object_id('Core_ClinkLog') AND (name NOT IN ('ID','Createdat','Updatedat','Sort','EndUser','HashTiny','Clink'))
+
+OPEN cursor_Core_ClinkLog
+FETCH NEXT FROM cursor_Core_ClinkLog INTO @name_Core_ClinkLog
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    PRINT 'Dropping Core_ClinkLog.' + @name_Core_ClinkLog;
+    
+    DECLARE @sql_Core_ClinkLog NVARCHAR(MAX);
+    SET @sql_Core_ClinkLog = 'ALTER TABLE Core_ClinkLog DROP COLUMN ' + QUOTENAME(@name_Core_ClinkLog)
+    EXEC sp_executesql @sql_Core_ClinkLog
+    
+    
+    FETCH NEXT FROM cursor_Core_ClinkLog INTO @name_Core_ClinkLog
+END
+
+CLOSE cursor_Core_ClinkLog;
+DEALLOCATE cursor_Core_ClinkLog;
+
+
+-- [Core_ClinkLog.EndUser] -------------
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_ClinkLog') AND name='EndUser')
+    BEGIN
+     ALTER TABLE Core_ClinkLog ALTER COLUMN [EndUser] BIGINT
+    END
+ELSE
+    BEGIN
+    DECLARE @sql_add_Core_ClinkLog_EndUser NVARCHAR(MAX);
+    SET @sql_add_Core_ClinkLog_EndUser = 'ALTER TABLE Core_ClinkLog ADD [EndUser] BIGINT'
+    EXEC sp_executesql @sql_add_Core_ClinkLog_EndUser
+    END
+
+
+IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_ClinkLogEndUser')
+    BEGIN
+    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_ClinkLogEndUser]
+    END
+
+IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_ClinkLogEndUser')
+    BEGIN
+    ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [UniqueNonclustered_Core_ClinkLogEndUser]
+    END
+
+-- [Core_ClinkLog.HashTiny] -------------
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_ClinkLog') AND name='HashTiny')
+    BEGIN
+     ALTER TABLE Core_ClinkLog ALTER COLUMN [HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS
+    END
+ELSE
+    BEGIN
+    DECLARE @sql_add_Core_ClinkLog_HashTiny NVARCHAR(MAX);
+    SET @sql_add_Core_ClinkLog_HashTiny = 'ALTER TABLE Core_ClinkLog ADD [HashTiny] NVARCHAR(9) COLLATE Chinese_PRC_CI_AS'
+    EXEC sp_executesql @sql_add_Core_ClinkLog_HashTiny
+    END
+
+
+IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_ClinkLogHashTiny')
+    BEGIN
+    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_ClinkLogHashTiny]
+    END
+
+IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_ClinkLogHashTiny')
+    BEGIN
+    ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [UniqueNonclustered_Core_ClinkLogHashTiny]
+    END
+
+-- [Core_ClinkLog.Clink] -------------
+
+IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_ClinkLog') AND name='Clink')
+    BEGIN
+     ALTER TABLE Core_ClinkLog ALTER COLUMN [Clink] BIGINT
+    END
+ELSE
+    BEGIN
+    DECLARE @sql_add_Core_ClinkLog_Clink NVARCHAR(MAX);
+    SET @sql_add_Core_ClinkLog_Clink = 'ALTER TABLE Core_ClinkLog ADD [Clink] BIGINT'
+    EXEC sp_executesql @sql_add_Core_ClinkLog_Clink
+    END
+
+
+IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_ClinkLogClink')
+    BEGIN
+    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_ClinkLogClink]
+    END
+
+IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_ClinkLogClink')
+    BEGIN
+    ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [UniqueNonclustered_Core_ClinkLogClink]
+    END
 -- [Core_CryptoLink] ----------------------
 
 IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_CryptoLink' AND xtype='U')

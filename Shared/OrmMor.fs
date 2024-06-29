@@ -2485,6 +2485,138 @@ let json__BIZOWNERo (json:Json):BIZOWNER option =
         
     | None -> None
 
+// [CLOG] Structure
+
+let pCLOG__bin (bb:BytesBuilder) (p:pCLOG) =
+
+    
+    p.EndUser |> BitConverter.GetBytes |> bb.append
+    
+    let binHashTiny = p.HashTiny |> Encoding.UTF8.GetBytes
+    binHashTiny.Length |> BitConverter.GetBytes |> bb.append
+    binHashTiny |> bb.append
+    
+    p.Clink |> BitConverter.GetBytes |> bb.append
+
+let CLOG__bin (bb:BytesBuilder) (v:CLOG) =
+    v.ID |> BitConverter.GetBytes |> bb.append
+    v.Sort |> BitConverter.GetBytes |> bb.append
+    DateTime__bin bb v.Createdat
+    DateTime__bin bb v.Updatedat
+    
+    pCLOG__bin bb v.p
+
+let bin__pCLOG (bi:BinIndexed):pCLOG =
+    let bin,index = bi
+
+    let p = pCLOG_empty()
+    
+    p.EndUser <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let count_HashTiny = BitConverter.ToInt32(bin,index.Value)
+    index.Value <- index.Value + 4
+    p.HashTiny <- Encoding.UTF8.GetString(bin,index.Value,count_HashTiny)
+    index.Value <- index.Value + count_HashTiny
+    
+    p.Clink <- BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    p
+
+let bin__CLOG (bi:BinIndexed):CLOG =
+    let bin,index = bi
+
+    let ID = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Sort = BitConverter.ToInt64(bin,index.Value)
+    index.Value <- index.Value + 8
+    
+    let Createdat = bin__DateTime bi
+    
+    let Updatedat = bin__DateTime bi
+    
+    {
+        ID = ID
+        Sort = Sort
+        Createdat = Createdat
+        Updatedat = Updatedat
+        p = bin__pCLOG bi }
+
+let pCLOG__json (p:pCLOG) =
+
+    [|
+        ("EndUser",p.EndUser.ToString() |> Json.Num)
+        ("HashTiny",p.HashTiny |> Json.Str)
+        ("Clink",p.Clink.ToString() |> Json.Num) |]
+    |> Json.Braket
+
+let CLOG__json (v:CLOG) =
+
+    let p = v.p
+    
+    [|  ("id",v.ID.ToString() |> Json.Num)
+        ("sort",v.Sort.ToString() |> Json.Num)
+        ("createdat",(v.Createdat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("updatedat",(v.Updatedat |> Util.Time.wintime__unixtime).ToString() |> Json.Num)
+        ("p",pCLOG__json v.p) |]
+    |> Json.Braket
+
+let CLOG__jsonTbw (w:TextBlockWriter) (v:CLOG) =
+    json__str w (CLOG__json v)
+
+let CLOG__jsonStr (v:CLOG) =
+    (CLOG__json v) |> json__strFinal
+
+
+let json__pCLOGo (json:Json):pCLOG option =
+    let fields = json |> json__items
+
+    let p = pCLOG_empty()
+    
+    p.EndUser <- checkfield fields "EndUser" |> parse_int64
+    
+    p.HashTiny <- checkfieldz fields "HashTiny" 9
+    
+    p.Clink <- checkfield fields "Clink" |> parse_int64
+    
+    p |> Some
+    
+
+let json__CLOGo (json:Json):CLOG option =
+    let fields = json |> json__items
+
+    let ID = checkfield fields "id" |> parse_int64
+    let Sort = checkfield fields "sort" |> parse_int64
+    let Createdat = checkfield fields "createdat" |> parse_int64 |> DateTime.FromBinary
+    let Updatedat = checkfield fields "updatedat" |> parse_int64 |> DateTime.FromBinary
+    
+    let o  =
+        match
+            json
+            |> tryFindByAtt "p" with
+        | Some (s,v) -> json__pCLOGo v
+        | None -> None
+    
+    match o with
+    | Some p ->
+        
+        p.EndUser <- checkfield fields "EndUser" |> parse_int64
+        
+        p.HashTiny <- checkfieldz fields "HashTiny" 9
+        
+        p.Clink <- checkfield fields "Clink" |> parse_int64
+        
+        {
+            ID = ID
+            Sort = Sort
+            Createdat = Createdat
+            Updatedat = Updatedat
+            p = p } |> Some
+        
+    | None -> None
+
 // [CLINK] Structure
 
 let pCLINK__bin (bb:BytesBuilder) (p:pCLINK) =
@@ -4299,6 +4431,96 @@ let BIZOWNERTxSqlServer =
     """
 
 
+let db__pCLOG(line:Object[]): pCLOG =
+    let p = pCLOG_empty()
+
+    p.EndUser <- if Convert.IsDBNull(line.[4]) then 0L else line.[4] :?> int64
+    p.HashTiny <- string(line.[5]).TrimEnd()
+    p.Clink <- if Convert.IsDBNull(line.[6]) then 0L else line.[6] :?> int64
+
+    p
+
+let pCLOG__sps (p:pCLOG) = [|
+    new SqlParameter("EndUser", p.EndUser)
+    new SqlParameter("HashTiny", p.HashTiny)
+    new SqlParameter("Clink", p.Clink) |]
+
+let db__CLOG = db__Rcd db__pCLOG
+
+let CLOG_wrapper item: CLOG =
+    let (i,c,u,s),p = item
+    { ID = i; Createdat = c; Updatedat = u; Sort = s; p = p }
+
+let pCLOG_clone (p:pCLOG): pCLOG = {
+    EndUser = p.EndUser
+    HashTiny = p.HashTiny
+    Clink = p.Clink }
+
+let CLOG_update_transaction output (updater,suc,fail) (rcd:CLOG) =
+    let rollback_p = rcd.p |> pCLOG_clone
+    let rollback_updatedat = rcd.Updatedat
+    updater rcd.p
+    let ctime,res =
+        (rcd.ID,rcd.p,rollback_p,rollback_updatedat)
+        |> update (conn,output,CLOG_table,CLOG_sql_update,pCLOG__sps,suc,fail)
+    match res with
+    | Suc ctx ->
+        rcd.Updatedat <- ctime
+        suc(ctime,ctx)
+    | Fail(eso,ctx) ->
+        rcd.p <- rollback_p
+        rcd.Updatedat <- rollback_updatedat
+        fail eso
+
+let CLOG_update output (rcd:CLOG) =
+    rcd
+    |> CLOG_update_transaction output ((fun p -> ()),(fun (ctime,ctx) -> ()),(fun dte -> ()))
+
+let CLOG_create_incremental_transaction output (suc,fail) p =
+    let cid = Interlocked.Increment CLOG_id
+    let ctime = DateTime.UtcNow
+    match create (conn,output,CLOG_table,pCLOG__sps) (cid,ctime,p) with
+    | Suc ctx -> ((cid,ctime,ctime,cid),p) |> CLOG_wrapper |> suc
+    | Fail(eso,ctx) -> fail(eso,ctx)
+
+let CLOG_create output p =
+    CLOG_create_incremental_transaction output ((fun rcd -> ()),(fun (eso,ctx) -> ())) p
+    
+
+let id__CLOGo id: CLOG option = id__rcd(conn,CLOG_fieldorders,CLOG_table,db__CLOG) id
+
+let CLOG_metadata = {
+    fieldorders = CLOG_fieldorders
+    db__rcd = db__CLOG 
+    wrapper = CLOG_wrapper
+    sps = pCLOG__sps
+    id = CLOG_id
+    id__rcdo = id__CLOGo
+    clone = pCLOG_clone
+    empty__p = pCLOG_empty
+    rcd__bin = CLOG__bin
+    bin__rcd = bin__CLOG
+    sql_update = CLOG_sql_update
+    rcd_update = CLOG_update
+    table = CLOG_table
+    shorthand = "clog" }
+
+let CLOGTxSqlServer =
+    """
+    IF NOT EXISTS(SELECT * FROM sysobjects WHERE [name]='Core_ClinkLog' AND xtype='U')
+    BEGIN
+
+        CREATE TABLE Core_ClinkLog ([ID] BIGINT NOT NULL
+    ,[Createdat] BIGINT NOT NULL
+    ,[Updatedat] BIGINT NOT NULL
+    ,[Sort] BIGINT NOT NULL,
+    ,[EndUser]
+    ,[HashTiny]
+    ,[Clink])
+    END
+    """
+
+
 let db__pCLINK(line:Object[]): pCLINK =
     let p = pCLINK_empty()
 
@@ -4620,9 +4842,10 @@ type MetadataEnum =
 | LANG = 7
 | CWC = 8
 | BIZOWNER = 9
-| CLINK = 10
-| DOMAINNAME = 11
-| LOG = 12
+| CLOG = 10
+| CLINK = 11
+| DOMAINNAME = 12
+| LOG = 13
 
 let tablenames = [|
     ADDRESS_metadata.table
@@ -4635,6 +4858,7 @@ let tablenames = [|
     LANG_metadata.table
     CWC_metadata.table
     BIZOWNER_metadata.table
+    CLOG_metadata.table
     CLINK_metadata.table
     DOMAINNAME_metadata.table
     LOG_metadata.table |]
@@ -4749,6 +4973,17 @@ let init() =
 
     match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Core_BizOwner]") with
     | Some v -> BIZOWNER_count.Value <- v :?> int32
+    | None -> ()
+
+    match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Core_ClinkLog]") with
+    | Some v ->
+        let max = v :?> int64
+        if max > CLOG_id.Value then
+            CLOG_id.Value <- max
+    | None -> ()
+
+    match singlevalue_query conn (str__sql "SELECT COUNT(ID) FROM [Core_ClinkLog]") with
+    | Some v -> CLOG_count.Value <- v :?> int32
     | None -> ()
 
     match singlevalue_query conn (str__sql "SELECT MAX(ID) FROM [Core_CryptoLink]") with

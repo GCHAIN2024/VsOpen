@@ -10,6 +10,7 @@ open Util.Http
 open Util.HttpServer
 
 open UtilWebServer.Common
+open UtilWebServer.Db
 open UtilWebServer.Api
 open UtilWebServer.Json
 open UtilWebServer.SSR
@@ -100,6 +101,15 @@ let hTinyLink req =
         if runtime.data.tiny__full.ContainsKey m then
             let hashFull = runtime.data.tiny__full[m]
             let clink = runtime.data.hashFull__clinks[hashFull]
+
+            let p = 
+                let p =  pCLOG_empty()
+                p.Clink <- clink.ID
+                p.HashTiny <- clink.p.HashTiny
+                p
+
+            p__createRcd p CLOG_metadata "BizLogics.SSR.hTinyLink" conn
+            |> ignore
 
             let forward = false
 

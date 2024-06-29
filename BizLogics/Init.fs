@@ -24,6 +24,18 @@ open Shared.Types
 open BizLogics.Common
 open BizLogics.Ca
 
+let f:int * int -> int = 
+    fun (x,y) -> x + y
+
+let g:int -> int = 
+    fun x -> x * x
+
+let h:int -> byte[] =
+    fun x ->   
+        let s = x.ToString()
+        System.Text.Encoding.UTF8.GetBytes(s)
+
+
 let init (runtime:Runtime) = 
 
     "Init ..."
