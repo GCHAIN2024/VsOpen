@@ -3168,22 +3168,23 @@ let db__pADDRESS(line:Object[]): pADDRESS =
 
     p
 
-let pADDRESS__sps (p:pADDRESS) = [|
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Bind", p.Bind)
-    new SqlParameter("Type", p.Type)
-    new SqlParameter("Line1", p.Line1)
-    new SqlParameter("Line2", p.Line2)
-    new SqlParameter("State", p.State)
-    new SqlParameter("County", p.County)
-    new SqlParameter("Town", p.Town)
-    new SqlParameter("Contact", p.Contact)
-    new SqlParameter("Tel", p.Tel)
-    new SqlParameter("Email", p.Email)
-    new SqlParameter("Zip", p.Zip)
-    new SqlParameter("City", p.City)
-    new SqlParameter("Country", p.Country)
-    new SqlParameter("Remarks", p.Remarks) |]
+let pADDRESS__sps (p:pADDRESS) =
+    [|
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Bind", p.Bind) |> kvp__sqlparam
+        ("Type", p.Type) |> kvp__sqlparam
+        ("Line1", p.Line1) |> kvp__sqlparam
+        ("Line2", p.Line2) |> kvp__sqlparam
+        ("State", p.State) |> kvp__sqlparam
+        ("County", p.County) |> kvp__sqlparam
+        ("Town", p.Town) |> kvp__sqlparam
+        ("Contact", p.Contact) |> kvp__sqlparam
+        ("Tel", p.Tel) |> kvp__sqlparam
+        ("Email", p.Email) |> kvp__sqlparam
+        ("Zip", p.Zip) |> kvp__sqlparam
+        ("City", p.City) |> kvp__sqlparam
+        ("Country", p.Country) |> kvp__sqlparam
+        ("Remarks", p.Remarks) |> kvp__sqlparam |]
 
 let db__ADDRESS = db__Rcd db__pADDRESS
 
@@ -3318,34 +3319,35 @@ let db__pBIZ(line:Object[]): pBIZ =
 
     p
 
-let pBIZ__sps (p:pBIZ) = [|
-    new SqlParameter("Code", p.Code)
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Parent", p.Parent)
-    new SqlParameter("BasicAcct", p.BasicAcct)
-    new SqlParameter("Desc", p.Desc)
-    new SqlParameter("Website", p.Website)
-    new SqlParameter("Icon", p.Icon)
-    new SqlParameter("City", p.City)
-    new SqlParameter("Country", p.Country)
-    new SqlParameter("Lang", p.Lang)
-    new SqlParameter("IsSocial", p.IsSocial)
-    new SqlParameter("IsCmsSource", p.IsCmsSource)
-    new SqlParameter("IsPay", p.IsPay)
-    new SqlParameter("MomentLatest", p.MomentLatest)
-    new SqlParameter("CountFollowers", p.CountFollowers)
-    new SqlParameter("CountFollows", p.CountFollows)
-    new SqlParameter("CountMoments", p.CountMoments)
-    new SqlParameter("CountViews", p.CountViews)
-    new SqlParameter("CountComments", p.CountComments)
-    new SqlParameter("CountThumbUps", p.CountThumbUps)
-    new SqlParameter("CountThumbDns", p.CountThumbDns)
-    new SqlParameter("IsCrawling", p.IsCrawling)
-    new SqlParameter("IsGSeries", p.IsGSeries)
-    new SqlParameter("RemarksCentral", p.RemarksCentral)
-    new SqlParameter("Agent", p.Agent)
-    new SqlParameter("SiteCats", p.SiteCats)
-    new SqlParameter("ConfiguredCats", p.ConfiguredCats) |]
+let pBIZ__sps (p:pBIZ) =
+    [|
+        ("Code", p.Code) |> kvp__sqlparam
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Parent", p.Parent) |> kvp__sqlparam
+        ("BasicAcct", p.BasicAcct) |> kvp__sqlparam
+        ("Desc", p.Desc) |> kvp__sqlparam
+        ("Website", p.Website) |> kvp__sqlparam
+        ("Icon", p.Icon) |> kvp__sqlparam
+        ("City", p.City) |> kvp__sqlparam
+        ("Country", p.Country) |> kvp__sqlparam
+        ("Lang", p.Lang) |> kvp__sqlparam
+        ("IsSocial", p.IsSocial) |> kvp__sqlparam
+        ("IsCmsSource", p.IsCmsSource) |> kvp__sqlparam
+        ("IsPay", p.IsPay) |> kvp__sqlparam
+        ("MomentLatest", p.MomentLatest) |> kvp__sqlparam
+        ("CountFollowers", p.CountFollowers) |> kvp__sqlparam
+        ("CountFollows", p.CountFollows) |> kvp__sqlparam
+        ("CountMoments", p.CountMoments) |> kvp__sqlparam
+        ("CountViews", p.CountViews) |> kvp__sqlparam
+        ("CountComments", p.CountComments) |> kvp__sqlparam
+        ("CountThumbUps", p.CountThumbUps) |> kvp__sqlparam
+        ("CountThumbDns", p.CountThumbDns) |> kvp__sqlparam
+        ("IsCrawling", p.IsCrawling) |> kvp__sqlparam
+        ("IsGSeries", p.IsGSeries) |> kvp__sqlparam
+        ("RemarksCentral", p.RemarksCentral) |> kvp__sqlparam
+        ("Agent", p.Agent) |> kvp__sqlparam
+        ("SiteCats", p.SiteCats) |> kvp__sqlparam
+        ("ConfiguredCats", p.ConfiguredCats) |> kvp__sqlparam |]
 
 let db__BIZ = db__Rcd db__pBIZ
 
@@ -3486,16 +3488,17 @@ let db__pCRY(line:Object[]): pCRY =
 
     p
 
-let pCRY__sps (p:pCRY) = [|
-    new SqlParameter("Code2", p.Code2)
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Fullname", p.Fullname)
-    new SqlParameter("Icon", p.Icon)
-    new SqlParameter("Tel", p.Tel)
-    new SqlParameter("Cur", p.Cur)
-    new SqlParameter("Capital", p.Capital)
-    new SqlParameter("Place", p.Place)
-    new SqlParameter("Lang", p.Lang) |]
+let pCRY__sps (p:pCRY) =
+    [|
+        ("Code2", p.Code2) |> kvp__sqlparam
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Fullname", p.Fullname) |> kvp__sqlparam
+        ("Icon", p.Icon) |> kvp__sqlparam
+        ("Tel", p.Tel) |> kvp__sqlparam
+        ("Cur", p.Cur) |> kvp__sqlparam
+        ("Capital", p.Capital) |> kvp__sqlparam
+        ("Place", p.Place) |> kvp__sqlparam
+        ("Lang", p.Lang) |> kvp__sqlparam |]
 
 let db__CRY = db__Rcd db__pCRY
 
@@ -3610,26 +3613,27 @@ let db__pCUR(line:Object[]): pCUR =
 
     p
 
-let pCUR__sps (p:pCUR) = [|
-    new SqlParameter("Code", p.Code)
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Hidden", p.Hidden)
-    new SqlParameter("IsSac", p.IsSac)
-    new SqlParameter("IsTransfer", p.IsTransfer)
-    new SqlParameter("IsCash", p.IsCash)
-    new SqlParameter("EnableReward", p.EnableReward)
-    new SqlParameter("EnableOTC", p.EnableOTC)
-    new SqlParameter("Icon", p.Icon)
-    new SqlParameter("CurType", p.CurType)
-    new SqlParameter("Dec", p.Dec)
-    new SqlParameter("AnchorRate", p.AnchorRate)
-    new SqlParameter("Freezable", p.Freezable)
-    new SqlParameter("Authorizable", p.Authorizable)
-    new SqlParameter("ChaninID", p.ChaninID)
-    new SqlParameter("ChaninName", p.ChaninName)
-    new SqlParameter("ContractAddress", p.ContractAddress)
-    new SqlParameter("WalletAddress", p.WalletAddress)
-    new SqlParameter("BaseRate", p.BaseRate) |]
+let pCUR__sps (p:pCUR) =
+    [|
+        ("Code", p.Code) |> kvp__sqlparam
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Hidden", p.Hidden) |> kvp__sqlparam
+        ("IsSac", p.IsSac) |> kvp__sqlparam
+        ("IsTransfer", p.IsTransfer) |> kvp__sqlparam
+        ("IsCash", p.IsCash) |> kvp__sqlparam
+        ("EnableReward", p.EnableReward) |> kvp__sqlparam
+        ("EnableOTC", p.EnableOTC) |> kvp__sqlparam
+        ("Icon", p.Icon) |> kvp__sqlparam
+        ("CurType", p.CurType) |> kvp__sqlparam
+        ("Dec", p.Dec) |> kvp__sqlparam
+        ("AnchorRate", p.AnchorRate) |> kvp__sqlparam
+        ("Freezable", p.Freezable) |> kvp__sqlparam
+        ("Authorizable", p.Authorizable) |> kvp__sqlparam
+        ("ChaninID", p.ChaninID) |> kvp__sqlparam
+        ("ChaninName", p.ChaninName) |> kvp__sqlparam
+        ("ContractAddress", p.ContractAddress) |> kvp__sqlparam
+        ("WalletAddress", p.WalletAddress) |> kvp__sqlparam
+        ("BaseRate", p.BaseRate) |> kvp__sqlparam |]
 
 let db__CUR = db__Rcd db__pCUR
 
@@ -3767,29 +3771,30 @@ let db__pEU(line:Object[]): pEU =
 
     p
 
-let pEU__sps (p:pEU) = [|
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Username", p.Username)
-    new SqlParameter("SocialAuthBiz", p.SocialAuthBiz)
-    new SqlParameter("SocialAuthId", p.SocialAuthId)
-    new SqlParameter("SocialAuthAvatar", p.SocialAuthAvatar)
-    new SqlParameter("Email", p.Email)
-    new SqlParameter("Tel", p.Tel)
-    new SqlParameter("Gender", p.Gender)
-    new SqlParameter("Status", p.Status)
-    new SqlParameter("Admin", p.Admin)
-    new SqlParameter("BizPartner", p.BizPartner)
-    new SqlParameter("Privilege", p.Privilege)
-    new SqlParameter("Verify", p.Verify)
-    new SqlParameter("Pwd", p.Pwd)
-    new SqlParameter("Online", p.Online)
-    new SqlParameter("Icon", p.Icon)
-    new SqlParameter("Background", p.Background)
-    new SqlParameter("BasicAcct", p.BasicAcct)
-    new SqlParameter("Refer", p.Refer)
-    new SqlParameter("Referer", p.Referer)
-    new SqlParameter("Url", p.Url)
-    new SqlParameter("About", p.About) |]
+let pEU__sps (p:pEU) =
+    [|
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Username", p.Username) |> kvp__sqlparam
+        ("SocialAuthBiz", p.SocialAuthBiz) |> kvp__sqlparam
+        ("SocialAuthId", p.SocialAuthId) |> kvp__sqlparam
+        ("SocialAuthAvatar", p.SocialAuthAvatar) |> kvp__sqlparam
+        ("Email", p.Email) |> kvp__sqlparam
+        ("Tel", p.Tel) |> kvp__sqlparam
+        ("Gender", p.Gender) |> kvp__sqlparam
+        ("Status", p.Status) |> kvp__sqlparam
+        ("Admin", p.Admin) |> kvp__sqlparam
+        ("BizPartner", p.BizPartner) |> kvp__sqlparam
+        ("Privilege", p.Privilege) |> kvp__sqlparam
+        ("Verify", p.Verify) |> kvp__sqlparam
+        ("Pwd", p.Pwd) |> kvp__sqlparam
+        ("Online", p.Online) |> kvp__sqlparam
+        ("Icon", p.Icon) |> kvp__sqlparam
+        ("Background", p.Background) |> kvp__sqlparam
+        ("BasicAcct", p.BasicAcct) |> kvp__sqlparam
+        ("Refer", p.Refer) |> kvp__sqlparam
+        ("Referer", p.Referer) |> kvp__sqlparam
+        ("Url", p.Url) |> kvp__sqlparam
+        ("About", p.About) |> kvp__sqlparam |]
 
 let db__EU = db__Rcd db__pEU
 
@@ -3921,17 +3926,18 @@ let db__pFILE(line:Object[]): pFILE =
 
     p
 
-let pFILE__sps (p:pFILE) = [|
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Encrypt", p.Encrypt)
-    new SqlParameter("SHA256", p.SHA256)
-    new SqlParameter("Size", p.Size)
-    new SqlParameter("Bind", p.Bind)
-    new SqlParameter("BindType", p.BindType)
-    new SqlParameter("State", p.State)
-    new SqlParameter("Folder", p.Folder)
-    new SqlParameter("FileType", p.FileType)
-    new SqlParameter("JSON", p.JSON) |]
+let pFILE__sps (p:pFILE) =
+    [|
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Encrypt", p.Encrypt) |> kvp__sqlparam
+        ("SHA256", p.SHA256) |> kvp__sqlparam
+        ("Size", p.Size) |> kvp__sqlparam
+        ("Bind", p.Bind) |> kvp__sqlparam
+        ("BindType", p.BindType) |> kvp__sqlparam
+        ("State", p.State) |> kvp__sqlparam
+        ("Folder", p.Folder) |> kvp__sqlparam
+        ("FileType", p.FileType) |> kvp__sqlparam
+        ("JSON", p.JSON) |> kvp__sqlparam |]
 
 let db__FILE = db__Rcd db__pFILE
 
@@ -4034,12 +4040,13 @@ let db__pFOLDER(line:Object[]): pFOLDER =
 
     p
 
-let pFOLDER__sps (p:pFOLDER) = [|
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Encrypt", p.Encrypt)
-    new SqlParameter("Bind", p.Bind)
-    new SqlParameter("BindType", p.BindType)
-    new SqlParameter("Parent", p.Parent) |]
+let pFOLDER__sps (p:pFOLDER) =
+    [|
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Encrypt", p.Encrypt) |> kvp__sqlparam
+        ("Bind", p.Bind) |> kvp__sqlparam
+        ("BindType", p.BindType) |> kvp__sqlparam
+        ("Parent", p.Parent) |> kvp__sqlparam |]
 
 let db__FOLDER = db__Rcd db__pFOLDER
 
@@ -4136,16 +4143,17 @@ let db__pLANG(line:Object[]): pLANG =
 
     p
 
-let pLANG__sps (p:pLANG) = [|
-    new SqlParameter("Code2", p.Code2)
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Native", p.Native)
-    new SqlParameter("Icon", p.Icon)
-    new SqlParameter("IsBlank", p.IsBlank)
-    new SqlParameter("IsLocale", p.IsLocale)
-    new SqlParameter("IsContent", p.IsContent)
-    new SqlParameter("IsAutoTranslate", p.IsAutoTranslate)
-    new SqlParameter("TextDirection", p.TextDirection) |]
+let pLANG__sps (p:pLANG) =
+    [|
+        ("Code2", p.Code2) |> kvp__sqlparam
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Native", p.Native) |> kvp__sqlparam
+        ("Icon", p.Icon) |> kvp__sqlparam
+        ("IsBlank", p.IsBlank) |> kvp__sqlparam
+        ("IsLocale", p.IsLocale) |> kvp__sqlparam
+        ("IsContent", p.IsContent) |> kvp__sqlparam
+        ("IsAutoTranslate", p.IsAutoTranslate) |> kvp__sqlparam
+        ("TextDirection", p.TextDirection) |> kvp__sqlparam |]
 
 let db__LANG = db__Rcd db__pLANG
 
@@ -4247,13 +4255,14 @@ let db__pCWC(line:Object[]): pCWC =
 
     p
 
-let pCWC__sps (p:pCWC) = [|
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("ExternalId", p.ExternalId)
-    new SqlParameter("Icon", p.Icon)
-    new SqlParameter("EU", p.EU)
-    new SqlParameter("Biz", p.Biz)
-    new SqlParameter("Json", p.Json) |]
+let pCWC__sps (p:pCWC) =
+    [|
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("ExternalId", p.ExternalId) |> kvp__sqlparam
+        ("Icon", p.Icon) |> kvp__sqlparam
+        ("EU", p.EU) |> kvp__sqlparam
+        ("Biz", p.Biz) |> kvp__sqlparam
+        ("Json", p.Json) |> kvp__sqlparam |]
 
 let db__CWC = db__Rcd db__pCWC
 
@@ -4347,11 +4356,12 @@ let db__pBIZOWNER(line:Object[]): pBIZOWNER =
 
     p
 
-let pBIZOWNER__sps (p:pBIZOWNER) = [|
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Bind", p.Bind)
-    new SqlParameter("BindType", p.BindType)
-    new SqlParameter("State", p.State) |]
+let pBIZOWNER__sps (p:pBIZOWNER) =
+    [|
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Bind", p.Bind) |> kvp__sqlparam
+        ("BindType", p.BindType) |> kvp__sqlparam
+        ("State", p.State) |> kvp__sqlparam |]
 
 let db__BIZOWNER = db__Rcd db__pBIZOWNER
 
@@ -4440,10 +4450,11 @@ let db__pCLOG(line:Object[]): pCLOG =
 
     p
 
-let pCLOG__sps (p:pCLOG) = [|
-    new SqlParameter("EndUser", p.EndUser)
-    new SqlParameter("HashTiny", p.HashTiny)
-    new SqlParameter("Clink", p.Clink) |]
+let pCLOG__sps (p:pCLOG) =
+    [|
+        ("EndUser", p.EndUser) |> kvp__sqlparam
+        ("HashTiny", p.HashTiny) |> kvp__sqlparam
+        ("Clink", p.Clink) |> kvp__sqlparam |]
 
 let db__CLOG = db__Rcd db__pCLOG
 
@@ -4539,19 +4550,20 @@ let db__pCLINK(line:Object[]): pCLINK =
 
     p
 
-let pCLINK__sps (p:pCLINK) = [|
-    new SqlParameter("Expiry", p.Expiry.Ticks)
-    new SqlParameter("HashFull", p.HashFull)
-    new SqlParameter("HashTiny", p.HashTiny)
-    new SqlParameter("Src", p.Src)
-    new SqlParameter("DomainName", p.DomainName)
-    new SqlParameter("Owner", p.Owner)
-    new SqlParameter("Dst", p.Dst)
-    new SqlParameter("BizOwner", p.BizOwner)
-    new SqlParameter("Data", p.Data)
-    new SqlParameter("OgTitle", p.OgTitle)
-    new SqlParameter("OgDesc", p.OgDesc)
-    new SqlParameter("OgImg", p.OgImg) |]
+let pCLINK__sps (p:pCLINK) =
+    [|
+        ("Expiry", p.Expiry.Ticks) |> kvp__sqlparam
+        ("HashFull", p.HashFull) |> kvp__sqlparam
+        ("HashTiny", p.HashTiny) |> kvp__sqlparam
+        ("Src", p.Src) |> kvp__sqlparam
+        ("DomainName", p.DomainName) |> kvp__sqlparam
+        ("Owner", p.Owner) |> kvp__sqlparam
+        ("Dst", p.Dst) |> kvp__sqlparam
+        ("BizOwner", p.BizOwner) |> kvp__sqlparam
+        ("Data", p.Data) |> kvp__sqlparam
+        ("OgTitle", p.OgTitle) |> kvp__sqlparam
+        ("OgDesc", p.OgDesc) |> kvp__sqlparam
+        ("OgImg", p.OgImg) |> kvp__sqlparam |]
 
 let db__CLINK = db__Rcd db__pCLINK
 
@@ -4657,11 +4669,12 @@ let db__pDOMAINNAME(line:Object[]): pDOMAINNAME =
 
     p
 
-let pDOMAINNAME__sps (p:pDOMAINNAME) = [|
-    new SqlParameter("Caption", p.Caption)
-    new SqlParameter("Biz", p.Biz)
-    new SqlParameter("EndUser", p.EndUser)
-    new SqlParameter("BizOwner", p.BizOwner) |]
+let pDOMAINNAME__sps (p:pDOMAINNAME) =
+    [|
+        ("Caption", p.Caption) |> kvp__sqlparam
+        ("Biz", p.Biz) |> kvp__sqlparam
+        ("EndUser", p.EndUser) |> kvp__sqlparam
+        ("BizOwner", p.BizOwner) |> kvp__sqlparam |]
 
 let db__DOMAINNAME = db__Rcd db__pDOMAINNAME
 
@@ -4750,10 +4763,11 @@ let db__pLOG(line:Object[]): pLOG =
 
     p
 
-let pLOG__sps (p:pLOG) = [|
-    new SqlParameter("Location", p.Location)
-    new SqlParameter("Content", p.Content)
-    new SqlParameter("Sql", p.Sql) |]
+let pLOG__sps (p:pLOG) =
+    [|
+        ("Location", p.Location) |> kvp__sqlparam
+        ("Content", p.Content) |> kvp__sqlparam
+        ("Sql", p.Sql) |> kvp__sqlparam |]
 
 let db__LOG = db__Rcd db__pLOG
 

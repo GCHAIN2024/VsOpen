@@ -55,6 +55,9 @@ DEALLOCATE cursor_Ca_Address;
 
 -- [Ca_Address.Caption] -------------
 
+
+-- [Ca_Address.Caption] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Address') AND name='Caption')
     BEGIN
      ALTER TABLE Ca_Address ALTER COLUMN [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
@@ -69,13 +72,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressCaption]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressCaption')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressCaption]
     END
+
+-- [Ca_Address.Bind] -------------
+
 
 -- [Ca_Address.Bind] -------------
 
@@ -93,13 +99,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressBind')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressBind]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressBind]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressBind')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressBind]
     END
+
+-- [Ca_Address.Type] -------------
+
 
 -- [Ca_Address.Type] -------------
 
@@ -117,13 +126,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressType')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressType]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressType]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressType')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressType]
     END
+
+-- [Ca_Address.Line1] -------------
+
 
 -- [Ca_Address.Line1] -------------
 
@@ -141,13 +153,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressLine1')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressLine1]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressLine1]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressLine1')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressLine1]
     END
+
+-- [Ca_Address.Line2] -------------
+
 
 -- [Ca_Address.Line2] -------------
 
@@ -165,13 +180,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressLine2')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressLine2]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressLine2]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressLine2')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressLine2]
     END
+
+-- [Ca_Address.State] -------------
+
 
 -- [Ca_Address.State] -------------
 
@@ -189,13 +207,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressState')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressState]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressState]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressState')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressState]
     END
+
+-- [Ca_Address.County] -------------
+
 
 -- [Ca_Address.County] -------------
 
@@ -213,13 +234,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCounty')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressCounty]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressCounty]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressCounty')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressCounty]
     END
+
+-- [Ca_Address.Town] -------------
+
 
 -- [Ca_Address.Town] -------------
 
@@ -237,13 +261,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressTown')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressTown]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressTown]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressTown')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressTown]
     END
+
+-- [Ca_Address.Contact] -------------
+
 
 -- [Ca_Address.Contact] -------------
 
@@ -261,13 +288,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressContact')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressContact]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressContact]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressContact')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressContact]
     END
+
+-- [Ca_Address.Tel] -------------
+
 
 -- [Ca_Address.Tel] -------------
 
@@ -285,13 +315,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressTel')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressTel]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressTel]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressTel')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressTel]
     END
+
+-- [Ca_Address.Email] -------------
+
 
 -- [Ca_Address.Email] -------------
 
@@ -309,13 +342,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressEmail')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressEmail]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressEmail]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressEmail')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressEmail]
     END
+
+-- [Ca_Address.Zip] -------------
+
 
 -- [Ca_Address.Zip] -------------
 
@@ -333,13 +369,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressZip')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressZip]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressZip]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressZip')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressZip]
     END
+
+-- [Ca_Address.City] -------------
+
 
 -- [Ca_Address.City] -------------
 
@@ -357,13 +396,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCity')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressCity]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressCity]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressCity')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressCity]
     END
+
+-- [Ca_Address.Country] -------------
+
 
 -- [Ca_Address.Country] -------------
 
@@ -381,13 +423,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressCountry')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressCountry]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressCountry]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressCountry')
     BEGIN
     ALTER TABLE Ca_Address DROP  CONSTRAINT [UniqueNonclustered_Ca_AddressCountry]
     END
+
+-- [Ca_Address.Remarks] -------------
+
 
 -- [Ca_Address.Remarks] -------------
 
@@ -405,7 +450,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_AddressRemarks')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_AddressRemarks]
+    ALTER TABLE Ca_Address DROP  CONSTRAINT [Constraint_Ca_AddressRemarks]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_AddressRemarks')
@@ -479,6 +524,9 @@ DEALLOCATE cursor_Ca_Biz;
 
 -- [Ca_Biz.Code] -------------
 
+
+-- [Ca_Biz.Code] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Biz') AND name='Code')
     BEGIN
      ALTER TABLE Ca_Biz ALTER COLUMN [Code] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
@@ -493,13 +541,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCode')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCode]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCode]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCode')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCode]
     END
+
+-- [Ca_Biz.Caption] -------------
+
 
 -- [Ca_Biz.Caption] -------------
 
@@ -517,13 +568,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCaption]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCaption')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCaption]
     END
+
+-- [Ca_Biz.Parent] -------------
+
 
 -- [Ca_Biz.Parent] -------------
 
@@ -541,13 +595,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizParent')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizParent]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizParent]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizParent')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizParent]
     END
+
+-- [Ca_Biz.BasicAcct] -------------
+
 
 -- [Ca_Biz.BasicAcct] -------------
 
@@ -565,13 +622,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizBasicAcct')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizBasicAcct]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizBasicAcct]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizBasicAcct')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizBasicAcct]
     END
+
+-- [Ca_Biz.Desc] -------------
+
 
 -- [Ca_Biz.Desc] -------------
 
@@ -589,13 +649,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizDesc')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizDesc]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizDesc]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizDesc')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizDesc]
     END
+
+-- [Ca_Biz.Website] -------------
+
 
 -- [Ca_Biz.Website] -------------
 
@@ -613,13 +676,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizWebsite')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizWebsite]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizWebsite]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizWebsite')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizWebsite]
     END
+
+-- [Ca_Biz.Icon] -------------
+
 
 -- [Ca_Biz.Icon] -------------
 
@@ -637,13 +703,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIcon')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizIcon]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizIcon]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizIcon')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizIcon]
     END
+
+-- [Ca_Biz.City] -------------
+
 
 -- [Ca_Biz.City] -------------
 
@@ -661,13 +730,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCity')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCity]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCity]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCity')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCity]
     END
+
+-- [Ca_Biz.Country] -------------
+
 
 -- [Ca_Biz.Country] -------------
 
@@ -685,13 +757,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountry')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountry]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountry]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountry')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountry]
     END
+
+-- [Ca_Biz.Lang] -------------
+
 
 -- [Ca_Biz.Lang] -------------
 
@@ -709,13 +784,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizLang')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizLang]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizLang]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizLang')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizLang]
     END
+
+-- [Ca_Biz.IsSocial] -------------
+
 
 -- [Ca_Biz.IsSocial] -------------
 
@@ -733,13 +811,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsSocial')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizIsSocial]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizIsSocial]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizIsSocial')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizIsSocial]
     END
+
+-- [Ca_Biz.IsCmsSource] -------------
+
 
 -- [Ca_Biz.IsCmsSource] -------------
 
@@ -757,13 +838,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsCmsSource')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizIsCmsSource]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizIsCmsSource]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizIsCmsSource')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizIsCmsSource]
     END
+
+-- [Ca_Biz.IsPay] -------------
+
 
 -- [Ca_Biz.IsPay] -------------
 
@@ -781,13 +865,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsPay')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizIsPay]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizIsPay]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizIsPay')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizIsPay]
     END
+
+-- [Ca_Biz.MomentLatest] -------------
+
 
 -- [Ca_Biz.MomentLatest] -------------
 
@@ -805,13 +892,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizMomentLatest')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizMomentLatest]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizMomentLatest]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizMomentLatest')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizMomentLatest]
     END
+
+-- [Ca_Biz.CountFollowers] -------------
+
 
 -- [Ca_Biz.CountFollowers] -------------
 
@@ -829,13 +919,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountFollowers')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountFollowers]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountFollowers]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountFollowers')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountFollowers]
     END
+
+-- [Ca_Biz.CountFollows] -------------
+
 
 -- [Ca_Biz.CountFollows] -------------
 
@@ -853,13 +946,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountFollows')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountFollows]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountFollows]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountFollows')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountFollows]
     END
+
+-- [Ca_Biz.CountMoments] -------------
+
 
 -- [Ca_Biz.CountMoments] -------------
 
@@ -877,13 +973,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountMoments')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountMoments]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountMoments]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountMoments')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountMoments]
     END
+
+-- [Ca_Biz.CountViews] -------------
+
 
 -- [Ca_Biz.CountViews] -------------
 
@@ -901,13 +1000,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountViews')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountViews]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountViews]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountViews')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountViews]
     END
+
+-- [Ca_Biz.CountComments] -------------
+
 
 -- [Ca_Biz.CountComments] -------------
 
@@ -925,13 +1027,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountComments')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountComments]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountComments]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountComments')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountComments]
     END
+
+-- [Ca_Biz.CountThumbUps] -------------
+
 
 -- [Ca_Biz.CountThumbUps] -------------
 
@@ -949,13 +1054,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountThumbUps')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountThumbUps]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountThumbUps]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountThumbUps')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountThumbUps]
     END
+
+-- [Ca_Biz.CountThumbDns] -------------
+
 
 -- [Ca_Biz.CountThumbDns] -------------
 
@@ -973,13 +1081,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizCountThumbDns')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizCountThumbDns]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizCountThumbDns]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizCountThumbDns')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizCountThumbDns]
     END
+
+-- [Ca_Biz.IsCrawling] -------------
+
 
 -- [Ca_Biz.IsCrawling] -------------
 
@@ -997,13 +1108,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsCrawling')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizIsCrawling]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizIsCrawling]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizIsCrawling')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizIsCrawling]
     END
+
+-- [Ca_Biz.IsGSeries] -------------
+
 
 -- [Ca_Biz.IsGSeries] -------------
 
@@ -1021,13 +1135,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizIsGSeries')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizIsGSeries]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizIsGSeries]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizIsGSeries')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizIsGSeries]
     END
+
+-- [Ca_Biz.RemarksCentral] -------------
+
 
 -- [Ca_Biz.RemarksCentral] -------------
 
@@ -1045,13 +1162,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizRemarksCentral')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizRemarksCentral]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizRemarksCentral]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizRemarksCentral')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizRemarksCentral]
     END
+
+-- [Ca_Biz.Agent] -------------
+
 
 -- [Ca_Biz.Agent] -------------
 
@@ -1069,13 +1189,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizAgent')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizAgent]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizAgent]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizAgent')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizAgent]
     END
+
+-- [Ca_Biz.SiteCats] -------------
+
 
 -- [Ca_Biz.SiteCats] -------------
 
@@ -1093,13 +1216,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizSiteCats')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizSiteCats]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizSiteCats]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizSiteCats')
     BEGIN
     ALTER TABLE Ca_Biz DROP  CONSTRAINT [UniqueNonclustered_Ca_BizSiteCats]
     END
+
+-- [Ca_Biz.ConfiguredCats] -------------
+
 
 -- [Ca_Biz.ConfiguredCats] -------------
 
@@ -1117,7 +1243,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_BizConfiguredCats')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_BizConfiguredCats]
+    ALTER TABLE Ca_Biz DROP  CONSTRAINT [Constraint_Ca_BizConfiguredCats]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_BizConfiguredCats')
@@ -1173,6 +1299,9 @@ DEALLOCATE cursor_Ca_Country;
 
 -- [Ca_Country.Code2] -------------
 
+
+-- [Ca_Country.Code2] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Country') AND name='Code2')
     BEGIN
      ALTER TABLE Ca_Country ALTER COLUMN [Code2] NVARCHAR(2) COLLATE Chinese_PRC_CI_AS
@@ -1187,13 +1316,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCode2')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryCode2]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryCode2]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryCode2')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryCode2]
     END
+
+-- [Ca_Country.Caption] -------------
+
 
 -- [Ca_Country.Caption] -------------
 
@@ -1211,13 +1343,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryCaption]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryCaption')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryCaption]
     END
+
+-- [Ca_Country.Fullname] -------------
+
 
 -- [Ca_Country.Fullname] -------------
 
@@ -1235,13 +1370,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryFullname')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryFullname]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryFullname]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryFullname')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryFullname]
     END
+
+-- [Ca_Country.Icon] -------------
+
 
 -- [Ca_Country.Icon] -------------
 
@@ -1259,13 +1397,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryIcon')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryIcon]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryIcon]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryIcon')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryIcon]
     END
+
+-- [Ca_Country.Tel] -------------
+
 
 -- [Ca_Country.Tel] -------------
 
@@ -1283,13 +1424,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryTel')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryTel]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryTel]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryTel')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryTel]
     END
+
+-- [Ca_Country.Cur] -------------
+
 
 -- [Ca_Country.Cur] -------------
 
@@ -1307,13 +1451,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCur')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryCur]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryCur]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryCur')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryCur]
     END
+
+-- [Ca_Country.Capital] -------------
+
 
 -- [Ca_Country.Capital] -------------
 
@@ -1331,13 +1478,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryCapital')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryCapital]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryCapital]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryCapital')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryCapital]
     END
+
+-- [Ca_Country.Place] -------------
+
 
 -- [Ca_Country.Place] -------------
 
@@ -1355,13 +1505,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryPlace')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryPlace]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryPlace]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryPlace')
     BEGIN
     ALTER TABLE Ca_Country DROP  CONSTRAINT [UniqueNonclustered_Ca_CountryPlace]
     END
+
+-- [Ca_Country.Lang] -------------
+
 
 -- [Ca_Country.Lang] -------------
 
@@ -1379,7 +1532,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CountryLang')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CountryLang]
+    ALTER TABLE Ca_Country DROP  CONSTRAINT [Constraint_Ca_CountryLang]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CountryLang')
@@ -1445,6 +1598,9 @@ DEALLOCATE cursor_Ca_Cur;
 
 -- [Ca_Cur.Code] -------------
 
+
+-- [Ca_Cur.Code] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Cur') AND name='Code')
     BEGIN
      ALTER TABLE Ca_Cur ALTER COLUMN [Code] NVARCHAR(16) COLLATE Chinese_PRC_CI_AS
@@ -1459,13 +1615,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurCode')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurCode]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurCode]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurCode')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurCode]
     END
+
+-- [Ca_Cur.Caption] -------------
+
 
 -- [Ca_Cur.Caption] -------------
 
@@ -1483,13 +1642,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurCaption]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurCaption')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurCaption]
     END
+
+-- [Ca_Cur.Hidden] -------------
+
 
 -- [Ca_Cur.Hidden] -------------
 
@@ -1507,13 +1669,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurHidden')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurHidden]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurHidden]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurHidden')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurHidden]
     END
+
+-- [Ca_Cur.IsSac] -------------
+
 
 -- [Ca_Cur.IsSac] -------------
 
@@ -1531,13 +1696,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIsSac')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurIsSac]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurIsSac]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurIsSac')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurIsSac]
     END
+
+-- [Ca_Cur.IsTransfer] -------------
+
 
 -- [Ca_Cur.IsTransfer] -------------
 
@@ -1555,13 +1723,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIsTransfer')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurIsTransfer]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurIsTransfer]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurIsTransfer')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurIsTransfer]
     END
+
+-- [Ca_Cur.IsCash] -------------
+
 
 -- [Ca_Cur.IsCash] -------------
 
@@ -1579,13 +1750,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIsCash')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurIsCash]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurIsCash]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurIsCash')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurIsCash]
     END
+
+-- [Ca_Cur.EnableReward] -------------
+
 
 -- [Ca_Cur.EnableReward] -------------
 
@@ -1603,13 +1777,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurEnableReward')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurEnableReward]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurEnableReward]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurEnableReward')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurEnableReward]
     END
+
+-- [Ca_Cur.EnableOTC] -------------
+
 
 -- [Ca_Cur.EnableOTC] -------------
 
@@ -1627,13 +1804,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurEnableOTC')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurEnableOTC]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurEnableOTC]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurEnableOTC')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurEnableOTC]
     END
+
+-- [Ca_Cur.Icon] -------------
+
 
 -- [Ca_Cur.Icon] -------------
 
@@ -1651,13 +1831,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurIcon')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurIcon]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurIcon]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurIcon')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurIcon]
     END
+
+-- [Ca_Cur.CurType] -------------
+
 
 -- [Ca_Cur.CurType] -------------
 
@@ -1675,13 +1858,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurCurType')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurCurType]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurCurType]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurCurType')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurCurType]
     END
+
+-- [Ca_Cur.Dec] -------------
+
 
 -- [Ca_Cur.Dec] -------------
 
@@ -1699,13 +1885,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurDec')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurDec]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurDec]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurDec')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurDec]
     END
+
+-- [Ca_Cur.AnchorRate] -------------
+
 
 -- [Ca_Cur.AnchorRate] -------------
 
@@ -1723,13 +1912,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurAnchorRate')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurAnchorRate]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurAnchorRate]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurAnchorRate')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurAnchorRate]
     END
+
+-- [Ca_Cur.Freezable] -------------
+
 
 -- [Ca_Cur.Freezable] -------------
 
@@ -1747,13 +1939,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurFreezable')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurFreezable]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurFreezable]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurFreezable')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurFreezable]
     END
+
+-- [Ca_Cur.Authorizable] -------------
+
 
 -- [Ca_Cur.Authorizable] -------------
 
@@ -1771,13 +1966,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurAuthorizable')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurAuthorizable]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurAuthorizable]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurAuthorizable')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurAuthorizable]
     END
+
+-- [Ca_Cur.ChaninID] -------------
+
 
 -- [Ca_Cur.ChaninID] -------------
 
@@ -1795,13 +1993,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurChaninID')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurChaninID]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurChaninID]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurChaninID')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurChaninID]
     END
+
+-- [Ca_Cur.ChaninName] -------------
+
 
 -- [Ca_Cur.ChaninName] -------------
 
@@ -1819,13 +2020,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurChaninName')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurChaninName]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurChaninName]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurChaninName')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurChaninName]
     END
+
+-- [Ca_Cur.ContractAddress] -------------
+
 
 -- [Ca_Cur.ContractAddress] -------------
 
@@ -1843,13 +2047,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurContractAddress')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurContractAddress]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurContractAddress]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurContractAddress')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurContractAddress]
     END
+
+-- [Ca_Cur.WalletAddress] -------------
+
 
 -- [Ca_Cur.WalletAddress] -------------
 
@@ -1867,13 +2074,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurWalletAddress')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurWalletAddress]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurWalletAddress]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurWalletAddress')
     BEGIN
     ALTER TABLE Ca_Cur DROP  CONSTRAINT [UniqueNonclustered_Ca_CurWalletAddress]
     END
+
+-- [Ca_Cur.BaseRate] -------------
+
 
 -- [Ca_Cur.BaseRate] -------------
 
@@ -1891,7 +2101,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_CurBaseRate')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_CurBaseRate]
+    ALTER TABLE Ca_Cur DROP  CONSTRAINT [Constraint_Ca_CurBaseRate]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_CurBaseRate')
@@ -1960,6 +2170,9 @@ DEALLOCATE cursor_Ca_EndUser;
 
 -- [Ca_EndUser.Caption] -------------
 
+
+-- [Ca_EndUser.Caption] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_EndUser') AND name='Caption')
     BEGIN
      ALTER TABLE Ca_EndUser ALTER COLUMN [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
@@ -1974,13 +2187,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserCaption]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserCaption')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserCaption]
     END
+
+-- [Ca_EndUser.Username] -------------
+
 
 -- [Ca_EndUser.Username] -------------
 
@@ -1998,13 +2214,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserUsername')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserUsername]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserUsername]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserUsername')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserUsername]
     END
+
+-- [Ca_EndUser.SocialAuthBiz] -------------
+
 
 -- [Ca_EndUser.SocialAuthBiz] -------------
 
@@ -2022,13 +2241,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserSocialAuthBiz')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserSocialAuthBiz]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserSocialAuthBiz]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserSocialAuthBiz')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserSocialAuthBiz]
     END
+
+-- [Ca_EndUser.SocialAuthId] -------------
+
 
 -- [Ca_EndUser.SocialAuthId] -------------
 
@@ -2046,13 +2268,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserSocialAuthId')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserSocialAuthId]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserSocialAuthId]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserSocialAuthId')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserSocialAuthId]
     END
+
+-- [Ca_EndUser.SocialAuthAvatar] -------------
+
 
 -- [Ca_EndUser.SocialAuthAvatar] -------------
 
@@ -2070,13 +2295,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserSocialAuthAvatar')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserSocialAuthAvatar]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserSocialAuthAvatar]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserSocialAuthAvatar')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserSocialAuthAvatar]
     END
+
+-- [Ca_EndUser.Email] -------------
+
 
 -- [Ca_EndUser.Email] -------------
 
@@ -2094,13 +2322,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserEmail')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserEmail]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserEmail]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserEmail')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserEmail]
     END
+
+-- [Ca_EndUser.Tel] -------------
+
 
 -- [Ca_EndUser.Tel] -------------
 
@@ -2118,13 +2349,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserTel')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserTel]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserTel]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserTel')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserTel]
     END
+
+-- [Ca_EndUser.Gender] -------------
+
 
 -- [Ca_EndUser.Gender] -------------
 
@@ -2142,13 +2376,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserGender')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserGender]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserGender]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserGender')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserGender]
     END
+
+-- [Ca_EndUser.Status] -------------
+
 
 -- [Ca_EndUser.Status] -------------
 
@@ -2166,13 +2403,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserStatus')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserStatus]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserStatus]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserStatus')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserStatus]
     END
+
+-- [Ca_EndUser.Admin] -------------
+
 
 -- [Ca_EndUser.Admin] -------------
 
@@ -2190,13 +2430,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserAdmin')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserAdmin]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserAdmin]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserAdmin')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserAdmin]
     END
+
+-- [Ca_EndUser.BizPartner] -------------
+
 
 -- [Ca_EndUser.BizPartner] -------------
 
@@ -2214,13 +2457,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserBizPartner')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserBizPartner]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserBizPartner]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserBizPartner')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserBizPartner]
     END
+
+-- [Ca_EndUser.Privilege] -------------
+
 
 -- [Ca_EndUser.Privilege] -------------
 
@@ -2238,13 +2484,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserPrivilege')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserPrivilege]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserPrivilege]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserPrivilege')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserPrivilege]
     END
+
+-- [Ca_EndUser.Verify] -------------
+
 
 -- [Ca_EndUser.Verify] -------------
 
@@ -2262,13 +2511,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserVerify')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserVerify]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserVerify]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserVerify')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserVerify]
     END
+
+-- [Ca_EndUser.Pwd] -------------
+
 
 -- [Ca_EndUser.Pwd] -------------
 
@@ -2286,13 +2538,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserPwd')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserPwd]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserPwd]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserPwd')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserPwd]
     END
+
+-- [Ca_EndUser.Online] -------------
+
 
 -- [Ca_EndUser.Online] -------------
 
@@ -2310,13 +2565,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserOnline')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserOnline]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserOnline]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserOnline')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserOnline]
     END
+
+-- [Ca_EndUser.Icon] -------------
+
 
 -- [Ca_EndUser.Icon] -------------
 
@@ -2334,13 +2592,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserIcon')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserIcon]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserIcon]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserIcon')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserIcon]
     END
+
+-- [Ca_EndUser.Background] -------------
+
 
 -- [Ca_EndUser.Background] -------------
 
@@ -2358,13 +2619,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserBackground')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserBackground]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserBackground]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserBackground')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserBackground]
     END
+
+-- [Ca_EndUser.BasicAcct] -------------
+
 
 -- [Ca_EndUser.BasicAcct] -------------
 
@@ -2382,13 +2646,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserBasicAcct')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserBasicAcct]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserBasicAcct]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserBasicAcct')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserBasicAcct]
     END
+
+-- [Ca_EndUser.Refer] -------------
+
 
 -- [Ca_EndUser.Refer] -------------
 
@@ -2406,13 +2673,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserRefer')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserRefer]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserRefer]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserRefer')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserRefer]
     END
+
+-- [Ca_EndUser.Referer] -------------
+
 
 -- [Ca_EndUser.Referer] -------------
 
@@ -2430,13 +2700,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserReferer')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserReferer]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserReferer]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserReferer')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserReferer]
     END
+
+-- [Ca_EndUser.Url] -------------
+
 
 -- [Ca_EndUser.Url] -------------
 
@@ -2454,13 +2727,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserUrl')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserUrl]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserUrl]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserUrl')
     BEGIN
     ALTER TABLE Ca_EndUser DROP  CONSTRAINT [UniqueNonclustered_Ca_EndUserUrl]
     END
+
+-- [Ca_EndUser.About] -------------
+
 
 -- [Ca_EndUser.About] -------------
 
@@ -2478,7 +2754,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_EndUserAbout')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_EndUserAbout]
+    ALTER TABLE Ca_EndUser DROP  CONSTRAINT [Constraint_Ca_EndUserAbout]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_EndUserAbout')
@@ -2535,6 +2811,9 @@ DEALLOCATE cursor_Ca_File;
 
 -- [Ca_File.Caption] -------------
 
+
+-- [Ca_File.Caption] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_File') AND name='Caption')
     BEGIN
      ALTER TABLE Ca_File ALTER COLUMN [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
@@ -2549,13 +2828,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileCaption]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileCaption')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileCaption]
     END
+
+-- [Ca_File.Encrypt] -------------
+
 
 -- [Ca_File.Encrypt] -------------
 
@@ -2573,13 +2855,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileEncrypt')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileEncrypt]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileEncrypt]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileEncrypt')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileEncrypt]
     END
+
+-- [Ca_File.SHA256] -------------
+
 
 -- [Ca_File.SHA256] -------------
 
@@ -2597,13 +2882,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileSHA256')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileSHA256]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileSHA256]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileSHA256')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileSHA256]
     END
+
+-- [Ca_File.Size] -------------
+
 
 -- [Ca_File.Size] -------------
 
@@ -2621,13 +2909,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileSize')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileSize]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileSize]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileSize')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileSize]
     END
+
+-- [Ca_File.Bind] -------------
+
 
 -- [Ca_File.Bind] -------------
 
@@ -2645,13 +2936,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileBind')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileBind]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileBind]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileBind')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileBind]
     END
+
+-- [Ca_File.BindType] -------------
+
 
 -- [Ca_File.BindType] -------------
 
@@ -2669,13 +2963,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileBindType')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileBindType]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileBindType]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileBindType')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileBindType]
     END
+
+-- [Ca_File.State] -------------
+
 
 -- [Ca_File.State] -------------
 
@@ -2693,13 +2990,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileState')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileState]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileState]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileState')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileState]
     END
+
+-- [Ca_File.Folder] -------------
+
 
 -- [Ca_File.Folder] -------------
 
@@ -2717,13 +3017,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileFolder')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileFolder]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileFolder]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileFolder')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileFolder]
     END
+
+-- [Ca_File.FileType] -------------
+
 
 -- [Ca_File.FileType] -------------
 
@@ -2741,13 +3044,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileFileType')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileFileType]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileFileType]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileFileType')
     BEGIN
     ALTER TABLE Ca_File DROP  CONSTRAINT [UniqueNonclustered_Ca_FileFileType]
     END
+
+-- [Ca_File.JSON] -------------
+
 
 -- [Ca_File.JSON] -------------
 
@@ -2765,7 +3071,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FileJSON')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FileJSON]
+    ALTER TABLE Ca_File DROP  CONSTRAINT [Constraint_Ca_FileJSON]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FileJSON')
@@ -2817,6 +3123,9 @@ DEALLOCATE cursor_Ca_Folder;
 
 -- [Ca_Folder.Caption] -------------
 
+
+-- [Ca_Folder.Caption] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Folder') AND name='Caption')
     BEGIN
      ALTER TABLE Ca_Folder ALTER COLUMN [Caption] NVARCHAR(256) COLLATE Chinese_PRC_CI_AS
@@ -2831,13 +3140,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FolderCaption]
+    ALTER TABLE Ca_Folder DROP  CONSTRAINT [Constraint_Ca_FolderCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FolderCaption')
     BEGIN
     ALTER TABLE Ca_Folder DROP  CONSTRAINT [UniqueNonclustered_Ca_FolderCaption]
     END
+
+-- [Ca_Folder.Encrypt] -------------
+
 
 -- [Ca_Folder.Encrypt] -------------
 
@@ -2855,13 +3167,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderEncrypt')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FolderEncrypt]
+    ALTER TABLE Ca_Folder DROP  CONSTRAINT [Constraint_Ca_FolderEncrypt]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FolderEncrypt')
     BEGIN
     ALTER TABLE Ca_Folder DROP  CONSTRAINT [UniqueNonclustered_Ca_FolderEncrypt]
     END
+
+-- [Ca_Folder.Bind] -------------
+
 
 -- [Ca_Folder.Bind] -------------
 
@@ -2879,13 +3194,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderBind')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FolderBind]
+    ALTER TABLE Ca_Folder DROP  CONSTRAINT [Constraint_Ca_FolderBind]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FolderBind')
     BEGIN
     ALTER TABLE Ca_Folder DROP  CONSTRAINT [UniqueNonclustered_Ca_FolderBind]
     END
+
+-- [Ca_Folder.BindType] -------------
+
 
 -- [Ca_Folder.BindType] -------------
 
@@ -2903,13 +3221,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderBindType')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FolderBindType]
+    ALTER TABLE Ca_Folder DROP  CONSTRAINT [Constraint_Ca_FolderBindType]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FolderBindType')
     BEGIN
     ALTER TABLE Ca_Folder DROP  CONSTRAINT [UniqueNonclustered_Ca_FolderBindType]
     END
+
+-- [Ca_Folder.Parent] -------------
+
 
 -- [Ca_Folder.Parent] -------------
 
@@ -2927,7 +3248,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_FolderParent')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_FolderParent]
+    ALTER TABLE Ca_Folder DROP  CONSTRAINT [Constraint_Ca_FolderParent]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_FolderParent')
@@ -2983,6 +3304,9 @@ DEALLOCATE cursor_Ca_Lang;
 
 -- [Ca_Lang.Code2] -------------
 
+
+-- [Ca_Lang.Code2] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_Lang') AND name='Code2')
     BEGIN
      ALTER TABLE Ca_Lang ALTER COLUMN [Code2] NVARCHAR(2) COLLATE Chinese_PRC_CI_AS
@@ -2997,13 +3321,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangCode2')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangCode2]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangCode2]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangCode2')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangCode2]
     END
+
+-- [Ca_Lang.Caption] -------------
+
 
 -- [Ca_Lang.Caption] -------------
 
@@ -3021,13 +3348,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangCaption]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangCaption')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangCaption]
     END
+
+-- [Ca_Lang.Native] -------------
+
 
 -- [Ca_Lang.Native] -------------
 
@@ -3045,13 +3375,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangNative')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangNative]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangNative]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangNative')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangNative]
     END
+
+-- [Ca_Lang.Icon] -------------
+
 
 -- [Ca_Lang.Icon] -------------
 
@@ -3069,13 +3402,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIcon')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangIcon]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangIcon]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangIcon')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangIcon]
     END
+
+-- [Ca_Lang.IsBlank] -------------
+
 
 -- [Ca_Lang.IsBlank] -------------
 
@@ -3093,13 +3429,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsBlank')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangIsBlank]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangIsBlank]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangIsBlank')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangIsBlank]
     END
+
+-- [Ca_Lang.IsLocale] -------------
+
 
 -- [Ca_Lang.IsLocale] -------------
 
@@ -3117,13 +3456,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsLocale')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangIsLocale]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangIsLocale]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangIsLocale')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangIsLocale]
     END
+
+-- [Ca_Lang.IsContent] -------------
+
 
 -- [Ca_Lang.IsContent] -------------
 
@@ -3141,13 +3483,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsContent')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangIsContent]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangIsContent]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangIsContent')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangIsContent]
     END
+
+-- [Ca_Lang.IsAutoTranslate] -------------
+
 
 -- [Ca_Lang.IsAutoTranslate] -------------
 
@@ -3165,13 +3510,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangIsAutoTranslate')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangIsAutoTranslate]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangIsAutoTranslate]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangIsAutoTranslate')
     BEGIN
     ALTER TABLE Ca_Lang DROP  CONSTRAINT [UniqueNonclustered_Ca_LangIsAutoTranslate]
     END
+
+-- [Ca_Lang.TextDirection] -------------
+
 
 -- [Ca_Lang.TextDirection] -------------
 
@@ -3189,7 +3537,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_LangTextDirection')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_LangTextDirection]
+    ALTER TABLE Ca_Lang DROP  CONSTRAINT [Constraint_Ca_LangTextDirection]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_LangTextDirection')
@@ -3242,6 +3590,9 @@ DEALLOCATE cursor_Ca_WebCredential;
 
 -- [Ca_WebCredential.Caption] -------------
 
+
+-- [Ca_WebCredential.Caption] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Ca_WebCredential') AND name='Caption')
     BEGIN
      ALTER TABLE Ca_WebCredential ALTER COLUMN [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
@@ -3256,13 +3607,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_WebCredentialCaption]
+    ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [Constraint_Ca_WebCredentialCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_WebCredentialCaption')
     BEGIN
     ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [UniqueNonclustered_Ca_WebCredentialCaption]
     END
+
+-- [Ca_WebCredential.ExternalId] -------------
+
 
 -- [Ca_WebCredential.ExternalId] -------------
 
@@ -3280,13 +3634,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialExternalId')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_WebCredentialExternalId]
+    ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [Constraint_Ca_WebCredentialExternalId]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_WebCredentialExternalId')
     BEGIN
     ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [UniqueNonclustered_Ca_WebCredentialExternalId]
     END
+
+-- [Ca_WebCredential.Icon] -------------
+
 
 -- [Ca_WebCredential.Icon] -------------
 
@@ -3304,13 +3661,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialIcon')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_WebCredentialIcon]
+    ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [Constraint_Ca_WebCredentialIcon]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_WebCredentialIcon')
     BEGIN
     ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [UniqueNonclustered_Ca_WebCredentialIcon]
     END
+
+-- [Ca_WebCredential.EU] -------------
+
 
 -- [Ca_WebCredential.EU] -------------
 
@@ -3328,13 +3688,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialEU')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_WebCredentialEU]
+    ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [Constraint_Ca_WebCredentialEU]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_WebCredentialEU')
     BEGIN
     ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [UniqueNonclustered_Ca_WebCredentialEU]
     END
+
+-- [Ca_WebCredential.Biz] -------------
+
 
 -- [Ca_WebCredential.Biz] -------------
 
@@ -3352,13 +3715,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialBiz')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_WebCredentialBiz]
+    ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [Constraint_Ca_WebCredentialBiz]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_WebCredentialBiz')
     BEGIN
     ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [UniqueNonclustered_Ca_WebCredentialBiz]
     END
+
+-- [Ca_WebCredential.Json] -------------
+
 
 -- [Ca_WebCredential.Json] -------------
 
@@ -3376,7 +3742,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Ca_WebCredentialJson')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Ca_WebCredentialJson]
+    ALTER TABLE Ca_WebCredential DROP  CONSTRAINT [Constraint_Ca_WebCredentialJson]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Ca_WebCredentialJson')
@@ -3427,6 +3793,9 @@ DEALLOCATE cursor_Core_BizOwner;
 
 -- [Core_BizOwner.Caption] -------------
 
+
+-- [Core_BizOwner.Caption] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_BizOwner') AND name='Caption')
     BEGIN
      ALTER TABLE Core_BizOwner ALTER COLUMN [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
@@ -3441,13 +3810,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_BizOwnerCaption]
+    ALTER TABLE Core_BizOwner DROP  CONSTRAINT [Constraint_Core_BizOwnerCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_BizOwnerCaption')
     BEGIN
     ALTER TABLE Core_BizOwner DROP  CONSTRAINT [UniqueNonclustered_Core_BizOwnerCaption]
     END
+
+-- [Core_BizOwner.Bind] -------------
+
 
 -- [Core_BizOwner.Bind] -------------
 
@@ -3465,13 +3837,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerBind')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_BizOwnerBind]
+    ALTER TABLE Core_BizOwner DROP  CONSTRAINT [Constraint_Core_BizOwnerBind]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_BizOwnerBind')
     BEGIN
     ALTER TABLE Core_BizOwner DROP  CONSTRAINT [UniqueNonclustered_Core_BizOwnerBind]
     END
+
+-- [Core_BizOwner.BindType] -------------
+
 
 -- [Core_BizOwner.BindType] -------------
 
@@ -3489,13 +3864,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerBindType')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_BizOwnerBindType]
+    ALTER TABLE Core_BizOwner DROP  CONSTRAINT [Constraint_Core_BizOwnerBindType]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_BizOwnerBindType')
     BEGIN
     ALTER TABLE Core_BizOwner DROP  CONSTRAINT [UniqueNonclustered_Core_BizOwnerBindType]
     END
+
+-- [Core_BizOwner.State] -------------
+
 
 -- [Core_BizOwner.State] -------------
 
@@ -3513,7 +3891,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_BizOwnerState')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_BizOwnerState]
+    ALTER TABLE Core_BizOwner DROP  CONSTRAINT [Constraint_Core_BizOwnerState]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_BizOwnerState')
@@ -3563,6 +3941,9 @@ DEALLOCATE cursor_Core_ClinkLog;
 
 -- [Core_ClinkLog.EndUser] -------------
 
+
+-- [Core_ClinkLog.EndUser] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_ClinkLog') AND name='EndUser')
     BEGIN
      ALTER TABLE Core_ClinkLog ALTER COLUMN [EndUser] BIGINT
@@ -3577,13 +3958,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_ClinkLogEndUser')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_ClinkLogEndUser]
+    ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [Constraint_Core_ClinkLogEndUser]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_ClinkLogEndUser')
     BEGIN
     ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [UniqueNonclustered_Core_ClinkLogEndUser]
     END
+
+-- [Core_ClinkLog.HashTiny] -------------
+
 
 -- [Core_ClinkLog.HashTiny] -------------
 
@@ -3601,13 +3985,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_ClinkLogHashTiny')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_ClinkLogHashTiny]
+    ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [Constraint_Core_ClinkLogHashTiny]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_ClinkLogHashTiny')
     BEGIN
     ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [UniqueNonclustered_Core_ClinkLogHashTiny]
     END
+
+-- [Core_ClinkLog.Clink] -------------
+
 
 -- [Core_ClinkLog.Clink] -------------
 
@@ -3625,7 +4012,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_ClinkLogClink')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_ClinkLogClink]
+    ALTER TABLE Core_ClinkLog DROP  CONSTRAINT [Constraint_Core_ClinkLogClink]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_ClinkLogClink')
@@ -3684,6 +4071,9 @@ DEALLOCATE cursor_Core_CryptoLink;
 
 -- [Core_CryptoLink.Expiry] -------------
 
+
+-- [Core_CryptoLink.Expiry] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_CryptoLink') AND name='Expiry')
     BEGIN
      ALTER TABLE Core_CryptoLink ALTER COLUMN [Expiry] BIGINT
@@ -3698,13 +4088,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkExpiry')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkExpiry]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkExpiry]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkExpiry')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkExpiry]
     END
+
+-- [Core_CryptoLink.HashFull] -------------
+
 
 -- [Core_CryptoLink.HashFull] -------------
 
@@ -3722,13 +4115,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkHashFull')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkHashFull]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkHashFull]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkHashFull')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkHashFull]
     END
+
+-- [Core_CryptoLink.HashTiny] -------------
+
 
 -- [Core_CryptoLink.HashTiny] -------------
 
@@ -3746,13 +4142,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkHashTiny')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkHashTiny]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkHashTiny]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkHashTiny')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkHashTiny]
     END
+
+-- [Core_CryptoLink.Src] -------------
+
 
 -- [Core_CryptoLink.Src] -------------
 
@@ -3770,13 +4169,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkSrc')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkSrc]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkSrc]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkSrc')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkSrc]
     END
+
+-- [Core_CryptoLink.DomainName] -------------
+
 
 -- [Core_CryptoLink.DomainName] -------------
 
@@ -3794,13 +4196,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkDomainName')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkDomainName]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkDomainName]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkDomainName')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkDomainName]
     END
+
+-- [Core_CryptoLink.Owner] -------------
+
 
 -- [Core_CryptoLink.Owner] -------------
 
@@ -3818,13 +4223,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOwner')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkOwner]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkOwner]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkOwner')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkOwner]
     END
+
+-- [Core_CryptoLink.Dst] -------------
+
 
 -- [Core_CryptoLink.Dst] -------------
 
@@ -3842,13 +4250,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkDst')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkDst]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkDst]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkDst')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkDst]
     END
+
+-- [Core_CryptoLink.BizOwner] -------------
+
 
 -- [Core_CryptoLink.BizOwner] -------------
 
@@ -3866,13 +4277,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkBizOwner')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkBizOwner]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkBizOwner]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkBizOwner')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkBizOwner]
     END
+
+-- [Core_CryptoLink.Data] -------------
+
 
 -- [Core_CryptoLink.Data] -------------
 
@@ -3890,13 +4304,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkData')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkData]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkData]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkData')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkData]
     END
+
+-- [Core_CryptoLink.OgTitle] -------------
+
 
 -- [Core_CryptoLink.OgTitle] -------------
 
@@ -3914,13 +4331,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOgTitle')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkOgTitle]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkOgTitle]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkOgTitle')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkOgTitle]
     END
+
+-- [Core_CryptoLink.OgDesc] -------------
+
 
 -- [Core_CryptoLink.OgDesc] -------------
 
@@ -3938,13 +4358,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOgDesc')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkOgDesc]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkOgDesc]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkOgDesc')
     BEGIN
     ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [UniqueNonclustered_Core_CryptoLinkOgDesc]
     END
+
+-- [Core_CryptoLink.OgImg] -------------
+
 
 -- [Core_CryptoLink.OgImg] -------------
 
@@ -3962,7 +4385,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_CryptoLinkOgImg')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_CryptoLinkOgImg]
+    ALTER TABLE Core_CryptoLink DROP  CONSTRAINT [Constraint_Core_CryptoLinkOgImg]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_CryptoLinkOgImg')
@@ -4013,6 +4436,9 @@ DEALLOCATE cursor_Core_DomainName;
 
 -- [Core_DomainName.Caption] -------------
 
+
+-- [Core_DomainName.Caption] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Core_DomainName') AND name='Caption')
     BEGIN
      ALTER TABLE Core_DomainName ALTER COLUMN [Caption] NVARCHAR(64) COLLATE Chinese_PRC_CI_AS
@@ -4027,13 +4453,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameCaption')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_DomainNameCaption]
+    ALTER TABLE Core_DomainName DROP  CONSTRAINT [Constraint_Core_DomainNameCaption]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_DomainNameCaption')
     BEGIN
     ALTER TABLE Core_DomainName DROP  CONSTRAINT [UniqueNonclustered_Core_DomainNameCaption]
     END
+
+-- [Core_DomainName.Biz] -------------
+
 
 -- [Core_DomainName.Biz] -------------
 
@@ -4051,13 +4480,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameBiz')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_DomainNameBiz]
+    ALTER TABLE Core_DomainName DROP  CONSTRAINT [Constraint_Core_DomainNameBiz]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_DomainNameBiz')
     BEGIN
     ALTER TABLE Core_DomainName DROP  CONSTRAINT [UniqueNonclustered_Core_DomainNameBiz]
     END
+
+-- [Core_DomainName.EndUser] -------------
+
 
 -- [Core_DomainName.EndUser] -------------
 
@@ -4075,13 +4507,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameEndUser')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_DomainNameEndUser]
+    ALTER TABLE Core_DomainName DROP  CONSTRAINT [Constraint_Core_DomainNameEndUser]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_DomainNameEndUser')
     BEGIN
     ALTER TABLE Core_DomainName DROP  CONSTRAINT [UniqueNonclustered_Core_DomainNameEndUser]
     END
+
+-- [Core_DomainName.BizOwner] -------------
+
 
 -- [Core_DomainName.BizOwner] -------------
 
@@ -4099,7 +4534,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Core_DomainNameBizOwner')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Core_DomainNameBizOwner]
+    ALTER TABLE Core_DomainName DROP  CONSTRAINT [Constraint_Core_DomainNameBizOwner]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Core_DomainNameBizOwner')
@@ -4149,6 +4584,9 @@ DEALLOCATE cursor_Sys_Log;
 
 -- [Sys_Log.Location] -------------
 
+
+-- [Sys_Log.Location] -------------
+
 IF EXISTS(SELECT * FROM SYSCOLUMNS WHERE id=object_id('Sys_Log') AND name='Location')
     BEGIN
      ALTER TABLE Sys_Log ALTER COLUMN [Location] NVARCHAR(MAX)
@@ -4163,13 +4601,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Sys_LogLocation')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Sys_LogLocation]
+    ALTER TABLE Sys_Log DROP  CONSTRAINT [Constraint_Sys_LogLocation]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Sys_LogLocation')
     BEGIN
     ALTER TABLE Sys_Log DROP  CONSTRAINT [UniqueNonclustered_Sys_LogLocation]
     END
+
+-- [Sys_Log.Content] -------------
+
 
 -- [Sys_Log.Content] -------------
 
@@ -4187,13 +4628,16 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Sys_LogContent')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Sys_LogContent]
+    ALTER TABLE Sys_Log DROP  CONSTRAINT [Constraint_Sys_LogContent]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Sys_LogContent')
     BEGIN
     ALTER TABLE Sys_Log DROP  CONSTRAINT [UniqueNonclustered_Sys_LogContent]
     END
+
+-- [Sys_Log.Sql] -------------
+
 
 -- [Sys_Log.Sql] -------------
 
@@ -4211,7 +4655,7 @@ ELSE
 
 IF EXISTS(SELECT object_id FROM [sys].[objects] WHERE name='Constraint_Sys_LogSql')
     BEGIN
-    ALTER TABLE Ca_Staff DROP  CONSTRAINT [Constraint_Sys_LogSql]
+    ALTER TABLE Sys_Log DROP  CONSTRAINT [Constraint_Sys_LogSql]
     END
 
 IF EXISTS(SELECT * FROM SYSINDEXES WHERE name='UniqueNonclustered_Sys_LogSql')
