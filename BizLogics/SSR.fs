@@ -168,7 +168,7 @@ let echo req =
         |> Suc
         |> bind h1
         |> bind h2
-        |> bindFail (hHomepage (fun _ -> ssrPageHome |> render((hash1,hash2))))
+        |> bindFail (hHomepage (fun _ -> ssrPageHome |> render(hash1,hash2) ""))
         |> bindFail (hpattern "/t/" hTinyLink)
         |> bindFail (hapi echoApiHandler branch) with
     | Suc x -> x.rep
